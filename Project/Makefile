@@ -20,3 +20,6 @@ PathArray.o : PathArray/PathArray.h PathArray/PathArray.cpp
 
 Path.o : Path/Path.h Path/Path.cpp
 	g++ -c Path/Path.cpp
+
+clean :
+	rm *.o
