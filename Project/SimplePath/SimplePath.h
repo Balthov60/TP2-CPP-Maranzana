@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <SimplePath> (fichier SimplePath.h) ----------------
-#if ! defined ( SimplePath_H )
-#define SimplePath_H
+#if ! defined ( SIMPLEPATH_H )
+#define SIMPLEPATH_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -38,11 +38,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    SimplePath & operator = ( const SimplePath & unSimplePath );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+//TODO: opérateur =
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -75,5 +71,5 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <SimplePath>
 
-#endif // SimplePath_H
+#endif // SIMPLEPATH_H
 

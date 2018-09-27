@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Path> (fichier Path.h) ----------------
-#if ! defined ( Path_H )
-#define Path_H
+#if ! defined ( PATH_H )
+#define PATH_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -36,18 +36,8 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Path & operator = ( const Path & otherPath );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
-    Path & operator == ( const Path & otherPath );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+//TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
     Path ( const Path & otherPath );
@@ -79,5 +69,5 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <Path>
 
-#endif // Path_H
+#endif // PATH_H
 

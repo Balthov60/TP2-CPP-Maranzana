@@ -12,12 +12,12 @@
 #define MAP 1
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "ComposedPath.h"
 
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -31,12 +31,7 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-ComposedPath & ComposedPath::operator = ( const ComposedPath & unComposedPath )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
+//TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
 ComposedPath::ComposedPath ( const ComposedPath & unComposedPath )

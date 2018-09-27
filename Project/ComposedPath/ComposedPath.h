@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <ComposedPath> (fichier ComposedPath.h) ----------------
-#if ! defined ( ComposedPath_H )
-#define ComposedPath_H
+#if ! defined ( COMPOSEDPATH_H )
+#define COMPOSEDPATH_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -38,11 +38,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    ComposedPath & operator = ( const ComposedPath & unComposedPath );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+//TODO: opérateur =
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -75,5 +71,5 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <ComposedPath>
 
-#endif // ComposedPath_H
+#endif // COMPOSEDPATH_H
 

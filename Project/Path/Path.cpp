@@ -11,12 +11,12 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "Path.h"
 
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -30,17 +30,8 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Path & Path::operator = ( const Path & otherPath )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
 
-Path & Path::operator == ( const Path & otherPath )
-// Algorithme :
-//
-{
-} //----- Fin de operator ==
+//TODO: opérateur =
 
 
 //-------------------------------------------- Constructeurs - destructeur

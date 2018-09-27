@@ -17,6 +17,7 @@ using std::cout;
 //------------------------------------------------------ Include personnel
 #include "PathArray.h"
 
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -197,12 +198,8 @@ unsigned int PathArray::Remove(const PathArray & anotherPathArray)
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-PathArray & PathArray::operator = ( const PathArray & anotherPathArray )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
 
+//TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
 PathArray::PathArray ( const PathArray & anotherPathArray )
