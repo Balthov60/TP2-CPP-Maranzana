@@ -3,23 +3,29 @@ CFLAGS=-Wall -Werror -pedantic
 CPPFLAGS=-DMAP=1
 LDFLAGS=
 
-VoyageVoyage : Catalog.o ComposedPath.o SimplePath.o PathArray.o Path.o
-	g++ -o VoyageVoyageCatalog.o ComposedPath.o SimplePath.o PathArray.o Path.o -lm
+VoyageVoyage : TCatalog.o Catalog.o ComposedPath.o SimplePath.o PathArray.o Path.o
+	g++ -o .Build/VoyageVoyage .Build/TCatalog.o .Build/Catalog.o .Build/ComposedPath.o .Build/SimplePath.o .Build/PathArray.o .Build/Path.o -lm
+
+TCatalog.o : Catalog/TCatalog.cpp
+	g++ -o .Build/TCatalog.o -c Catalog/TCatalog.cpp
 
 Catalog.o : Catalog/Catalog.h Catalog/Catalog.cpp
-	g++ -c Catalog/Catalog.cpp
+	g++ -o .Build/Catalog.o -c Catalog/Catalog.cpp
 
 ComposedPath.o : ComposedPath/ComposedPath.h ComposedPath/ComposedPath.cpp
-	g++ -c ComposedPath/ComposedPath.cpp
+	g++ -o .Build/ComposedPath.o -c ComposedPath/ComposedPath.cpp
 
 SimplePath.o : SimplePath/SimplePath.h SimplePath/SimplePath.cpp
-	g++ -c SimplePath/SimplePath.cpp
+	g++ -o .Build/SimplePath.o -c SimplePath/SimplePath.cpp
 
 PathArray.o : PathArray/PathArray.h PathArray/PathArray.cpp
-	g++ -c PathArray/PathArray.cpp
+	g++ -o .Build/PathArray.o -c PathArray/PathArray.cpp
 
 Path.o : Path/Path.h Path/Path.cpp
-	g++ -c Path/Path.cpp
+	g++ -o .Build/Path.o -c Path/Path.cpp
 
 clean :
-	rm *.o
+	rm .Build/*.o
+
+init :
+	mkdir .Build/

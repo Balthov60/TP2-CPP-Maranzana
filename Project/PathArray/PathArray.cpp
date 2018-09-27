@@ -30,10 +30,12 @@ bool PathArray::Contains(Path value) const
 	unsigned int j;
 	for (j = 0; j < currentCard; j++)
 	{
+	    /*
 		if (elements[j] == value)
 		{
 			return true;
 		}
+	     */ //TODO: Handle operators
 	}
 	return false;
 } //----- fin de Contains
@@ -52,7 +54,7 @@ unsigned int PathArray::GetMaxCard(void) const
 	return maxCard;
 } //----- fin de GetMaxCard
 
-int PathArray::Get(int index) const
+Path PathArray::Get(int index) const
 // Algorithme :
 //
 {
@@ -60,7 +62,7 @@ int PathArray::Get(int index) const
 } //----- fin de GetMaxCard
 
 
-void PathArray::Display ( void )
+void PathArray::Display ( void ) const
 // Algorithme :
 //
 {
@@ -72,11 +74,11 @@ void PathArray::Display ( void )
 		unsigned int j;
 		for (j = 0; j < currentCard - 1; j++)
 		{
-			cout << elements[j];
+			// cout << elements[j]; //TODO: Handle operators
 			cout << ",";
 		}
 
-		cout << elements[currentCard - 1];
+		// cout << elements[currentCard - 1]; //TODO: Handle operators
 	}
 	cout << "}" << "\r\n";
 	
@@ -109,18 +111,22 @@ AddStatus PathArray::Add(Path pathToAdd)
 	unsigned int j;
 	for (j = 0; j < currentCard; j++)
 	{
+	    /*
 		if (elements[j] == pathToAdd)
 		{
-			return DEJA_PRESENT;
+			return EXISTING;
 		}
+	     */ //TODO: Handle operators
 	}
 	if (currentCard == maxCard)
 	{
-		return PLEIN;
+	    //TODO: Handle Resize
+		return EXISTING;
 	}
 	elements[currentCard] = pathToAdd;
 	currentCard++;
-	return AJOUTE;
+
+	return ADDED;
 } //----- fin de Add
 
 unsigned int PathArray::Adjust(int delta)
@@ -150,11 +156,12 @@ bool PathArray::Remove(Path element)
 		unsigned int i = 0;
 		for (j = 0; j < currentCard; j++)
 		{
+		    /*
 			if (elements[j] != element)
 			{
 				newElements[i] = elements[j];
 				i++;
-			}
+			}*/ //TODO: Handle operators
 		}
 		delete [] elements;
 		elements = newElements;
@@ -212,16 +219,17 @@ PathArray::PathArray ( const PathArray & anotherPathArray )
 } //----- Fin de PathArray (constructeur de copie)
 
 
-PathArray::PathArray(unsigned int cardMax)
+PathArray::PathArray(const unsigned int cardMax)
 // Algorithme :
 //
 {
-	#ifdef MAP
-    cout << "Appel au constructeur de <PathArray>" << endl;
-	#endif
 	elements = new Path[cardMax];
 	maxCard = cardMax;
 	currentCard = 0;
+
+#ifdef MAP
+	cout << "Appel au constructeur de <PathArray>" << endl;
+#endif
 }
 
 PathArray::PathArray(Path pathArray[], unsigned int nbElements)
@@ -237,7 +245,7 @@ PathArray::PathArray(Path pathArray[], unsigned int nbElements)
 	unsigned int j;
 	for (j = 0; j < nbElements; j++)
 	{
-		Add(t[j]);
+		Add(pathArray[j]);
 	}
 }
 

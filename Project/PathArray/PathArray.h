@@ -43,7 +43,7 @@ public:
     //
     // Contrat :
     //
-    AddStatus Add(int aAdd);
+    AddStatus Add(Path pathToAdd);
     // Mode d'emploi :
     //
     // Contrat :
@@ -78,7 +78,7 @@ public:
     //
     // Contrat :
     //
-    int Get(int index) const;
+    Path Get(int index) const;
     // Mode d'emploi :
     //
     // Contrat :
@@ -98,7 +98,7 @@ public:
     // Contrat :
     //
 
-    PathArray ( );
+    PathArray (const unsigned int cardMax);
     // Mode d'emploi :
     //
     // Contrat :
@@ -109,6 +109,9 @@ public:
     //
     // Contrat :
     //
+
+    PathArray(Path pathArray[], unsigned int nbElements);
+
 
 //------------------------------------------------------------------ PRIVE
 

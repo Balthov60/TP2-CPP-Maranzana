@@ -56,4 +56,3 @@ protected:
 //-------------------------------- Autres définitions dépendantes de <Catalog>
 
 #endif // CATALOG_H
-

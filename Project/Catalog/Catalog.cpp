@@ -44,12 +44,6 @@ Catalog::~Catalog ( )
 #endif
 } //----- Fin de ~Catalog
 
-int main()
-{
-    cout << "Hello Word" << endl;
-    return 0;
-}
-
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
