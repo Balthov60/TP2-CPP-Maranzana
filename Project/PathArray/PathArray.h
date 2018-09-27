@@ -7,9 +7,11 @@
 *************************************************************************/
 
 //---------- Interface de la classe <PathArray> (fichier PathArray.h) ----------------
-#if ! defined ( PathArray_H )
-#define PathArray_H
+#if ! defined ( PATHARRAY_H )
+#define PATHARRAY_H
 
+enum AddStatus { EXISTING, ADDED };
+const int CARD_MAX = 5;
 //--------------------------------------------------- Interfaces utilisées
 
 #include "../Path/Path.h"
@@ -30,7 +32,53 @@ class PathArray
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    
+    void Display(void) const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    bool Equals(const PathArray & otherPathArray) const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    AddStatus Add(int aAdd);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    unsigned int Adjust(int delta);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    bool Remove(Path element);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    unsigned int Remove(const PathArray & otherPathArray);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    bool Contains(Path value) const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    unsigned int GetCurrentCard(void) const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    unsigned int GetMaxCard(void) const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    int Get(int index) const;
     // Mode d'emploi :
     //
     // Contrat :
@@ -38,7 +86,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    PathArray & operator = ( const PathArray & unPathArray );
+    PathArray & operator = ( const PathArray & otherPathArray );
     // Mode d'emploi :
     //
     // Contrat :
@@ -46,7 +94,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    PathArray ( const PathArray & unPathArray );
+    PathArray ( const PathArray & otherPathArray );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
@@ -70,10 +118,12 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+Path * elements;
+unsigned int maxCard;
+unsigned int currentCard;
 };
 
 //-------------------------------- Autres définitions dépendantes de <PathArray>
 
-#endif // PathArray_H
+#endif // PATHARRAY_H
 

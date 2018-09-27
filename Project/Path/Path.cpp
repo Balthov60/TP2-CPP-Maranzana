@@ -30,15 +30,21 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Path & Path::operator = ( const Path & unPath )
+Path & Path::operator = ( const Path & otherPath )
 // Algorithme :
 //
 {
 } //----- Fin de operator =
 
+Path & Path::operator == ( const Path & otherPath )
+// Algorithme :
+//
+{
+} //----- Fin de operator ==
+
 
 //-------------------------------------------- Constructeurs - destructeur
-Path::Path ( const Path & unPath )
+Path::Path ( const Path & otherPath )
 // Algorithme :
 //
 {
