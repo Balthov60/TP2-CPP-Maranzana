@@ -43,7 +43,7 @@ public:
     //
     // Contrat :
     //
-    AddStatus Add(Path pathToAdd);
+    AddStatus Add(Path* pathToAdd);
     // Mode d'emploi :
     //
     // Contrat :
@@ -53,7 +53,7 @@ public:
     //
     // Contrat :
     //
-    bool Remove(Path element);
+    bool Remove(Path* element);
     // Mode d'emploi :
     //
     // Contrat :
@@ -63,7 +63,7 @@ public:
     //
     // Contrat :
     //
-    bool Contains(Path value) const;
+    bool Contains(Path* value) const;
     // Mode d'emploi :
     //
     // Contrat :
@@ -78,7 +78,7 @@ public:
     //
     // Contrat :
     //
-    Path Get(int index) const;
+    Path* Get(int index) const;
     // Mode d'emploi :
     //
     // Contrat :
@@ -110,7 +110,7 @@ public:
     // Contrat :
     //
 
-    PathArray(Path pathArray[], unsigned int nbElements);
+    //PathArray(Path pathArray[], unsigned int nbElements);
 
 
 //------------------------------------------------------------------ PRIVE
@@ -119,7 +119,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-Path * elements;
+Path ** elements;
 unsigned int maxCard;
 unsigned int currentCard;
 };

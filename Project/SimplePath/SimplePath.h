@@ -38,7 +38,13 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-//TODO: opérateur =
+SimplePath& operator=(SimplePath& other) 
+{
+    //TODO: opérateur =
+    //swap(*this, other); 
+
+    return *this;
+}
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -67,6 +73,8 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
+private:
+    virtual bool equals(const Path& other) const;
 };
 
 //-------------------------------- Autres définitions dépendantes de <SimplePath>

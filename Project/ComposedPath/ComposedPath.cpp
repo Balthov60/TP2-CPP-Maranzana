@@ -65,6 +65,11 @@ ComposedPath::~ComposedPath ( )
 
 
 //------------------------------------------------------------------ PRIVE
-
+bool ComposedPath::equals(const Path& other) const
+{
+        const ComposedPath& other_derived = dynamic_cast<const ComposedPath&>(other);
+        // TODO Now compare *this to other_derived
+        return false;
+}
 //----------------------------------------------------- Méthodes protégées
 

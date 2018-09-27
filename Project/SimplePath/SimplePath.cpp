@@ -64,6 +64,11 @@ SimplePath::~SimplePath ( )
 
 
 //------------------------------------------------------------------ PRIVE
-
+bool SimplePath::equals(const Path& other) const
+{
+        const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
+        // TODO Now compare *this to other_derived
+        return false;
+}
 //----------------------------------------------------- Méthodes protégées
 

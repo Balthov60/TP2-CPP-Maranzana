@@ -16,26 +16,22 @@ using std::cout;
 
 //------------------------------------------------------ Include personnel
 #include "PathArray.h"
-
-using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-bool PathArray::Contains(Path value) const
+bool PathArray::Contains(Path* path) const
 // Algorithme :
 //
 {
 	unsigned int j;
 	for (j = 0; j < currentCard; j++)
 	{
-	    /*
-		if (elements[j] == value)
+		if (*elements[j] == *path)
 		{
 			return true;
 		}
-	     */ //TODO: Handle operators
 	}
 	return false;
 } //----- fin de Contains
@@ -54,7 +50,7 @@ unsigned int PathArray::GetMaxCard(void) const
 	return maxCard;
 } //----- fin de GetMaxCard
 
-Path PathArray::Get(int index) const
+Path* PathArray::Get(int index) const
 // Algorithme :
 //
 {
@@ -104,7 +100,7 @@ bool PathArray::Equals(const PathArray & anotherPathArray) const
 	return true;
 } //----- fin de Equals
 
-AddStatus PathArray::Add(Path pathToAdd)
+AddStatus PathArray::Add(Path* pathToAdd)
 // Algorithme :
 //
 {
@@ -145,13 +141,13 @@ unsigned int PathArray::Adjust(int delta)
 	return maxCard;
 } //----- fin de Adjust
 
-bool PathArray::Remove(Path element)
+bool PathArray::Remove(Path* element)
 // Algorithme :
 //
 {
 	if (Contains(element))
 	{
-		Path* newElements = new Path[currentCard-1];
+		Path** newElements = new Path*[currentCard-1];
 		unsigned int j;
 		unsigned int i = 0;
 		for (j = 0; j < currentCard; j++)
@@ -223,7 +219,7 @@ PathArray::PathArray(const unsigned int cardMax)
 // Algorithme :
 //
 {
-	elements = new Path[cardMax];
+	elements = new Path*[cardMax];
 	maxCard = cardMax;
 	currentCard = 0;
 
@@ -232,7 +228,7 @@ PathArray::PathArray(const unsigned int cardMax)
 #endif
 }
 
-PathArray::PathArray(Path pathArray[], unsigned int nbElements)
+/*PathArray::PathArray(Path pathArray[], unsigned int nbElements)
 // Algorithme :
 //
 {
@@ -247,7 +243,7 @@ PathArray::PathArray(Path pathArray[], unsigned int nbElements)
 	{
 		Add(pathArray[j]);
 	}
-}
+}*/
 
 PathArray::~PathArray ( )
 // Algorithme :

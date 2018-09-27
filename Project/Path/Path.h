@@ -11,11 +11,11 @@
 #define PATH_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include <iostream>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
+enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION };
 //------------------------------------------------------------------------
 // Rôle de la classe <Path>
 //
@@ -28,16 +28,20 @@ class Path
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    virtual std::ostream& Display(std::ostream& os) const = 0;
     // Mode d'emploi :
-    //
+    // Méthode permettant l'affichage de la classe Path sur un flux (os). 
+    // Voir les classes dérivées pour la réalisation concrète
     // Contrat :
     //
 
 
+
+
 //------------------------------------------------- Surcharge d'opérateurs
 
-//TODO: opérateur =
+    Path& operator=(Path& other);
+    //TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
     Path ( const Path & otherPath );
@@ -65,9 +69,17 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
+private:
+    virtual bool equals(const Path& other) const = 0;
+    // implémentation tirée de : 
+    // https://stackoverflow.com/questions/1691007/whats-the-right-way-to-overload-operator-for-a-class-hierarchy
+    // https://stackoverflow.com/questions/9287704/is-there-an-idiomatic-approach-in-c-for-comparing-polymorphic-types-for-object?noredirect=1&lq=1
+    friend bool operator ==(const Path& first, const Path& second);
+
 };
 
 //-------------------------------- Autres définitions dépendantes de <Path>
+
 
 #endif // PATH_H
 

@@ -67,6 +67,8 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
+private:
+    virtual bool equals(const Path& other) const;
 };
 
 //-------------------------------- Autres définitions dépendantes de <ComposedPath>

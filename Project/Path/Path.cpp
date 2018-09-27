@@ -31,7 +31,14 @@ using namespace std;
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-//TODO: opérateur =
+
+Path& Path::operator=(Path& other) 
+{
+    //TODO: opérateur = 
+    //swap(*this, other); 
+
+    return *this;
+}
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -66,6 +73,13 @@ Path::~Path ( )
 
 
 //------------------------------------------------------------------ PRIVE
-
+bool operator ==(const Path& first, const Path& second)
+{
+    // RTTI check
+    if (typeid(first) != typeid(second))
+        return false;
+    // Invoke is_equal on derived types
+    return first.equals(second);
+}
 //----------------------------------------------------- Méthodes protégées
 
