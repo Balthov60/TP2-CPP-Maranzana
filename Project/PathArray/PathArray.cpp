@@ -11,12 +11,12 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "PathArray.h"
 
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -30,12 +30,7 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-PathArray & PathArray::operator = ( const PathArray & unPathArray )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
+//TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
 PathArray::PathArray ( const PathArray & unPathArray )

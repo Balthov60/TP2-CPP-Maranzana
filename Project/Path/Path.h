@@ -36,12 +36,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Path & operator = ( const Path & unPath );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+//TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
     Path ( const Path & unPath );

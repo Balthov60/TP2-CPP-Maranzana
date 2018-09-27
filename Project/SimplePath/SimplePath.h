@@ -38,11 +38,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    SimplePath & operator = ( const SimplePath & unSimplePath );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+//TODO: opérateur =
 
 
 //-------------------------------------------- Constructeurs - destructeur

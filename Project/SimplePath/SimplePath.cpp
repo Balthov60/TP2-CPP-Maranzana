@@ -11,12 +11,12 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "SimplePath.h"
 
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -30,12 +30,7 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-SimplePath & SimplePath::operator = ( const SimplePath & unSimplePath )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
+//TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
 SimplePath::SimplePath ( const SimplePath & unSimplePath )

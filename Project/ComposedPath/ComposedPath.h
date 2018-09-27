@@ -38,11 +38,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    ComposedPath & operator = ( const ComposedPath & unComposedPath );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+//TODO: opérateur =
 
 
 //-------------------------------------------- Constructeurs - destructeur

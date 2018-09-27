@@ -38,11 +38,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    PathArray & operator = ( const PathArray & unPathArray );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+//TODO: opérateur =
 
 
 //-------------------------------------------- Constructeurs - destructeur
