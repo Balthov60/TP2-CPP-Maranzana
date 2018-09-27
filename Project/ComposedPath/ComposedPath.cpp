@@ -72,4 +72,8 @@ bool ComposedPath::equals(const Path& other) const
         return false;
 }
 //----------------------------------------------------- Méthodes protégées
-
+std::ostream& ComposedPath::print(std::ostream& os) const
+{
+	//TODO os << startCity << " ; " << endCity;
+	return os;
+}

@@ -28,12 +28,7 @@ class Path
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    virtual std::ostream& Display(std::ostream& os) const = 0;
-    // Mode d'emploi :
-    // Méthode permettant l'affichage de la classe Path sur un flux (os). 
-    // Voir les classes dérivées pour la réalisation concrète
-    // Contrat :
-    //
+    
 
 
 
@@ -42,6 +37,13 @@ public:
 
     Path& operator=(Path& other);
     //TODO: opérateur =
+
+    // implémentation tirée de : 
+    // https://stackoverflow.com/questions/1691007/whats-the-right-way-to-overload-operator-for-a-class-hierarchy
+    // https://stackoverflow.com/questions/9287704/is-there-an-idiomatic-approach-in-c-for-comparing-polymorphic-types-for-object?noredirect=1&lq=1
+    friend bool operator ==(const Path& first, const Path& second);
+
+    friend std::ostream& operator<<(std::ostream& os, const Path& path);
 
 //-------------------------------------------- Constructeurs - destructeur
     Path ( const Path & otherPath );
@@ -66,15 +68,17 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-
+virtual std::ostream& print(std::ostream& os) const = 0;
+    // Mode d'emploi :
+    // Méthode permettant l'affichage de la classe Path sur un flux (os). 
+    // Voir les classes dérivées pour la réalisation concrète
+    // Contrat :
+    //
 //----------------------------------------------------- Attributs protégés
 
 private:
     virtual bool equals(const Path& other) const = 0;
-    // implémentation tirée de : 
-    // https://stackoverflow.com/questions/1691007/whats-the-right-way-to-overload-operator-for-a-class-hierarchy
-    // https://stackoverflow.com/questions/9287704/is-there-an-idiomatic-approach-in-c-for-comparing-polymorphic-types-for-object?noredirect=1&lq=1
-    friend bool operator ==(const Path& first, const Path& second);
+
 
 };
 

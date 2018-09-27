@@ -70,11 +70,11 @@ void PathArray::Display ( void ) const
 		unsigned int j;
 		for (j = 0; j < currentCard - 1; j++)
 		{
-			// cout << elements[j]; //TODO: Handle operators
+			cout << *elements[j]; //TODO: Handle operators
 			cout << ",";
 		}
 
-		// cout << elements[currentCard - 1]; //TODO: Handle operators
+		cout << *elements[currentCard - 1]; //TODO: Handle operators
 	}
 	cout << "}" << "\r\n";
 	
@@ -107,12 +107,11 @@ AddStatus PathArray::Add(Path* pathToAdd)
 	unsigned int j;
 	for (j = 0; j < currentCard; j++)
 	{
-	    /*
-		if (elements[j] == pathToAdd)
+	    
+		if (*elements[j] == *pathToAdd)
 		{
 			return EXISTING;
 		}
-	     */ //TODO: Handle operators
 	}
 	if (currentCard == maxCard)
 	{
@@ -152,12 +151,12 @@ bool PathArray::Remove(Path* element)
 		unsigned int i = 0;
 		for (j = 0; j < currentCard; j++)
 		{
-		    /*
-			if (elements[j] != element)
+		    
+			if (!(*elements[j] == *element)) //TODO we could define != operator 
 			{
 				newElements[i] = elements[j];
 				i++;
-			}*/ //TODO: Handle operators
+			}
 		}
 		delete [] elements;
 		elements = newElements;

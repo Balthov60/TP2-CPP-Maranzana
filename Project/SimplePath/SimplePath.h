@@ -70,7 +70,7 @@ SimplePath& operator=(SimplePath& other)
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-
+    virtual std::ostream& print(std::ostream& os) const;
 //----------------------------------------------------- Attributs protégés
 
 private:

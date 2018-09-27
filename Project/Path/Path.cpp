@@ -40,6 +40,19 @@ Path& Path::operator=(Path& other)
     return *this;
 }
 
+bool operator ==(const Path& first, const Path& second)
+{
+    // RTTI check
+    if (typeid(first) != typeid(second))
+        return false;
+    // Invoke is_equal on derived types
+    return first.equals(second);
+}
+
+std::ostream& operator<<(std::ostream& os, const Path& path)
+{
+	return path.print(os);
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 Path::Path ( const Path & otherPath )
@@ -73,13 +86,6 @@ Path::~Path ( )
 
 
 //------------------------------------------------------------------ PRIVE
-bool operator ==(const Path& first, const Path& second)
-{
-    // RTTI check
-    if (typeid(first) != typeid(second))
-        return false;
-    // Invoke is_equal on derived types
-    return first.equals(second);
-}
+
 //----------------------------------------------------- Méthodes protégées
 

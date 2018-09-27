@@ -71,4 +71,8 @@ bool SimplePath::equals(const Path& other) const
         return false;
 }
 //----------------------------------------------------- Méthodes protégées
-
+std::ostream& SimplePath::print(std::ostream& os) const
+{
+	//TODO os << startCity << " ; " << endCity;
+	return os;
+}
