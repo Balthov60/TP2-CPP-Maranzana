@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Path> (fichier Path.h) ----------------
-#if ! defined ( Path_H )
-#define Path_H
+#if ! defined ( PATH_H )
+#define PATH_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -68,5 +68,5 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <Path>
 
-#endif // Path_H
+#endif // PATH_H
 

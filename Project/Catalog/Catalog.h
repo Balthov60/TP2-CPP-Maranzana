@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Catalog> (fichier Catalog.h) ----------------
-#if ! defined ( Catalog_H )
-#define Catalog_H
+#if ! defined ( CATALOG_H )
+#define CATALOG_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -55,5 +55,5 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <Catalog>
 
-#endif // Catalog_H
+#endif // CATALOG_H
 

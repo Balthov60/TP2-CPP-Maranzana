@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <SimplePath> (fichier SimplePath.h) ----------------
-#if ! defined ( SimplePath_H )
-#define SimplePath_H
+#if ! defined ( SIMPLEPATH_H )
+#define SIMPLEPATH_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -71,5 +71,5 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <SimplePath>
 
-#endif // SimplePath_H
+#endif // SIMPLEPATH_H
 

@@ -7,8 +7,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <PathArray> (fichier PathArray.h) ----------------
-#if ! defined ( PathArray_H )
-#define PathArray_H
+#if ! defined ( PATHARRAY_H )
+#define PATHARRAY_H
 
 //--------------------------------------------------- Interfaces utilisées
 
@@ -71,5 +71,5 @@ protected:
 
 //-------------------------------- Autres définitions dépendantes de <PathArray>
 
-#endif // PathArray_H
+#endif // PATHARRAY_H
 
