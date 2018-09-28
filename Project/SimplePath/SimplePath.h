@@ -65,16 +65,16 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
     virtual std::ostream& print(std::ostream& os) const;
-    
-//----------------------------------------------------- Attributs protégés
-    
-
-private:
     virtual bool equals(const Path& other) const;
     friend void swap(SimplePath& first, SimplePath& second);
+//----------------------------------------------------- Attributs protégés
     char * startCity;
     char * endCity;
     MeansOfTransport meanOfTransport;
+    
+private:
+    
+    
 };
 
 //-------------------------------- Autres définitions dépendantes de <SimplePath>
