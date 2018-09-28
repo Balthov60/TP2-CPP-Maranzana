@@ -39,23 +39,27 @@ SimplePath::SimplePath ( const SimplePath & other )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <SimplePath>" << endl;
 #endif
-    startCity = new char[strlen(other.startCity) + 1];
+    startCity = new char[strlen(other.startCity)+1];
     strcpy(startCity, other.startCity);
-    endCity = new char[strlen(other.endCity) + 1];
+    endCity = new char[strlen(other.endCity)+1];
     strcpy(endCity, other.endCity);
     meanOfTransport = other.meanOfTransport;
 } //----- Fin de SimplePath (constructeur de copie)
 
 
 SimplePath::SimplePath ( char * startingCity, char * endingCity, 
-						MeansOfTransport vehicle) : startCity(startingCity),
-						endCity(endingCity), meanOfTransport(vehicle)
+						MeansOfTransport vehicle) : meanOfTransport(vehicle)
 // Algorithme :
 //
 {
+
 #ifdef MAP
     cout << "Appel au constructeur de <SimplePath>" << endl;
 #endif
+    startCity = new char[strlen(startingCity)+1];
+    strcpy(startCity, startingCity);
+    endCity = new char[strlen(endingCity)+1];
+    strcpy(endCity, endingCity);
 } //----- Fin de SimplePath
 
 
@@ -66,8 +70,9 @@ SimplePath::~SimplePath ( )
 #ifdef MAP
     cout << "Appel au destructeur de <SimplePath>" << endl;
 #endif
-    delete [] startCity;
-    delete [] endCity;
+   	delete [] startCity;
+   	delete [] endCity;
+
 } //----- Fin de ~SimplePath
 
 

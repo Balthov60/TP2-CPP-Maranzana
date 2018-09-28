@@ -65,7 +65,9 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
     virtual std::ostream& print(std::ostream& os) const;
+    
 //----------------------------------------------------- Attributs protégés
+    
 
 private:
     virtual bool equals(const Path& other) const;

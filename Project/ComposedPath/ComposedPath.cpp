@@ -34,7 +34,7 @@ using std::endl;
 //TODO: opérateur =
 
 //-------------------------------------------- Constructeurs - destructeur
-ComposedPath::ComposedPath ( const ComposedPath & unComposedPath )
+ComposedPath::ComposedPath ( const ComposedPath & other )
 // Algorithme :
 //
 {
