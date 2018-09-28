@@ -22,21 +22,12 @@ using std::endl;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Path::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 
 
 Path& Path::operator=(Path& other) 
 {
-    //TODO: opérateur = 
-    //swap(*this, other); 
-	cout << "Appel au = de Path";
     return *this;
 }
 
@@ -64,7 +55,6 @@ Path::Path ( const Path & otherPath )
 #endif
 } //----- Fin de Path (constructeur de copie)
 
-
 Path::Path ( )
 // Algorithme :
 //
@@ -73,7 +63,6 @@ Path::Path ( )
     cout << "Appel au constructeur de <Path>" << endl;
 #endif
 } //----- Fin de Path
-
 
 Path::~Path ( )
 // Algorithme :
