@@ -15,6 +15,9 @@ Catalog.o : Catalog/Catalog.h Catalog/Catalog.cpp
 ComposedPath.o : ComposedPath/ComposedPath.h ComposedPath/ComposedPath.cpp
 	g++ -o .Build/ComposedPath.o -c ComposedPath/ComposedPath.cpp
 
+TSimplePath.o : SimplePath/TSimplePath.cpp
+	g++ -o .Build/TSimplePath.o -c SimplePath/TSimplePath.cpp
+
 SimplePath.o : SimplePath/SimplePath.h SimplePath/SimplePath.cpp
 	g++ -o .Build/SimplePath.o -c SimplePath/SimplePath.cpp
 

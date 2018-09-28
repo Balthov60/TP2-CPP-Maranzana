@@ -14,10 +14,10 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 
+using std::cout;
+using std::endl;
 //------------------------------------------------------ Include personnel
 #include "ComposedPath.h"
-
-using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
