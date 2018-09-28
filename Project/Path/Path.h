@@ -34,9 +34,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-
     Path& operator=(Path& other);
-    //TODO: opérateur =
 
     // implémentation tirée de : 
     // https://stackoverflow.com/questions/1691007/whats-the-right-way-to-overload-operator-for-a-class-hierarchy

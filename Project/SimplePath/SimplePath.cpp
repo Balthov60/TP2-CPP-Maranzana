@@ -12,6 +12,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <string.h>
 
 using std::cout;
 using std::endl;
@@ -22,28 +23,33 @@ using std::endl;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type SimplePath::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 
 //------------------------------------------------- Surcharge d'opérateurs
-//TODO: opérateur =
+SimplePath& SimplePath::operator=(SimplePath& other) 
+{
+    swap(*this, other); 
 
+    return *this;
+}
 //-------------------------------------------- Constructeurs - destructeur
-SimplePath::SimplePath ( const SimplePath & unSimplePath )
+SimplePath::SimplePath ( const SimplePath & other )
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <SimplePath>" << endl;
 #endif
+    startCity = new char[strlen(other.startCity) + 1];
+    strcpy(startCity, other.startCity);
+    endCity = new char[strlen(other.endCity) + 1];
+    strcpy(endCity, other.endCity);
+    meanOfTransport = other.meanOfTransport;
 } //----- Fin de SimplePath (constructeur de copie)
 
 
-SimplePath::SimplePath ( )
+SimplePath::SimplePath ( char * startingCity, char * endingCity, 
+						MeansOfTransport vehicle) : startCity(startingCity),
+						endCity(endingCity), meanOfTransport(vehicle)
 // Algorithme :
 //
 {
@@ -60,19 +66,39 @@ SimplePath::~SimplePath ( )
 #ifdef MAP
     cout << "Appel au destructeur de <SimplePath>" << endl;
 #endif
+    delete [] startCity;
+    delete [] endCity;
 } //----- Fin de ~SimplePath
 
 
 //------------------------------------------------------------------ PRIVE
 bool SimplePath::equals(const Path& other) const
 {
-        const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
-        // TODO Now compare *this to other_derived
-        return false;
+    const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
+    return (strcmp(this->startCity, other_derived.startCity) == 0)
+        && (strcmp(this->endCity, other_derived.endCity) == 0)
+        && this->meanOfTransport == other_derived.meanOfTransport;
 }
 //----------------------------------------------------- Méthodes protégées
 std::ostream& SimplePath::print(std::ostream& os) const
+{	
+	//TODO convert meanOfTransport value to meaningful string representation
+	return os << " { " << startCity << " ; " << endCity << " ; "
+			  << meanOfTransport << " } \r\n";
+}
+
+void swap(SimplePath& first, SimplePath& second)
 {
-	//TODO os << startCity << " ; " << endCity;
-	return os;
+	//TODO ask if we could use std::swap maybe ?
+	char * tmp = first.startCity;
+	first.startCity = second.startCity;
+	second.startCity = tmp;
+
+	tmp = first.endCity;
+	first.endCity = second.endCity;
+	second.endCity = tmp;
+
+	MeansOfTransport tmpMot = second.meanOfTransport;
+	second.meanOfTransport = first.meanOfTransport;
+	first.meanOfTransport = tmpMot;
 }

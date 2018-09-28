@@ -36,7 +36,7 @@ Path& Path::operator=(Path& other)
 {
     //TODO: opérateur = 
     //swap(*this, other); 
-
+	cout << "Appel au = de Path";
     return *this;
 }
 

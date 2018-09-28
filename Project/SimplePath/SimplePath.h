@@ -38,23 +38,17 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-SimplePath& operator=(SimplePath& other) 
-{
-    //TODO: opérateur =
-    //swap(*this, other); 
-
-    return *this;
-}
+    SimplePath& operator=(SimplePath& other);
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    SimplePath ( const SimplePath & unSimplePath );
+    SimplePath ( const SimplePath & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    SimplePath ( );
+    SimplePath ( char * startingCity, char * endingCity, MeansOfTransport vehicle);
     // Mode d'emploi :
     //
     // Contrat :
@@ -75,6 +69,10 @@ protected:
 
 private:
     virtual bool equals(const Path& other) const;
+    friend void swap(SimplePath& first, SimplePath& second);
+    char * startCity;
+    char * endCity;
+    MeansOfTransport meanOfTransport;
 };
 
 //-------------------------------- Autres définitions dépendantes de <SimplePath>
