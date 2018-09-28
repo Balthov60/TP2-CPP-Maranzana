@@ -70,11 +70,11 @@ void PathArray::Display ( void ) const
 		unsigned int j;
 		for (j = 0; j < currentCard - 1; j++)
 		{
-			cout << *elements[j]; //TODO: Handle operators
+			cout << *elements[j]; 
 			cout << ",";
 		}
 
-		cout << *elements[currentCard - 1]; //TODO: Handle operators
+		cout << *elements[currentCard - 1];
 	}
 	cout << "}" << "\r\n";
 	
@@ -115,8 +115,7 @@ AddStatus PathArray::Add(Path* pathToAdd)
 	}
 	if (currentCard == maxCard)
 	{
-	    //TODO: Handle Resize
-		return EXISTING;
+	    Adjust(currentCard);
 	}
 	elements[currentCard] = pathToAdd;
 	currentCard++;
@@ -137,6 +136,16 @@ unsigned int PathArray::Adjust(int delta)
 	{
 		maxCard = currentCard;
 	}
+
+	Path** newElements = new Path*[maxCard];
+	unsigned int j;
+	for (j = 0; j < currentCard; j++)
+	{
+	 	*newElements[j] = *elements[j];
+	 	delete elements[j];
+	}
+	delete [] elements;
+	elements = newElements;
 	return maxCard;
 } //----- fin de Adjust
 
