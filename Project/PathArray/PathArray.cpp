@@ -80,6 +80,19 @@ void PathArray::Display ( void ) const
 	
 } //----- fin de Display
 
+std::ostream& PathArray::Print(std::ostream& os) const
+// Algorithme :
+//
+{
+	unsigned int j;
+	for (j = 0; j < currentCard - 1; j++)
+	{
+		os << *elements[j]; 
+		os << " - ";
+	}
+	os << *elements[currentCard - 1];
+} //----- fin de Print
+
 bool PathArray::Equals(const PathArray & anotherPathArray) const
 // Algorithme :
 //
@@ -108,7 +121,7 @@ AddStatus PathArray::Add(Path* pathToAdd)
 	for (j = 0; j < currentCard; j++)
 	{
 	    
-		if (*elements[j] == *pathToAdd)
+		if (elements[j] == *pathToAdd)
 		{
 			return EXISTING;
 		}
@@ -141,8 +154,7 @@ unsigned int PathArray::Adjust(int delta)
 	unsigned int j;
 	for (j = 0; j < currentCard; j++)
 	{
-	 	*newElements[j] = *elements[j];
-	 	delete elements[j];
+	 	newElements[j] = elements[j];
 	}
 	delete [] elements;
 	elements = newElements;
@@ -161,7 +173,7 @@ bool PathArray::Remove(Path* element)
 		for (j = 0; j < currentCard; j++)
 		{
 		    
-			if (!(*elements[j] == *element)) //TODO we could define != operator 
+			if (!(elements[j] == *element)) //TODO we could define != operator 
 			{
 				newElements[i] = elements[j];
 				i++;

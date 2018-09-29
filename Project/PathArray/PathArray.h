@@ -11,13 +11,12 @@
 #define PATHARRAY_H
 
 enum AddStatus { EXISTING, ADDED };
-const int CARD_MAX = 5;
 //--------------------------------------------------- Interfaces utilisées
-
+#include <iostream>
 #include "../Path/Path.h"
 
 //------------------------------------------------------------- Constantes
-
+const int CARD_MAX = 10;
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
@@ -83,6 +82,11 @@ public:
     //
     // Contrat :
     //
+    std::ostream& Print(std::ostream& os) const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -98,7 +102,7 @@ public:
     // Contrat :
     //
 
-    PathArray (const unsigned int cardMax);
+    PathArray (const unsigned int cardMax = CARD_MAX);
     // Mode d'emploi :
     //
     // Contrat :
