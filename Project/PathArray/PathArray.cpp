@@ -121,7 +121,7 @@ AddStatus PathArray::Add(Path* pathToAdd)
 	for (j = 0; j < currentCard; j++)
 	{
 	    
-		if (elements[j] == *pathToAdd)
+		if (*elements[j] == *pathToAdd)
 		{
 			return EXISTING;
 		}
@@ -173,7 +173,7 @@ bool PathArray::Remove(Path* element)
 		for (j = 0; j < currentCard; j++)
 		{
 		    
-			if (!(elements[j] == *element)) //TODO we could define != operator 
+			if (!(*elements[j] == *element)) //TODO we could define != operator 
 			{
 				newElements[i] = elements[j];
 				i++;
@@ -232,6 +232,12 @@ PathArray::PathArray ( const PathArray & anotherPathArray )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <PathArray>" << endl;
 #endif
+    elements = new Path*[anotherPathArray.GetMaxCard()];
+    unsigned int j;
+    for (j = 0; j < anotherPathArray.GetCurrentCard(); j++)
+    {
+    	elements[j] = anotherPathArray.Get(j);
+    }
 } //----- Fin de PathArray (constructeur de copie)
 
 

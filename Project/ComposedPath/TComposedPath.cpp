@@ -1,12 +1,12 @@
 /*************************************************************************
-                           TSimplePath  -  description
+                           TComposedPath  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation du module <TSimplePath> (fichier TSimplePath.cpp) ---------------
+//---------- Réalisation du module <TComposedPath> (fichier TComposedPath.cpp) ---------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
@@ -14,8 +14,8 @@
 
 using std::cout;
 //------------------------------------------------------ Include personnel
-#include "TSimplePath.h"
-#include "SimplePath.h"
+#include "TComposedPath.h"
+#include "ComposedPath.h"
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
 
@@ -28,96 +28,72 @@ static void testDisplay()
 {
 	/*
 		expected output :
-		{ de Lyon à Paris en MT0 }
 	*/
 	cout << "testDisplay" << "\r\n";
-	char lyon[] = "Lyon";
-	char * plyon = lyon;
+	ComposedPath path;
+	char varsovie[] = "Varsovie";
+	char londres[] = "Londres";
 
-	char paris[] = "Paris";
-	char * pparis = paris;
-	SimplePath path1 = SimplePath(plyon, pparis, TRAIN);
-	cout << path1;
+	SimplePath spath = SimplePath((char*)varsovie, (char*)londres, AVION);
+	path.GetElements()->Add(&spath);
+	cout << path << "\r\n";
 }
 
 static void testEqualOperator()
 {
 	/*
 		expected output :
-		0
 		1
+		0
 	*/
 	cout << "testEqualOperator" << "\r\n";
-	char lyon[] = "Lyon";
-	char * plyon = lyon;
+	ComposedPath path1;
+	ComposedPath path2;
 
-	char paris[] = "Paris";
-	char * pparis = paris;
+	bool result = (path1 == path2);
+	cout << result << "\r\n";
 
 	char varsovie[] = "Varsovie";
-	char * pvarsovie = varsovie;
-
 	char londres[] = "Londres";
-	char * plondres = londres; 
 
-	SimplePath path1 = SimplePath(plyon, pparis, TRAIN);
-	SimplePath path2 = SimplePath(pvarsovie, plondres, AVION);
-	bool result = path1 == path2;
+	SimplePath spath = SimplePath((char*)varsovie, (char*)londres, AVION);
+	path1.GetElements()->Add(&spath);
+	result = (path1 == path2);
 	cout << result << "\r\n";
-
-	char lyon2[] = "Lyon";
-	char * plyon2 = lyon2;
-
-	char paris2[] = "Paris";
-	char * pparis2 = paris2;
-
-	SimplePath path3 = SimplePath(plyon2, pparis2, TRAIN);
-	result = path1 == path3;
-	cout << result << "\r\n";
+	
 }
 
 static void testAssignmentOperator()
 {
 	/*
 		expected output :
-		{ de Lyon à Paris en MT0 }
+		0
+		50
+		{}
 	*/
 	cout << "testAssignmentOperator" << "\r\n";
-	char lyon[] = "Lyon";
-	char * plyon = lyon;
+	ComposedPath path1;
+	ComposedPath path2(50);
 
-	char paris[] = "Paris";
-	char * pparis = paris;
-
-	char varsovie[] = "Varsovie";
-	char * pvarsovie = varsovie;
-
-	char londres[] = "Londres";
-	char * plondres = londres; 
-
-	SimplePath path1 = SimplePath(plyon, pparis, TRAIN);
-	SimplePath path2 = SimplePath(pvarsovie, plondres, AVION);
-
-	path2 = path1;
-	cout << path2;
+	path1 = path2;
+	path1.GetElements()->Display();
 }
 
 static void testCopyConstructor()
 {
 	/*
 		expected output :
-		{ de Varsovie à Londres en MT3 }
+		
 	*/
 	cout << "testCopyConstructor" << "\r\n";
+	ComposedPath path;
 	char varsovie[] = "Varsovie";
-	char * pvarsovie = varsovie;
-
 	char londres[] = "Londres";
-	char * plondres = londres; 
 
-	SimplePath path1 = SimplePath(pvarsovie, plondres, AVION);
-	SimplePath path2 = path1;
-	cout << path2;
+	SimplePath spath = SimplePath((char*)varsovie, (char*)londres, AVION);
+	path.GetElements()->Add(&spath);
+	ComposedPath path2 = path;
+	cout << path2 << "\r\n";
 }
 
 //////////////////////////////////////////////////////////////////  PUBLIC

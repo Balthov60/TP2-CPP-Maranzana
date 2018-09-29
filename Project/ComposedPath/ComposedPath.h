@@ -11,9 +11,8 @@
 #define COMPOSEDPATH_H
 
 //--------------------------------------------------- Interfaces utilisées
-
 #include "../Path/Path.h"
-
+#include "../PathArray/PathArray.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -30,25 +29,24 @@ class ComposedPath : public Path
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    PathArray* GetElements ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-
 //------------------------------------------------- Surcharge d'opérateurs
-//TODO: opérateur =
+    ComposedPath& operator=(ComposedPath& other);
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    ComposedPath ( const ComposedPath & unComposedPath );
+    ComposedPath ( const ComposedPath & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    ComposedPath ( );
+    ComposedPath ( unsigned int cardMax = CARD_MAX );
     // Mode d'emploi :
     //
     // Contrat :
@@ -65,10 +63,12 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
      virtual std::ostream& print(std::ostream& os) const;
+     virtual bool equals(const Path& other) const;
+     friend void swap(ComposedPath& first, ComposedPath& second);
 //----------------------------------------------------- Attributs protégés
-
+     PathArray elements;
 private:
-    virtual bool equals(const Path& other) const;
+    
 };
 
 //-------------------------------- Autres définitions dépendantes de <ComposedPath>

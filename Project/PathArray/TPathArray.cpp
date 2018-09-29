@@ -85,7 +85,7 @@ static void testEstEgal2()
 	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
 	firstE.Add(&path1);
 	secondE.Add(&path1);
-	cout << firstE.Equals(secondE) << endl;
+	cout << firstE.Equals(firstE) << endl;
 }
 
 static void testEstEgal1()
@@ -113,6 +113,23 @@ static void testEstEgal()
 	testEstEgal1();
 	testEstEgal2();
 	cout << "Fin Test EstEgal" << endl; 
+}
+
+static void testAdd()
+{
+	cout << "Test Add" << endl; 
+	PathArray firstE;
+
+	char varsovie[] = "Varsovie";
+	char londres[] = "Londres";
+
+	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
+	SimplePath path2 = SimplePath((char*)londres, (char*)varsovie, AVION);
+	firstE.Add(&path1);
+	firstE.Add(&path2);
+
+	firstE.Display();
+	cout << "Fin Test Add" << endl; 
 }
 
 static void testAdjust3()
@@ -169,6 +186,7 @@ int main ()
 {
 	testConstructeurDefaut();
 	testEstEgal();
+	testAdd();
 	testAdjust();
 } //----- fin de Nom
 

@@ -77,6 +77,8 @@ SimplePath::~SimplePath ( )
 
 
 //------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
 bool SimplePath::equals(const Path& other) const
 {
     const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
@@ -84,12 +86,12 @@ bool SimplePath::equals(const Path& other) const
         && (strcmp(this->endCity, other_derived.endCity) == 0)
         && this->meanOfTransport == other_derived.meanOfTransport;
 }
-//----------------------------------------------------- Méthodes protégées
+
 std::ostream& SimplePath::print(std::ostream& os) const
 {	
 	//TODO convert meanOfTransport value to meaningful string representation
-	return os << " { " << startCity << " ; " << endCity << " ; "
-			  << meanOfTransport << " } \r\n";
+	return os << " { de " << startCity << " à " << endCity << " en MT"
+			  << meanOfTransport << " }";
 }
 
 void swap(SimplePath& first, SimplePath& second)
