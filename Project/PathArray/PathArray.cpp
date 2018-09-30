@@ -245,13 +245,12 @@ PathArray::PathArray(const unsigned int cardMax)
 // Algorithme :
 //
 {
-	elements = new Path*[cardMax];
-	maxCard = cardMax;
-	currentCard = 0;
-
 #ifdef MAP
 	cout << "Appel au constructeur de <PathArray>" << endl;
 #endif
+	elements = new Path*[cardMax];
+	maxCard = cardMax;
+	currentCard = 0;
 }
 
 /*PathArray::PathArray(Path pathArray[], unsigned int nbElements)
@@ -279,6 +278,7 @@ PathArray::~PathArray ( )
     cout << "Appel au destructeur de <PathArray>" << endl;
 #endif
     delete [] elements;
+    elements = nullptr;
 } //----- Fin de ~PathArray
 
 

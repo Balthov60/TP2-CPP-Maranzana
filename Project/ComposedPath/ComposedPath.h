@@ -66,7 +66,7 @@ protected:
      virtual bool equals(const Path& other) const;
      friend void swap(ComposedPath& first, ComposedPath& second);
 //----------------------------------------------------- Attributs protégés
-     PathArray elements;
+     PathArray* elements;
 private:
     
 };

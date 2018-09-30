@@ -60,7 +60,6 @@ static void testEqualOperator()
 	path1.GetElements()->Add(&spath);
 	result = (path1 == path2);
 	cout << result << "\r\n";
-	
 }
 
 static void testAssignmentOperator()
@@ -83,7 +82,7 @@ static void testCopyConstructor()
 {
 	/*
 		expected output :
-		
+		{ de Varsovie à Londres en MT3 }
 	*/
 	cout << "testCopyConstructor" << "\r\n";
 	ComposedPath path;

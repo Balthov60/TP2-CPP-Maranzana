@@ -18,7 +18,6 @@ using std::endl;
 //------------------------------------------------------ Include personnel
 #include "ComposedPath.h"
 //------------------------------------------------------------- Constantes
-
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
@@ -30,7 +29,7 @@ using std::endl;
 PathArray* ComposedPath::GetElements ( )
 // Algorithme :
 {
-    return &elements;
+    return elements;
 } //----- Fin de GetElements
 
 
@@ -63,7 +62,7 @@ ComposedPath::ComposedPath ( unsigned int cardMax)
     cout << "Appel au constructeur de <ComposedPath>" << endl;
 #endif
     //TODO define parameterized constructor according to menu
-    elements = PathArray(cardMax);
+    elements = new PathArray(cardMax);
 } //----- Fin de ComposedPath
 
 
@@ -84,17 +83,17 @@ ComposedPath::~ComposedPath ( )
 bool ComposedPath::equals(const Path& other) const
 {
     const ComposedPath& other_derived = dynamic_cast<const ComposedPath&>(other);
-    return elements.Equals(other_derived.elements);
+    return elements->Equals(*other_derived.elements);
 }
 
 std::ostream& ComposedPath::print(std::ostream& os) const
 {
-	return elements.Print(os);
+	return elements->Print(os);
 }
 
 void swap(ComposedPath& first, ComposedPath& second)
 {
-	PathArray tmp = first.elements;
-	first.elements = second.elements;
-	second.elements = tmp;
+	PathArray tmp = *(first.elements);
+	*(first.elements) = *(second.elements);
+	*(second.elements) = tmp;
 }
