@@ -62,7 +62,7 @@ public:
     //
     // Contrat :
     //
-    bool Contains(Path* value) const;
+    bool Contains(const Path* value) const;
     // Mode d'emploi :
     //
     // Contrat :

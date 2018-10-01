@@ -21,7 +21,7 @@ using std::cout;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-bool PathArray::Contains(Path* path) const
+bool PathArray::Contains(const Path* path) const
 // Algorithme :
 //
 {

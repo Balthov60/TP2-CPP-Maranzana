@@ -29,7 +29,7 @@ class ComposedPath : public Path
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    PathArray* GetElements ( );
+    PathArray* GetElements ( ) const;
     // Mode d'emploi :
     //
     // Contrat :

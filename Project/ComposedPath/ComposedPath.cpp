@@ -26,7 +26,7 @@ using std::endl;
 //
 //{
 //} //----- Fin de Méthode
-PathArray* ComposedPath::GetElements ( )
+PathArray* ComposedPath::GetElements ( ) const
 // Algorithme :
 {
     return elements;
