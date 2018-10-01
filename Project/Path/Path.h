@@ -19,7 +19,9 @@ enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION };
 //------------------------------------------------------------------------
 // Rôle de la classe <Path>
 //
-//
+// Classe abstraite représentant un trajet entre 2 villes par un certain 
+// moyen de transport. Permet de manipuler les trajets sans distinction de 
+// types
 //------------------------------------------------------------------------
 
 class Path
@@ -48,7 +50,7 @@ public:
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
-    //
+    //  otherPath est un Path en état stable
 
     Path ( );
     // Mode d'emploi :

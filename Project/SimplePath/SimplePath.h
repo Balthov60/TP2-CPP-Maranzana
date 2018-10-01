@@ -20,8 +20,8 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <SimplePath>
-//
-//
+// Représente un trajet simple entre une ville de départ et une ville
+// d'arrivée par un unique moyen de transport.
 //------------------------------------------------------------------------
 
 class SimplePath : public Path
@@ -30,11 +30,6 @@ class SimplePath : public Path
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -65,8 +60,25 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
     virtual std::ostream& print(std::ostream& os) const;
+    // Mode d'emploi :
+    //      Ecrit une représentation de l'objet en chaîne de caractères sur un
+    // flux standard
+    //      > os : flux standard sur lequel on écrit
+    // Contrat :
+    //
     virtual bool equals(const Path& other) const;
+    // Mode d'emploi :
+    //      Compare si le ComposedPath est égal à un autre trajet.
+    // Renvoie true si les trajets sont égaux, faux sinon.
+    // Contrat :
+    //
     friend void swap(SimplePath& first, SimplePath& second);
+    // Mode d'emploi :
+    //      Echange les valeurs des attributs entre 2 objets SimplePath
+    //      > first : Premier objet de l'échange
+    //      > second : Second objet de l'échange
+    // Contrat :
+    //
 //----------------------------------------------------- Attributs protégés
     char * startCity;
     char * endCity;
