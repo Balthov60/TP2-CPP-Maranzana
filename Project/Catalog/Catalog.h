@@ -12,6 +12,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 
+#include <iostream>
+
 #include "../PathArray/PathArray.h"
 
 //------------------------------------------------------------- Constantes
@@ -32,6 +34,8 @@ class Catalog
 public:
 //----------------------------------------------------- Méthodes publiques
 
+    void Run();
+
     Catalog ( );
     // Mode d'emploi :
     //
@@ -46,10 +50,31 @@ public:
 
 //------------------------------------------------------------------ PRIVE
 
-protected:
+private:
 //----------------------------------------------------- Méthodes protégées
 
+    void addSimplePath() const;
+    void addComposedPath() const;
+    void addPathAndNotifyUser(Path * path) const;
+
+    void searchForPath() const;
+
+    unsigned int askForStageQty() const;
+    MeansOfTransport displayAndAskForMeansOfTransport() const;
+
+    void getInputLine(char input[]) const;
+    void getInputWord(char input[]) const;
+
+    void cleanInputStream() const;
+    void inputError() const;
+
+    void displayMainMenu() const;
+    void display() const;
+    void displayMeansOfTransport() const;
+
 //----------------------------------------------------- Attributs protégés
+
+    PathArray * pathArray;
 
 };
 

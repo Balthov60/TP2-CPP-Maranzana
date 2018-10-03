@@ -15,7 +15,13 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION };
+enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION, END_DELIMITER };
+
+const int MEAN_OF_TRANSPORT_QTY = END_DELIMITER;
+const int MEAN_OF_TRANSPORT_STRING_MAX_SIZE = 15;
+
+const char MEAN_OF_TRANSPORT_STRINGS[MEAN_OF_TRANSPORT_QTY][MEAN_OF_TRANSPORT_STRING_MAX_SIZE]
+            { "Train", "Auto", "Bateau", "Avion"};
 //------------------------------------------------------------------------
 // Rôle de la classe <Path>
 //
@@ -30,10 +36,10 @@ class Path
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    
 
+    virtual bool StartFrom(char city[]) const = 0;
 
-
+    virtual bool StopAt(char city[]) const = 0;
 
 //------------------------------------------------- Surcharge d'opérateurs
     Path& operator=(Path& other);

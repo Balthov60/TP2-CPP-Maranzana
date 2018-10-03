@@ -32,6 +32,22 @@ PathArray* ComposedPath::GetElements ( ) const
     return elements;
 } //----- Fin de GetElements
 
+void ComposedPath::AddStage(Path *path) const
+// Algorithme :
+{
+    elements->Add(path);
+}
+
+bool ComposedPath::StartFrom(char city[]) const
+{
+    return elements->Get(0)->StartFrom(city);
+}
+
+bool ComposedPath::StopAt(char city[]) const
+{
+    return elements->Get(elements->GetCurrentCard() - 1)->StopAt(city);
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 ComposedPath& ComposedPath::operator=(ComposedPath& other) 
@@ -88,6 +104,8 @@ bool ComposedPath::equals(const Path& other) const
 
 std::ostream& ComposedPath::print(std::ostream& os) const
 {
+    os << "Trajet Composé :" << endl;
+
 	return elements->Print(os);
 }
 

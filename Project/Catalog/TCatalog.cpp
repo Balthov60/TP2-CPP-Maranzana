@@ -15,6 +15,8 @@
 
 //------------------------------------------------------ Include personnel
 
+#include "Catalog.h"
+
 using namespace std;
 
 ///////////////////////////////////////////////////////////////////  PRIVE
@@ -31,7 +33,8 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello Word" << endl;
+    Catalog catalog = Catalog();
+    catalog.Run();
 
-    return 1;
+    return 0;
 }

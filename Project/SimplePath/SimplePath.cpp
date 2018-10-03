@@ -24,6 +24,16 @@ using std::endl;
 
 //----------------------------------------------------- Méthodes publiques
 
+bool SimplePath::StartFrom(char city[]) const
+{
+    return strcmp(city, startCity) == 0;
+}
+
+bool SimplePath::StopAt(char city[]) const
+{
+    return strcmp(city, endCity) == 0;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 SimplePath& SimplePath::operator=(SimplePath& other) 
 {
@@ -88,10 +98,13 @@ bool SimplePath::equals(const Path& other) const
 }
 
 std::ostream& SimplePath::print(std::ostream& os) const
-{	
-	//TODO convert meanOfTransport value to meaningful string representation
-	return os << " { de " << startCity << " à " << endCity << " en MT"
-			  << meanOfTransport << " }";
+{
+	os 	<< "Trajet Simple :"													<< endl
+		<< "\tDépart    : " << startCity									<< endl
+		<< "\tArrivée   : " << endCity 										<< endl
+		<< "\tTransport : " << MEAN_OF_TRANSPORT_STRINGS[meanOfTransport] 	<< endl;
+
+	return os;
 }
 
 void swap(SimplePath& first, SimplePath& second)
