@@ -16,26 +16,22 @@ using std::cout;
 
 //------------------------------------------------------ Include personnel
 #include "PathArray.h"
-
-using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-bool PathArray::Contains(Path value) const
+bool PathArray::Contains(const Path* path) const
 // Algorithme :
 //
 {
 	unsigned int j;
 	for (j = 0; j < currentCard; j++)
 	{
-	    /*
-		if (elements[j] == value)
+		if (*elements[j] == *path)
 		{
 			return true;
 		}
-	     */ //TODO: Handle operators
 	}
 	return false;
 } //----- fin de Contains
@@ -54,7 +50,7 @@ unsigned int PathArray::GetMaxCard(void) const
 	return maxCard;
 } //----- fin de GetMaxCard
 
-Path PathArray::Get(int index) const
+Path* PathArray::Get(int index) const
 // Algorithme :
 //
 {
@@ -74,15 +70,28 @@ void PathArray::Display ( void ) const
 		unsigned int j;
 		for (j = 0; j < currentCard - 1; j++)
 		{
-			// cout << elements[j]; //TODO: Handle operators
+			cout << *elements[j]; 
 			cout << ",";
 		}
 
-		// cout << elements[currentCard - 1]; //TODO: Handle operators
+		cout << *elements[currentCard - 1];
 	}
 	cout << "}" << "\r\n";
 	
 } //----- fin de Display
+
+std::ostream& PathArray::Print(std::ostream& os) const
+// Algorithme :
+//
+{
+	unsigned int j;
+	for (j = 0; j < currentCard - 1; j++)
+	{
+		os << *elements[j]; 
+		os << " - ";
+	}
+	os << *elements[currentCard - 1];
+} //----- fin de Print
 
 bool PathArray::Equals(const PathArray & anotherPathArray) const
 // Algorithme :
@@ -104,24 +113,22 @@ bool PathArray::Equals(const PathArray & anotherPathArray) const
 	return true;
 } //----- fin de Equals
 
-AddStatus PathArray::Add(Path pathToAdd)
+AddStatus PathArray::Add(Path* pathToAdd)
 // Algorithme :
 //
 {
 	unsigned int j;
 	for (j = 0; j < currentCard; j++)
 	{
-	    /*
-		if (elements[j] == pathToAdd)
+	    
+		if (*elements[j] == *pathToAdd)
 		{
 			return EXISTING;
 		}
-	     */ //TODO: Handle operators
 	}
 	if (currentCard == maxCard)
 	{
-	    //TODO: Handle Resize
-		return EXISTING;
+	    Adjust(currentCard);
 	}
 	elements[currentCard] = pathToAdd;
 	currentCard++;
@@ -142,26 +149,35 @@ unsigned int PathArray::Adjust(int delta)
 	{
 		maxCard = currentCard;
 	}
+
+	Path** newElements = new Path*[maxCard];
+	unsigned int j;
+	for (j = 0; j < currentCard; j++)
+	{
+	 	newElements[j] = elements[j];
+	}
+	delete [] elements;
+	elements = newElements;
 	return maxCard;
 } //----- fin de Adjust
 
-bool PathArray::Remove(Path element)
+bool PathArray::Remove(Path* element)
 // Algorithme :
 //
 {
 	if (Contains(element))
 	{
-		Path* newElements = new Path[currentCard-1];
+		Path** newElements = new Path*[currentCard-1];
 		unsigned int j;
 		unsigned int i = 0;
 		for (j = 0; j < currentCard; j++)
 		{
-		    /*
-			if (elements[j] != element)
+		    
+			if (!(*elements[j] == *element)) //TODO we could define != operator 
 			{
 				newElements[i] = elements[j];
 				i++;
-			}*/ //TODO: Handle operators
+			}
 		}
 		delete [] elements;
 		elements = newElements;
@@ -205,8 +221,36 @@ unsigned int PathArray::Remove(const PathArray & anotherPathArray)
 
 
 //------------------------------------------------- Surcharge d'opérateurs
+PathArray& PathArray::operator=(PathArray& other) 
+{
+	//TODO Test it ! 
+    Path** tmp = new Path*[currentCard];
+    for (unsigned int j = 0; j < currentCard; j++)
+    {
+    	tmp[j] = elements[j];
+    }
 
-//TODO: opérateur =
+    delete[] elements;
+    elements = new Path*[other.GetMaxCard()];
+
+    for (unsigned int j = 0; j < other.GetCurrentCard(); j++)
+    {
+    	elements[j] = other.Get(j);
+    }
+
+    other.elements = tmp;
+
+    unsigned int tmpMax = maxCard;
+    unsigned int tmpCurr = currentCard;
+
+    currentCard = other.GetCurrentCard();
+    maxCard = other.GetMaxCard();
+
+
+   	other.currentCard = tmpCurr;
+   	other.maxCard = tmpMax;
+    return *this;
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 PathArray::PathArray ( const PathArray & anotherPathArray )
@@ -216,6 +260,12 @@ PathArray::PathArray ( const PathArray & anotherPathArray )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <PathArray>" << endl;
 #endif
+    elements = new Path*[anotherPathArray.GetMaxCard()];
+    unsigned int j;
+    for (j = 0; j < anotherPathArray.GetCurrentCard(); j++)
+    {
+    	elements[j] = anotherPathArray.Get(j);
+    }
 } //----- Fin de PathArray (constructeur de copie)
 
 
@@ -223,30 +273,12 @@ PathArray::PathArray(const unsigned int cardMax)
 // Algorithme :
 //
 {
-	elements = new Path[cardMax];
-	maxCard = cardMax;
-	currentCard = 0;
-
 #ifdef MAP
 	cout << "Appel au constructeur de <PathArray>" << endl;
 #endif
-}
-
-PathArray::PathArray(Path pathArray[], unsigned int nbElements)
-// Algorithme :
-//
-{
-	#ifdef MAP
-    cout << "Appel au constructeur de <PathArray>" << endl;
-	#endif
-	elements = new Path[nbElements];
-	maxCard = nbElements;
+	elements = new Path*[cardMax];
+	maxCard = cardMax;
 	currentCard = 0;
-	unsigned int j;
-	for (j = 0; j < nbElements; j++)
-	{
-		Add(pathArray[j]);
-	}
 }
 
 PathArray::~PathArray ( )
@@ -257,6 +289,7 @@ PathArray::~PathArray ( )
     cout << "Appel au destructeur de <PathArray>" << endl;
 #endif
     delete [] elements;
+    elements = nullptr;
 } //----- Fin de ~PathArray
 
 

@@ -11,17 +11,16 @@
 #define COMPOSEDPATH_H
 
 //--------------------------------------------------- Interfaces utilisées
-
 #include "../Path/Path.h"
-
+#include "../PathArray/PathArray.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
 // Rôle de la classe <ComposedPath>
-//
-//
+// Représente un trajet composé de plusieurs sous-trajets (simples ou eux-
+// mêmes composés)
 //------------------------------------------------------------------------
 
 class ComposedPath : public Path
@@ -30,27 +29,27 @@ class ComposedPath : public Path
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    PathArray* GetElements ( ) const;
     // Mode d'emploi :
-    //
+    //  Retourne la collection des Path composant le trajet
     // Contrat :
     //
 
-
 //------------------------------------------------- Surcharge d'opérateurs
-//TODO: opérateur =
+    ComposedPath& operator=(ComposedPath& other);
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    ComposedPath ( const ComposedPath & unComposedPath );
+    ComposedPath ( const ComposedPath & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    ComposedPath ( );
+    ComposedPath ( unsigned int cardMax = CARD_MAX );
     // Mode d'emploi :
-    //
+    //      > cardMax : cardinalité maximum initiale de la collection de trajets,
+    // par defaut égale à 10
     // Contrat :
     //
 
@@ -64,9 +63,30 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-
+    virtual std::ostream& print(std::ostream& os) const;
+    // Mode d'emploi :
+    //      Ecrit une représentation de l'objet en chaîne de caractères sur un
+    // flux standard
+    //      > os : flux standard sur lequel on écrit
+    // Contrat :
+    //
+    virtual bool equals(const Path& other) const;
+    // Mode d'emploi :
+    //      Compare si le ComposedPath est égal à un autre trajet.
+    // Renvoie true si les trajets sont égaux, faux sinon.
+    // Contrat :
+    //
+    friend void swap(ComposedPath& first, ComposedPath& second);
+    // Mode d'emploi :
+    //      Echange les valeurs des attributs entre 2 objets ComposedPath
+    //      > first : Premier objet de l'échange
+    //      > second : Second objet de l'échange
+    // Contrat :
+    //
 //----------------------------------------------------- Attributs protégés
-
+     PathArray* elements;
+private:
+    
 };
 
 //-------------------------------- Autres définitions dépendantes de <ComposedPath>
