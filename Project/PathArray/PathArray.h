@@ -10,7 +10,6 @@
 #if ! defined ( PATHARRAY_H )
 #define PATHARRAY_H
 
-enum AddStatus { EXISTING, ADDED };
 //--------------------------------------------------- Interfaces utilisées
 #include <iostream>
 #include "../Path/Path.h"
@@ -43,11 +42,11 @@ public:
     //      > otherPathArray : collection à comparer
     // Contrat :
     //
-    AddStatus Add(Path* pathToAdd);
+    bool Add(Path* pathToAdd);
     // Mode d'emploi :
     //      Ajoute un trajet à la collection
-    // Renvoie EXISTING si un trajet similaire est déjà présent dans la collection,
-    // ADDED sinon.
+    // Renvoie false si un trajet similaire est déjà présent dans la collection,
+    // true sinon.
     //      > pathToAdd : trajet à ajouter
     // Contrat :
     //      pathToAdd pointe vers un objet Path valide

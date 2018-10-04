@@ -31,6 +31,9 @@ class SimplePath : public Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
+    virtual bool StartFrom(const char city[]) const;
+
+    virtual bool StopAt(const char city[]) const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     SimplePath& operator=(SimplePath& other);
@@ -79,13 +82,11 @@ protected:
     //      > second : Second objet de l'échange
     // Contrat :
     //
+
 //----------------------------------------------------- Attributs protégés
     char * startCity;
     char * endCity;
     MeansOfTransport meanOfTransport;
-    
-private:
-    
     
 };
 

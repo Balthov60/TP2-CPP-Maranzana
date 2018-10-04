@@ -12,6 +12,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 
+#include <iostream>
+
 #include "../PathArray/PathArray.h"
 
 //------------------------------------------------------------- Constantes
@@ -21,7 +23,8 @@
 //------------------------------------------------------------------------
 // Rôle de la classe <Catalog>
 //
-// "Catalog" permet à l'utilisateur d'intéragir avec la liste des trajets
+// //TODO documentation
+// Permet à l'utilisateur d'intéragir avec la liste des trajets
 //
 //------------------------------------------------------------------------
 
@@ -31,6 +34,8 @@ class Catalog
 
 public:
 //----------------------------------------------------- Méthodes publiques
+
+    void Run();
 
     Catalog ( );
     // Mode d'emploi :
@@ -46,10 +51,33 @@ public:
 
 //------------------------------------------------------------------ PRIVE
 
-protected:
+private:
 //----------------------------------------------------- Méthodes protégées
 
+    void addSimplePath() const;
+    void addComposedPath() const;
+    void addPathAndNotifyUser(Path * path) const;
+
+    void searchForPath(const bool advanced) const;
+    void simpleSearchForPath(const char * startingCity, const char * endingCity) const;
+    void advancedSearchForPath(const char * startingCity,const  char * endingCity) const;
+
+    unsigned int askForStageQty() const;
+    MeansOfTransport displayAndAskForMeansOfTransport() const;
+
+    void getInputLine(char input[]) const;
+    void getInputWord(char input[]) const;
+
+    void cleanInputStream() const;
+    void inputError() const;
+
+    void displayMainMenu() const;
+    void display() const;
+    void displayMeansOfTransport() const;
+
 //----------------------------------------------------- Attributs protégés
+
+    PathArray * pathArray;
 
 };
 
