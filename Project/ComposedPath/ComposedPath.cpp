@@ -21,11 +21,6 @@ using std::endl;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type ComposedPath::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 PathArray* ComposedPath::GetElements ( ) const
 // Algorithme :
 {
@@ -36,17 +31,17 @@ void ComposedPath::AddStage(Path *path) const
 // Algorithme :
 {
     elements->Add(path);
-}
+} //----- Fin de AddStage
 
-bool ComposedPath::StartFrom(char city[]) const
+bool ComposedPath::StartFrom(const char * city) const
 {
     return elements->Get(0)->StartFrom(city);
-}
+} //----- Fin de StartFrom
 
-bool ComposedPath::StopAt(char city[]) const
+bool ComposedPath::StopAt(const char * city) const
 {
     return elements->Get(elements->GetCurrentCard() - 1)->StopAt(city);
-}
+} //----- Fin de StopAt
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -55,7 +50,7 @@ ComposedPath& ComposedPath::operator=(ComposedPath& other)
     swap(*this, other); 
 
     return *this;
-}
+} //----- Fin de =
 
 //-------------------------------------------- Constructeurs - destructeur
 ComposedPath::ComposedPath ( const ComposedPath & other )
@@ -77,7 +72,6 @@ ComposedPath::ComposedPath ( unsigned int cardMax)
 #ifdef MAP
     cout << "Appel au constructeur de <ComposedPath>" << endl;
 #endif
-    //TODO define parameterized constructor according to menu
     elements = new PathArray(cardMax);
 } //----- Fin de ComposedPath
 
@@ -100,18 +94,18 @@ bool ComposedPath::equals(const Path& other) const
 {
     const ComposedPath& other_derived = dynamic_cast<const ComposedPath&>(other);
     return elements->Equals(*other_derived.elements);
-}
+} //----- Fin de equals
 
 std::ostream& ComposedPath::print(std::ostream& os) const
 {
     os << "Trajet Composé :" << endl;
 
 	return elements->Print(os);
-}
+} //----- Fin de print
 
 void swap(ComposedPath& first, ComposedPath& second)
 {
 	PathArray tmp = *(first.elements);
 	*(first.elements) = *(second.elements);
 	*(second.elements) = tmp;
-}
+} //----- Fin de swap

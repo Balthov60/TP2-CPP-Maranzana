@@ -24,15 +24,15 @@ using std::endl;
 
 //----------------------------------------------------- Méthodes publiques
 
-bool SimplePath::StartFrom(char city[]) const
+bool SimplePath::StartFrom(const char * city) const
 {
     return strcmp(city, startCity) == 0;
-}
+} //----- Fin de StartFrom
 
-bool SimplePath::StopAt(char city[]) const
+bool SimplePath::StopAt(const char * city) const
 {
     return strcmp(city, endCity) == 0;
-}
+} //----- Fin de StopAt
 
 //------------------------------------------------- Surcharge d'opérateurs
 SimplePath& SimplePath::operator=(SimplePath& other) 
@@ -40,7 +40,7 @@ SimplePath& SimplePath::operator=(SimplePath& other)
     swap(*this, other); 
 
     return *this;
-}
+} //----- Fin de =
 //-------------------------------------------- Constructeurs - destructeur
 SimplePath::SimplePath ( const SimplePath & other )
 // Algorithme :
@@ -95,7 +95,7 @@ bool SimplePath::equals(const Path& other) const
     return (strcmp(this->startCity, other_derived.startCity) == 0)
         && (strcmp(this->endCity, other_derived.endCity) == 0)
         && this->meanOfTransport == other_derived.meanOfTransport;
-}
+} //----- Fin de equals
 
 std::ostream& SimplePath::print(std::ostream& os) const
 {
@@ -105,7 +105,7 @@ std::ostream& SimplePath::print(std::ostream& os) const
 		<< "\tTransport : " << MEAN_OF_TRANSPORT_STRINGS[meanOfTransport] 	<< endl;
 
 	return os;
-}
+} //----- Fin de print
 
 void swap(SimplePath& first, SimplePath& second)
 {
@@ -121,4 +121,4 @@ void swap(SimplePath& first, SimplePath& second)
 	MeansOfTransport tmpMot = second.meanOfTransport;
 	second.meanOfTransport = first.meanOfTransport;
 	first.meanOfTransport = tmpMot;
-}
+} //----- Fin de swap

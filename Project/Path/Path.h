@@ -13,15 +13,13 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <iostream>
 //------------------------------------------------------------- Constantes
-
-//------------------------------------------------------------------ Types
-enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION, END_DELIMITER };
-
-const int MEAN_OF_TRANSPORT_QTY = END_DELIMITER;
 const int MEAN_OF_TRANSPORT_STRING_MAX_SIZE = 15;
-
+enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION, END_DELIMITER };  //ne peut pas être placé dans les types sinon END_DELIMITER inconnu
+const int MEAN_OF_TRANSPORT_QTY = END_DELIMITER;
 const char MEAN_OF_TRANSPORT_STRINGS[MEAN_OF_TRANSPORT_QTY][MEAN_OF_TRANSPORT_STRING_MAX_SIZE]
             { "Train", "Auto", "Bateau", "Avion"};
+//------------------------------------------------------------------ Types
+
 //------------------------------------------------------------------------
 // Rôle de la classe <Path>
 //
@@ -37,9 +35,9 @@ class Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    virtual bool StartFrom(char city[]) const = 0;
+    virtual bool StartFrom(const char * city) const = 0;
 
-    virtual bool StopAt(char city[]) const = 0;
+    virtual bool StopAt(const char * city) const = 0;
 
 //------------------------------------------------- Surcharge d'opérateurs
     Path& operator=(Path& other);
@@ -58,12 +56,6 @@ public:
     // Contrat :
     //  otherPath est un Path en état stable
 
-    Path ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
     virtual ~Path ( );
     // Mode d'emploi :
     //
@@ -74,12 +66,18 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-virtual std::ostream& print(std::ostream& os) const = 0;
-    // Mode d'emploi :
-    // Méthode permettant l'affichage de la classe Path sur un flux (os). 
-    // Voir les classes dérivées pour la réalisation concrète
-    // Contrat :
-    //
+    Path ( );
+        // Mode d'emploi :
+        //
+        // Contrat :
+        //
+
+    virtual std::ostream& print(std::ostream& os) const = 0;
+        // Mode d'emploi :
+        // Méthode permettant l'affichage de la classe Path sur un flux (os). 
+        // Voir les classes dérivées pour la réalisation concrète
+        // Contrat :
+        //
 //----------------------------------------------------- Attributs protégés
 
 private:

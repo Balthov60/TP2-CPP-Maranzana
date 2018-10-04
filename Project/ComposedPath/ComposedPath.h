@@ -37,9 +37,9 @@ public:
 
     void AddStage(Path *path) const;
 
-    virtual bool StartFrom(char city[]) const;
+    virtual bool StartFrom(const char * city) const;
 
-    virtual bool StopAt(char city[]) const;
+    virtual bool StopAt(const char * city) const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     ComposedPath& operator=(ComposedPath& other);

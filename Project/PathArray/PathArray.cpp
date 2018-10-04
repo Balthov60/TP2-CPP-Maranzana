@@ -114,7 +114,7 @@ bool PathArray::Equals(const PathArray & anotherPathArray) const
 	return true;
 } //----- fin de Equals
 
-AddStatus PathArray::Add(Path* pathToAdd)
+bool PathArray::Add(Path* pathToAdd)
 // Algorithme :
 //
 {
@@ -124,7 +124,7 @@ AddStatus PathArray::Add(Path* pathToAdd)
 	    
 		if (*elements[j] == *pathToAdd)
 		{
-			return EXISTING;
+			return false;
 		}
 	}
 	if (currentCard == maxCard)
@@ -134,7 +134,7 @@ AddStatus PathArray::Add(Path* pathToAdd)
 	elements[currentCard] = pathToAdd;
 	currentCard++;
 
-	return ADDED;
+	return true;
 } //----- fin de Add
 
 unsigned int PathArray::Adjust(int delta)
@@ -194,7 +194,6 @@ unsigned int PathArray::Remove(const PathArray & anotherPathArray)
 // Algorithme :
 //
 {
-
 	unsigned int oldMaxCard = maxCard;
 	unsigned int j;
 	int count = 0;
@@ -280,7 +279,7 @@ PathArray::PathArray(const unsigned int cardMax)
 	elements = new Path*[cardMax];
 	maxCard = cardMax;
 	currentCard = 0;
-}
+} //----- Fin de PathArray
 
 PathArray::~PathArray ( )
 // Algorithme :

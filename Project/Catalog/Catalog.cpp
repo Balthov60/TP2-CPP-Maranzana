@@ -12,18 +12,18 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <iomanip>
+#include <cstring>
 
 //------------------------------------------------------ Include personnel
 #include "Catalog.h"
 #include "../SimplePath/SimplePath.h"
 #include "../ComposedPath/ComposedPath.h"
 
-using namespace std;
+using std::cout;
+using std::endl;
 //------------------------------------------------------------- Constantes
-
+const int INPUT_MAX_SIZE = 100;
 const char SEPARATOR[] = "=================================================\r\n";
-
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
@@ -33,16 +33,16 @@ void Catalog::Run()
     cout << "Bienvenue sur VoyageVoyage, L'app qui vous fera voyager !" << endl;
     displayMainMenu();
 
-    char input[100];
+    char input[INPUT_MAX_SIZE];
     getInputWord(input);
 
-    while (strcmp(input,"9") != 0 && strcmp(input,"quit") != 0 && strcmp(input,"quitter") != 0)
+    while (strcmp(input,"9") != 0 && strcmp(input,"quit") != 0 && strcmp(input,"quitter") != 0 && strcmp(input,"q") != 0)
     {
         if (strcmp(input, "0") == 0)
         {
             displayMainMenu();
         }
-        if (strcmp(input,"1") == 0)
+        else if (strcmp(input,"1") == 0)
         {
             display();
         }
@@ -54,13 +54,16 @@ void Catalog::Run()
         {
             addComposedPath();
         }
-        else if (strcmp(input, "4") == 0)     //Chercher Trajets (version simple)
+        else if (strcmp(input, "4") == 0)
         {
-            searchForPath();
+            //recherche simple
+            searchForPath(false);
         }
-        else if (strcmp(input, "5") == 0)     //TODO: Chercher Trajets (version avancée)
+        else if (strcmp(input, "5") == 0)     
         {
-            cout << "Cette fonctionnalitée n'est pas encore implémenté..." << endl;
+            cout << "Cette fonctionnalité n'est pas encore implémentée..." << endl;
+            //recherche avancée
+            searchForPath(true);
         }
         else
         {
@@ -77,21 +80,19 @@ void Catalog::Run()
 
 Catalog::Catalog ( )
 {
-    pathArray = new PathArray();
-
 #ifdef MAP
     cout << "Appel au constructeur de <Catalog>" << endl;
 #endif
+    pathArray = new PathArray();
 } //----- Fin de Catalog
 
 
 Catalog::~Catalog ( )
 {
-    delete pathArray;
-
 #ifdef MAP
     cout << "Appel au destructeur de <Catalog>" << endl;
 #endif
+    delete pathArray;
 } //----- Fin de ~Catalog
 
 //------------------------------------------------------------------ PRIVE
@@ -102,8 +103,8 @@ Catalog::~Catalog ( )
 
 void Catalog::addSimplePath() const
 {
-    char startingCity[100];
-    char endingCity[100];
+    char startingCity[INPUT_MAX_SIZE];
+    char endingCity[INPUT_MAX_SIZE];
     MeansOfTransport meansOfTransport;
 
     cout << SEPARATOR;
@@ -112,7 +113,7 @@ void Catalog::addSimplePath() const
     cout << "\tVille de départ : ";
     getInputLine(startingCity);
 
-    cout << "\tVille d'arrivé : ";
+    cout << "\tVille d'arrivée : ";
     getInputLine(endingCity);
 
     meansOfTransport = displayAndAskForMeansOfTransport();
@@ -122,8 +123,8 @@ void Catalog::addSimplePath() const
 void Catalog::addComposedPath() const
 {
     ComposedPath *composedPath = new ComposedPath();
-    char startingCity[100];
-    char endingCity[100];
+    char startingCity[INPUT_MAX_SIZE];
+    char endingCity[INPUT_MAX_SIZE];
     MeansOfTransport meansOfTransport;
 
     cout << SEPARATOR;
@@ -147,7 +148,7 @@ void Catalog::addComposedPath() const
             getInputLine(startingCity);
         }
 
-        cout << "\tVille d'arrivé : ";
+        cout << "\tVille d'arrivée : ";
         getInputLine(endingCity);
 
         meansOfTransport = displayAndAskForMeansOfTransport();
@@ -160,7 +161,7 @@ void Catalog::addComposedPath() const
 
 void Catalog::addPathAndNotifyUser(Path * path) const
 {
-    if (pathArray->Add(path) == ADDED)
+    if (pathArray->Add(path))
     {
         cout << "Votre Trajet à bien été ajouté !" << endl;
     }
@@ -173,10 +174,10 @@ void Catalog::addPathAndNotifyUser(Path * path) const
 }
 
 /* Search Methods */
-void Catalog::searchForPath() const
+void Catalog::searchForPath(const bool advanced) const
 {
-    char startingCity[100];
-    char endingCity[100];
+    char startingCity[INPUT_MAX_SIZE];
+    char endingCity[INPUT_MAX_SIZE];
 
     cout << SEPARATOR;
     cout << "Recherche d'un Trajet (Version Simple)..." << endl;
@@ -184,20 +185,41 @@ void Catalog::searchForPath() const
     cout << "\tVille de départ : ";
     getInputLine(startingCity);
 
-    cout << "\tVille d'arrivé : ";
+    cout << "\tVille d'arrivée : ";
     getInputLine(endingCity);
 
+    if (advanced)
+    {
+        advancedSearchForPath(startingCity, endingCity);
+    }
+    else
+    {
+        simpleSearchForPath(startingCity, endingCity);
+    }
+}
+
+void Catalog::simpleSearchForPath(const char * startingCity, const  char * endingCity) const
+{
     cout << endl << "Trajet(s) trouvé(s) :" << endl;
 
-    for (int i = 0; i < pathArray->GetCurrentCard(); i++)
+    for (unsigned int i = 0; i < pathArray->GetCurrentCard(); i++)
     {
         Path * temp = pathArray->Get(i);
 
         if (temp->StartFrom(startingCity) && temp->StopAt(endingCity))
         {
-            cout << endl << *temp;
+            cout << endl << "#" << i << " " << *temp;
         }
     }
+
+    cout << SEPARATOR;
+}
+//TODO: Chercher Trajets (version avancée)
+void Catalog::advancedSearchForPath(const char * startingCity,const  char * endingCity) const
+{
+    cout << endl << "Trajet(s) trouvé(s) :" << endl;
+
+
 
     cout << SEPARATOR;
 }
@@ -218,11 +240,12 @@ unsigned int Catalog::askForStageQty() const
 
     return stageQty;
 }
+
 MeansOfTransport Catalog::displayAndAskForMeansOfTransport() const
 {
     char transport[MEAN_OF_TRANSPORT_STRING_MAX_SIZE];
 
-    do
+    for ( ; ; )
     {
         displayMeansOfTransport();
 
@@ -236,7 +259,6 @@ MeansOfTransport Catalog::displayAndAskForMeansOfTransport() const
 
         cout << "Moyen de transport non valide...\n";
     }
-    while(1);
 }
 
 void Catalog::getInputLine(char *input) const
@@ -259,6 +281,7 @@ void Catalog::cleanInputStream() const
     int c = 0;
     while ((c = getchar()) != '\n' && c != EOF);
 }
+
 void Catalog::inputError() const
 {
     cout << "input Error\n";
@@ -291,7 +314,7 @@ void Catalog::display() const
     cout << "Liste des Voyages Disponibles..."                      << endl;
     cout                                                            << endl;
 
-    for (int i = 0; i < pathArray->GetCurrentCard(); i++)
+    for (unsigned int i = 0; i < pathArray->GetCurrentCard(); i++)
     {
         cout << "#" << i << " " << *pathArray->Get(i) << endl;
     }

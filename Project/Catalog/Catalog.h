@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------
 // Rôle de la classe <Catalog>
 //
-// "Catalog" permet à l'utilisateur d'intéragir avec la liste des trajets
+// //TODO documentation
+// Permet à l'utilisateur d'intéragir avec la liste des trajets
 //
 //------------------------------------------------------------------------
 
@@ -57,7 +58,9 @@ private:
     void addComposedPath() const;
     void addPathAndNotifyUser(Path * path) const;
 
-    void searchForPath() const;
+    void searchForPath(const bool advanced) const;
+    void simpleSearchForPath(const char * startingCity, const char * endingCity) const;
+    void advancedSearchForPath(const char * startingCity,const  char * endingCity) const;
 
     unsigned int askForStageQty() const;
     MeansOfTransport displayAndAskForMeansOfTransport() const;

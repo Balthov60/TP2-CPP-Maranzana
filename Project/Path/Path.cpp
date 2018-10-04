@@ -30,7 +30,7 @@ using std::endl;
 Path& Path::operator=(Path& other) 
 {
     return *this;
-}
+} //----- Fin de =
 
 bool operator ==(const Path& first, const Path& second)
 {
@@ -39,12 +39,12 @@ bool operator ==(const Path& first, const Path& second)
         return false;
     // Invoke is_equal on derived types
     return first.equals(second);
-}
+} //----- Fin de ==
 
 std::ostream& operator<<(std::ostream& os, const Path& path)
 {
 	return path.print(os);
-}
+} //----- Fin de <<
 
 //-------------------------------------------- Constructeurs - destructeur
 Path::Path ( const Path & otherPath )
