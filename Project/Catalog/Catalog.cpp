@@ -64,6 +64,7 @@ void Catalog::Run()
             cout << "Cette fonctionnalité n'est pas encore implémentée..." << endl;
             //recherche avancée
             searchForPath(true);
+            cout << SEPARATOR;
         }
         else
         {
@@ -84,6 +85,7 @@ Catalog::Catalog ( )
     cout << "Appel au constructeur de <Catalog>" << endl;
 #endif
     pathArray = new PathArray();
+    searchEngine = new SearchEngine();
 } //----- Fin de Catalog
 
 
@@ -93,6 +95,7 @@ Catalog::~Catalog ( )
     cout << "Appel au destructeur de <Catalog>" << endl;
 #endif
     delete pathArray;
+    delete searchEngine;
 } //----- Fin de ~Catalog
 
 //------------------------------------------------------------------ PRIVE
@@ -163,6 +166,7 @@ void Catalog::addPathAndNotifyUser(Path * path) const
 {
     if (pathArray->Add(path))
     {
+        searchEngine->AddPath(path);
         cout << "Votre Trajet à bien été ajouté !" << endl;
     }
     else
@@ -188,40 +192,16 @@ void Catalog::searchForPath(const bool advanced) const
     cout << "\tVille d'arrivée : ";
     getInputLine(endingCity);
 
+
+    cout << endl << "Trajet(s) trouvé(s) :" << endl;
     if (advanced)
     {
-        advancedSearchForPath(startingCity, endingCity);
+        searchEngine->AdvancedSearch(startingCity, endingCity);
     }
     else
     {
-        simpleSearchForPath(startingCity, endingCity);
+        searchEngine->SimpleSearch(startingCity, endingCity);
     }
-}
-
-void Catalog::simpleSearchForPath(const char * startingCity, const  char * endingCity) const
-{
-    cout << endl << "Trajet(s) trouvé(s) :" << endl;
-
-    for (unsigned int i = 0; i < pathArray->GetCurrentCard(); i++)
-    {
-        Path * temp = pathArray->Get(i);
-
-        if (temp->StartFrom(startingCity) && temp->StopAt(endingCity))
-        {
-            cout << endl << "#" << i << " " << *temp;
-        }
-    }
-
-    cout << SEPARATOR;
-}
-//TODO: Chercher Trajets (version avancée)
-void Catalog::advancedSearchForPath(const char * startingCity,const  char * endingCity) const
-{
-    cout << endl << "Trajet(s) trouvé(s) :" << endl;
-
-
-
-    cout << SEPARATOR;
 }
 
 /* Input Methods */

@@ -5,8 +5,8 @@ DEBUG=-g
 #-g
 LDFLAGS=
 
-VoyageVoyage : TCatalog.o Catalog.o ComposedPath.o SimplePath.o PathArray.o Path.o
-	g++ $(DEBUG) $(CFLAGS) -o .Build/VoyageVoyage .Build/TCatalog.o .Build/Catalog.o .Build/ComposedPath.o .Build/SimplePath.o .Build/PathArray.o .Build/Path.o -lm
+VoyageVoyage : TCatalog.o Catalog.o ComposedPath.o SimplePath.o PathArray.o Path.o SearchEngine.o
+	g++ $(DEBUG) $(CFLAGS) -o .Build/VoyageVoyage .Build/TCatalog.o .Build/Catalog.o .Build/ComposedPath.o .Build/SimplePath.o .Build/PathArray.o .Build/Path.o .Build/SearchEngine.o -lm
 
 TCatalog.o : Catalog/TCatalog.cpp
 	g++ $(DEBUG) $(CFLAGS) -o .Build/TCatalog.o -c Catalog/TCatalog.cpp
@@ -43,6 +43,15 @@ PathArray.o : PathArray/PathArray.h PathArray/PathArray.cpp
 
 Path.o : Path/Path.h Path/Path.cpp
 	g++ $(DEBUG) $(CFLAGS) -o .Build/Path.o -c Path/Path.cpp
+
+TSearchEngine : TSearchEngine.o SearchEngine.o Catalog.o ComposedPath.o SimplePath.o PathArray.o Path.o
+	g++ $(DEBUG) $(CFLAGS) -o .Build/TSearchEngine .Build/SearchEngine.o .Build/TSearchEngine.o .Build/Catalog.o .Build/ComposedPath.o .Build/SimplePath.o .Build/PathArray.o .Build/Path.o  -lm
+
+TSearchEngine.o : SearchEngine/TSearchEngine.cpp
+	g++ $(DEBUG) $(CFLAGS) -o .Build/TSearchEngine.o -c SearchEngine/TSearchEngine.cpp
+
+SearchEngine.o : SearchEngine/SearchEngine.h SearchEngine/SearchEngine.cpp
+	g++ $(DEBUG) $(CFLAGS) -o .Build/SearchEngine.o -c SearchEngine/SearchEngine.cpp
 
 clean :
 	rm .Build/*.o

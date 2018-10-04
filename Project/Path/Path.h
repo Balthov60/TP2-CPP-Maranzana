@@ -35,9 +35,9 @@ class Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    virtual bool StartFrom(const char * city) const = 0;
+    virtual char * GetStartingCity() const = 0;
 
-    virtual bool StopAt(const char * city) const = 0;
+    virtual char * GetEndingCity() const = 0;
 
 //------------------------------------------------- Surcharge d'opérateurs
     Path& operator=(Path& other);

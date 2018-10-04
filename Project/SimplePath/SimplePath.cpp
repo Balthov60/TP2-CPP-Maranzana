@@ -24,14 +24,14 @@ using std::endl;
 
 //----------------------------------------------------- Méthodes publiques
 
-bool SimplePath::StartFrom(const char * city) const
+char * SimplePath::GetStartingCity() const
 {
-    return strcmp(city, startCity) == 0;
+    return startCity;
 } //----- Fin de StartFrom
 
-bool SimplePath::StopAt(const char * city) const
+char * SimplePath::GetEndingCity() const
 {
-    return strcmp(city, endCity) == 0;
+    return endCity;
 } //----- Fin de StopAt
 
 //------------------------------------------------- Surcharge d'opérateurs

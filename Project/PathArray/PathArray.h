@@ -95,7 +95,7 @@ public:
     //      > index : indice de l'élément à retourner
     // Contrat :
     //      0 <= index < currentCard
-    std::ostream& Print(std::ostream& os) const;
+    std::ostream& Print(std::ostream& os, bool advanced = false) const;
     // Mode d'emploi :
     //      Ecrit une représentation en chaîne de caractères de la collection
     // sur un flux standard.
