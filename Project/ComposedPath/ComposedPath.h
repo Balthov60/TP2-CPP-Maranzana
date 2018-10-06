@@ -41,6 +41,8 @@ public:
 
     virtual char * GetEndingCity() const;
 
+    virtual ComposedPath* Clone() const;
+
 //------------------------------------------------- Surcharge d'opérateurs
     ComposedPath& operator=(ComposedPath& other);
 

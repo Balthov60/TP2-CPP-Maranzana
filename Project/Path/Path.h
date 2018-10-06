@@ -39,6 +39,8 @@ public:
 
     virtual char * GetEndingCity() const = 0;
 
+    virtual Path* Clone() const = 0;
+
 //------------------------------------------------- Surcharge d'opérateurs
     Path& operator=(Path& other);
 

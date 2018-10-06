@@ -34,6 +34,11 @@ char * SimplePath::GetEndingCity() const
     return endCity;
 } //----- Fin de StopAt
 
+SimplePath* SimplePath::Clone() const
+{
+    return new SimplePath(*this);
+} //----- Fin de Clone
+
 //------------------------------------------------- Surcharge d'opérateurs
 SimplePath& SimplePath::operator=(SimplePath& other) 
 {
@@ -92,9 +97,9 @@ SimplePath::~SimplePath ( )
 bool SimplePath::equals(const Path& other) const
 {
     const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
-    return (strcmp(this->startCity, other_derived.startCity) == 0)
-        && (strcmp(this->endCity, other_derived.endCity) == 0)
-        && this->meanOfTransport == other_derived.meanOfTransport;
+    return (strcmp(startCity, other_derived.GetStartingCity()) == 0)
+        && (strcmp(endCity, other_derived.GetEndingCity()) == 0)
+        && meanOfTransport == other_derived.meanOfTransport;
 } //----- Fin de equals
 
 std::ostream& SimplePath::print(std::ostream& os) const
@@ -109,14 +114,26 @@ std::ostream& SimplePath::print(std::ostream& os) const
 
 void swap(SimplePath& first, SimplePath& second)
 {
-	//TODO ask if we could use std::swap maybe ?
-	char * tmp = first.startCity;
-	first.startCity = second.startCity;
-	second.startCity = tmp;
+    char * tmp = new char[strlen(first.GetStartingCity()) + 1];
+    strcpy(tmp, first.GetStartingCity());
 
-	tmp = first.endCity;
-	first.endCity = second.endCity;
-	second.endCity = tmp;
+    delete [] first.GetStartingCity();
+    first.startCity = new char[strlen(second.GetStartingCity()) + 1];
+    strcpy(first.startCity, second.GetStartingCity());
+
+    delete [] second.GetStartingCity();
+    second.startCity = tmp;
+
+    char * tmpE = new char[strlen(first.GetEndingCity()) + 1];
+    strcpy(tmpE, first.GetEndingCity());
+
+    delete [] first.GetEndingCity();
+    first.endCity = new char[strlen(second.GetEndingCity()) + 1];
+    strcpy(first.endCity, second.GetEndingCity());
+
+    delete [] second.GetEndingCity();
+    second.endCity = tmpE;
+
 
 	MeansOfTransport tmpMot = second.meanOfTransport;
 	second.meanOfTransport = first.meanOfTransport;

@@ -61,7 +61,6 @@ void Catalog::Run()
         }
         else if (strcmp(input, "5") == 0)     
         {
-            cout << "Cette fonctionnalité n'est pas encore implémentée..." << endl;
             //recherche avancée
             searchForPath(true);
             cout << SEPARATOR;
@@ -70,7 +69,7 @@ void Catalog::Run()
         {
             displayMainMenu();
         }
-
+        cout << "Entrez une nouvelle commande (2 pour afficher le menu) : " << endl;
         getInputWord(input);
     }
 
@@ -184,7 +183,15 @@ void Catalog::searchForPath(const bool advanced) const
     char endingCity[INPUT_MAX_SIZE];
 
     cout << SEPARATOR;
-    cout << "Recherche d'un Trajet (Version Simple)..." << endl;
+    if (advanced)
+    {
+        cout << "Recherche d'un trajet (Version avancée)..." << endl;
+    }
+    else
+    {
+        cout << "Recherche d'un trajet (Version simple)..." << endl;
+    }
+    
 
     cout << "\tVille de départ : ";
     getInputLine(startingCity);

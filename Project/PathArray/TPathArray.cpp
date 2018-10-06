@@ -25,15 +25,6 @@ using namespace std;
 //---------------------------------------------------- Variables statiques
 
 //------------------------------------------------------ Fonctions privées
-//static type nom ( liste de paramètres )
-// Mode d'emploi :
-//
-// Contrat :
-//
-// Algorithme :
-//
-//{
-//} //----- fin de nom
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
@@ -76,16 +67,20 @@ static void testEstEgal2()
 		1
 	*/
 	
-	PathArray firstE;
-	PathArray secondE;
+	PathArray* firstE = new PathArray();
+	PathArray* secondE = new PathArray();
 
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	firstE.Add(&path1);
-	secondE.Add(&path1);
-	cout << firstE.Equals(firstE) << endl;
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	SimplePath* path2 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	firstE->Add(path1);
+	secondE->Add(path2);
+	cout << firstE->Equals(*firstE) << endl;
+
+	delete firstE;
+	delete secondE;
 }
 
 static void testEstEgal1()
@@ -94,17 +89,20 @@ static void testEstEgal1()
 		expected output:
 		0
 	*/
-	PathArray firstE;
-	PathArray secondE;
+	PathArray* firstE = new PathArray();
+	PathArray* secondE = new PathArray();
 
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	SimplePath path2 = SimplePath((char*)londres, (char*)varsovie, AVION);
-	firstE.Add(&path1);
-	secondE.Add(&path2);
-	cout << firstE.Equals(secondE) << endl;
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	SimplePath* path2 = new SimplePath((char*)londres, (char*)varsovie, AVION);
+	firstE->Add(path1);
+	secondE->Add(path2);
+	cout << firstE->Equals(*secondE) << endl;
+
+	delete firstE;
+	delete secondE;
 }
 
 static void testEstEgal()
@@ -118,17 +116,19 @@ static void testEstEgal()
 static void testAdd()
 {
 	cout << "Test Add" << endl; 
-	PathArray firstE;
+	PathArray* firstE = new PathArray();
 
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	SimplePath path2 = SimplePath((char*)londres, (char*)varsovie, AVION);
-	firstE.Add(&path1);
-	firstE.Add(&path2);
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	SimplePath* path2 = new SimplePath((char*)londres, (char*)varsovie, AVION);
+	firstE->Add(path1);
+	firstE->Add(path2);
 
-	firstE.Display();
+	firstE->Display();
+
+	delete firstE;
 	cout << "Fin Test Add" << endl; 
 }
 
@@ -149,14 +149,16 @@ static void testAdjust2()
 		expected output:
 		1 as maxCard
 	*/
-	PathArray e1(5);
+	PathArray* e1 = new PathArray(5);
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	e1.Add(&path1);
-	e1.Adjust(-5);
-	e1.Display();
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	e1->Add(path1);
+	e1->Adjust(-5);
+	e1->Display();
+
+	delete e1;
 }
 
 static void testAdjust1()
@@ -179,6 +181,36 @@ static void testAdjust()
 	cout << "Fin Test Adjust" << endl; 
 }
 
+static void testAssignmentOperator()
+{
+	/*
+		expected output:
+		1
+		20
+		{ Londres ; Varsovie; Train}
+	*/
+	cout << "Test AssignmentOperator" << endl; 
+	// = new PathArray();
+	PathArray* secondE = new PathArray(20);
+	char varsovie[] = "Varsovie";
+	char londres[] = "Londres";
+
+	//SimplePath* path1 = new SimplePath(varsovie, londres, AVION);
+	SimplePath* path2 = new SimplePath(londres, varsovie, TRAIN);
+	//firstE->Add(path1);
+	secondE->Add(path2);
+
+	PathArray* firstE = new PathArray();
+	*firstE = *secondE;
+	firstE->Display();
+
+
+	//delete path1;
+	//delete path2;
+	delete firstE;
+	delete secondE;
+	cout << "Fin Test AssignmentOperator" << endl; 
+}
 
 int main ()
 // Algorithme :
@@ -188,5 +220,6 @@ int main ()
 	testEstEgal();
 	testAdd();
 	testAdjust();
+	testAssignmentOperator();
 } //----- fin de Nom
 

@@ -105,7 +105,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    PathArray& operator=(PathArray& other);
+    PathArray& operator=(const PathArray & other);
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -133,9 +133,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-Path ** elements;
-unsigned int maxCard;
-unsigned int currentCard;
+    Path ** elements;
+    unsigned int maxCard;
+    unsigned int currentCard;
 };
 
 //-------------------------------- Autres définitions dépendantes de <PathArray>

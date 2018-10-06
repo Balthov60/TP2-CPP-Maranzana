@@ -41,7 +41,7 @@ void SearchEngine::SimpleSearch(const char * startingCity, const char * endingCi
     unsigned int startIndex = getStartCityIndex(startingCity);
     unsigned int endIndex = getEndCityIndex(endingCity);
 
-    if (startIndex != startCurrentSize && endIndex != endCurrentSize)
+    if (startIndex != startCurrentSize && endIndex != endCurrentSize && adjacencyMatrix[startIndex][endIndex]->GetCurrentCard() > 0)
     {
     	adjacencyMatrix[startIndex][endIndex]->Print(cout);
     }
@@ -58,10 +58,21 @@ void SearchEngine::AdvancedSearch(const char * startingCity, const char * ending
 	unsigned int startIndex = getStartCityIndex(startingCity);
     unsigned int endIndex = getEndCityIndex(endingCity);
 
+    /*for (unsigned int j = 0; j < startCurrentSize; j++)
+    {
+    	cout << j << "= " << startCities[j] << endl;
+    }
+
+    for (unsigned int j = 0; j < endCurrentSize; j++)
+    {
+    	cout << j << "= " << endCities[j] << endl;
+    }*/
+
+    //cout << "starting at (" << startIndex << "," << endIndex << ")" << endl;
+
+
     if (startIndex != startCurrentSize && endIndex != endCurrentSize)
     {
-    	//adjacencyMatrix[startIndex][endIndex]->Print(cout);
-
 	    SearchEngine::node node;
 	    node.startIndex = startIndex;
 	    node.previous = NULL;
@@ -185,9 +196,10 @@ void SearchEngine::AddPath(Path* path)
 		    delete [] adjacencyMatrix;
 			adjacencyMatrix = tmp;
 		}
+		
 	}
 
-	adjacencyMatrix[startCityIndex][endCityIndex]->Add(path);
+	adjacencyMatrix[startCityIndex][endCityIndex]->Add(path->Clone());
 
 } //----- Fin de addPath
 
@@ -301,34 +313,37 @@ bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * don
 	{
 		//cout << "trying node (" << node->startIndex << "," << j << ")" << endl;
 		node->endIndex = j;
-		if (j == endIndex)
-		{
-			//cout << "node (" << node->startIndex << "," << node->endIndex << ") leads to endIndex !" << endl;
-			node->next = NULL;
-			while (node->previous != NULL)
-			{
-				node = node->previous;
-			}
-			cout << "Début trajet : " << endl;
-			while (node->next != NULL)
-			{
-				adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
-				cout << "puis" << endl;
-				//cout << " -> (" << node->startIndex << "," << node->endIndex << ") ";
-				node = node->next;
-			}
-			//cout << " -> (" << node->startIndex << "," << node->endIndex << ") "
-			adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
-			cout << "Fin trajet" << endl;
-			return true;
-		}
+		
 		if (adjacencyMatrix[node->startIndex][j]->GetCurrentCard() > 0)
 		{
+			if (j == endIndex)
+			{
+				//cout << "node (" << node->startIndex << "," << node->endIndex << ") leads to endIndex !" << endl;
+				node->next = NULL;
+				while (node->previous != NULL)
+				{
+					node = node->previous;
+				}
+				cout <<  "=================================================\r\n";
+				cout << "Début trajet :" << endl;
+				while (node->next != NULL)
+				{
+					adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
+					cout << "puis" << endl;
+					//cout << " -> (" << node->startIndex << "," << node->endIndex << ") ";
+					node = node->next;
+				}
+				//cout << " -> (" << node->startIndex << "," << node->endIndex << ") ";
+				adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
+				cout << "Fin trajet" << endl;
+				cout <<  "=================================================\r\n";
+				return true;
+			}
 			unsigned int startIndex = getStartCityIndex(endCities[j]);
 			if (startIndex != startCurrentSize)
 			{			
 				//cout << "node (" << node->startIndex << "," << node->endIndex << ") got path" << endl;
-				if (!doneIndex[j])
+				if (!doneIndex[startIndex])
 				{
 					doneIndex[node->startIndex] = true;
 					SearchEngine::node next;

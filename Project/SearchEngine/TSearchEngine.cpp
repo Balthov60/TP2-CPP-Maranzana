@@ -25,32 +25,100 @@ using std::cout;
 //---------------------------------------------------- Variables statiques
 
 //------------------------------------------------------ Fonctions privées
-static void testAdd()
+static void testAdvancedSearch2()
 {
+	cout << "DEBUT testAdvancedSearch2" << "\r\n";
 	/*
 		expected output :
-		{ de Lyon à Paris en MT0 }
+		=================================================
+		Début trajet :
+		Trajet Simple :
+			Départ    : A
+			Arrivée   : A
+			Transport : Avion
+		puis
+		Trajet Simple :
+			Départ    : A
+			Arrivée   : B
+			Transport : Auto
+		puis
+		Trajet Simple :
+			Départ    : B
+			Arrivée   : D
+			Transport : Train
+		Fin trajet
+		=================================================
+		=================================================
+		Début trajet :
+		Trajet Simple :
+			Départ    : A
+			Arrivée   : B
+			Transport : Auto
+		puis
+		Trajet Simple :
+			Départ    : B
+			Arrivée   : D
+			Transport : Train
+		Fin trajet
+		=================================================
 	*/
-	cout << "testAdd" << "\r\n";
+
 	SearchEngine* se = new SearchEngine();
+	char a[] = "A";
+	char b[] = "B";
+	char d[] = "D";
+	SimplePath* ts1 = new SimplePath(a, a, AVION);
+	SimplePath* tc1 = new SimplePath(b, d, TRAIN);
+	SimplePath* ts2 = new SimplePath(a, b, AUTO);
 
-	/*char lyon[] = "Lyon";
-	char paris[] = "Paris";
-	SimplePath* path1 = new SimplePath(lyon, paris, TRAIN);*/
-	
-	//char londres[] = "Londres";
-	//char budapest[] = "Budapest";
-	//SimplePath* path2 = new SimplePath(londres, paris, TRAIN);
+	se->AddPath(ts1);
+	se->AddPath(tc1);
+	se->AddPath(ts2);
 
-	//se->AddPath(path1);
-	//se->AddPath(path2);
+	se->AdvancedSearch(a, d);
 
-	//se->DisplayMatrix();
+	delete se;
 
+	delete ts1;
+	delete tc1;
+	delete ts2;
 
-	//delete path1;
-	//delete path2;
+	cout << "FIN testAdvancedSearch2" << "\r\n";
+}
 
+static void testAdvancedSearch1()
+{
+	cout << "DEBUT testAdvancedSearch1" << "\r\n";
+	/*
+		expected output :
+		=================================================
+		Début trajet :
+		Trajet Simple :
+			Départ    : A
+			Arrivée   : B
+			Transport : Avion
+		puis
+		Trajet Simple :
+			Départ    : B
+			Arrivée   : C
+			Transport : Train
+		ou
+		Trajet Simple :
+			Départ    : B
+			Arrivée   : C
+			Transport : Avion
+		Fin trajet
+		=================================================
+		=================================================
+		Début trajet :
+		Trajet Simple :
+			Départ    : A
+			Arrivée   : C
+			Transport : Train
+		Fin trajet
+		=================================================
+	*/
+	SearchEngine* se = new SearchEngine();
 	char a[] = "A";
 	char b[] = "B";
 	char c[] = "C";
@@ -72,9 +140,17 @@ static void testAdd()
 	delete tc1;
 	delete ts2;
 	delete tc2;
-	//char barcelone[] = "barcelone";
-	//char moscou[] = "moscou";
-	//SimplePath* path3 = new SimplePath(barcelone, paris, TRAIN);
+	cout << "FIN testAdvancedSearch1" << "\r\n";
+}
+
+static void testAdvancedSearch()
+{
+	
+	cout << "DEBUT testAdvancedSearch" << "\r\n";
+	testAdvancedSearch1();
+	testAdvancedSearch2();
+
+	cout << "FIN testAdvancedSearch" << "\r\n";
 }
 
 //////////////////////////////////////////////////////////////////  PUBLIC
@@ -83,6 +159,6 @@ int main()
 // Algorithme :
 //
 {
-	testAdd();
+	testAdvancedSearch();
 } //----- fin de main
 
