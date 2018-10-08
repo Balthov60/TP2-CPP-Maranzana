@@ -1,5 +1,5 @@
 /*************************************************************************
-                           Path  -  description
+                           Path  -  Trajet (abstrait)
                              -------------------
     début                : 27/09/2018
     copyright            : (C) 2018 par Valentin Wallyn et Balthazar Frolin
@@ -11,13 +11,20 @@
 #define PATH_H
 
 //--------------------------------------------------- Interfaces utilisées
+
 #include <iostream>
-//------------------------------------------------------------- Constantes
-const int MEAN_OF_TRANSPORT_STRING_MAX_SIZE = 15;
-enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION, END_DELIMITER };  //ne peut pas être placé dans les types sinon END_DELIMITER inconnu
-const int MEAN_OF_TRANSPORT_QTY = END_DELIMITER;
-const char MEAN_OF_TRANSPORT_STRINGS[MEAN_OF_TRANSPORT_QTY][MEAN_OF_TRANSPORT_STRING_MAX_SIZE] = { "Train", "Auto", "Bateau", "Avion"};
+
 //------------------------------------------------------------------ Types
+// (On à inversé les catégories types et Constantes pour pouvoir faire les déclarations)
+
+enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION, END_DELIMITER };
+
+//------------------------------------------------------------- Constantes
+
+const int MEAN_OF_TRANSPORT_STRING_MAX_SIZE = 15;
+const int MEAN_OF_TRANSPORT_QTY = END_DELIMITER;
+
+const char MEAN_OF_TRANSPORT_STRINGS[MEAN_OF_TRANSPORT_QTY][MEAN_OF_TRANSPORT_STRING_MAX_SIZE] = { "Train", "Auto", "Bateau", "Avion"};
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Path>
@@ -38,10 +45,9 @@ public:
 
     virtual char * GetEndingCity() const = 0;
 
-    virtual Path* Clone() const = 0;
+    virtual Path * Clone() const = 0;
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Path& operator=(Path& other);
 
     // implémentation tirée de : 
     // https://stackoverflow.com/questions/1691007/whats-the-right-way-to-overload-operator-for-a-class-hierarchy
@@ -51,39 +57,33 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Path& path);
 
 //-------------------------------------------- Constructeurs - destructeur
-    Path ( const Path & otherPath );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //  otherPath est un Path en état stable
 
+protected:
+    Path ( );
+    // Mode d'emploi :
+    // Constructeur par défaut (vide)
+
+public:
     virtual ~Path ( );
     // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Destructeur par défaut (vide)
 
 //------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-    Path ( );
-        // Mode d'emploi :
-        //
-        // Contrat :
-        //
 
     virtual std::ostream& print(std::ostream& os) const = 0;
         // Mode d'emploi :
         // Méthode permettant l'affichage de la classe Path sur un flux (os). 
         // Voir les classes dérivées pour la réalisation concrète
-        // Contrat :
         //
+
 //----------------------------------------------------- Attributs protégés
 
 private:
+//----------------------------------------------------- Méthodes privées
     virtual bool equals(const Path& other) const = 0;
-
 
 };
 

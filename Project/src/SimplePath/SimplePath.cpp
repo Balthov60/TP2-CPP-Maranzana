@@ -1,5 +1,5 @@
 /*************************************************************************
-                           SimplePath  -  description
+             SimplePath  -  Trajet Simple entre deux villes
                              -------------------
     début                : 27/09/2018
     copyright            : (C) 2018 par Valentin Wallyn et Balthazar Frolin

@@ -27,7 +27,7 @@ test_o_files    := $(addprefix $(BUILD_FOLDER)/,$(MODULES_NAME_TEST))
 
 test_file       := $(lastword $(MAKECMDGOALS))
 
-object_files    := $(BUILD_FOLDER)/$(MAIN_TEST_MODULE).o $(foreach object,$(test_o_files),$(object).o)
+object_files    := $(BUILD_FOLDER)/$(MAIN_TEST_MODULE).o $(foreach object,$(object_files),$(object).o)
 test_o_files    := $(BUILD_FOLDER)/$(test_file).o $(foreach object,$(test_o_files),$(object).o)
 
 modules_folders := $(foreach folder,$(MODULES_NAME),$(SRC_FOLDER)/$(folder))
