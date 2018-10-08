@@ -1,63 +1,63 @@
-# VARIABLES
-CC=g++
-CC_FLAGS=-Wall -Werror -pedantic -std=c++11
+### CONFIGURATION
 
-CPPFLAGS=-DMAP=1
-DEBUG=-g
-#-g
+# PROJECT CONFIGURATION
 
-# FILES NAMES
-EXEC = VoyageVoyage
-BUILD_FOLDER = .Build/
-FILES_NAMES = Catalog ComposedPath
-OBJECTS = TCatalog.o Catalog.o ComposedPath.o SimplePath.o PathArray.o Path.o
+BUILD_FOLDER        = .Build
+SRC_FOLDER          = src
+TEST_FOLDER         = test
+EXEC                = VoyageVoyage
 
-# RULES
+MAIN_TEST_MODULE    = Main
+MODULES_NAME        = Catalog SearchEngine ComposedPath SimplePath PathArray Path
 
-$(EXEC) : TCatalog.o Catalog.o ComposedPath.o SimplePath.o PathArray.o Path.o
-	$(CC) $(DEBUG) $(CC_FLAGS) -o $(BUILD_FOLDER)$(EXEC) .Build/TCatalog.o .Build/Catalog.o .Build/ComposedPath.o .Build/SimplePath.o .Build/PathArray.o .Build/Path.o -lm
+# COMPILATION CONFIGURATION
 
-TCatalog.o : Catalog/TCatalog.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/TCatalog.o -c Catalog/TCatalog.cpp
-
-Catalog.o : Catalog/Catalog.h Catalog/Catalog.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/Catalog.o -c Catalog/Catalog.cpp
-
-TComposedPath : PathArray.o Path.o ComposedPath.o SimplePath.o TComposedPath.o 
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/TComposedPath .Build/PathArray.o .Build/ComposedPath.o .Build/Path.o .Build/SimplePath.o .Build/TComposedPath.o  -lm
-
-TComposedPath.o : ComposedPath/TComposedPath.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/TComposedPath.o -c ComposedPath/TComposedPath.cpp
-
-ComposedPath.o : PathArray/PathArray.h ComposedPath/ComposedPath.h ComposedPath/ComposedPath.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/ComposedPath.o -c ComposedPath/ComposedPath.cpp
-
-TSimplePath : SimplePath.o Path.o TSimplePath.o
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/TSimplePath .Build/SimplePath.o .Build/Path.o .Build/TSimplePath.o -lm
-
-TSimplePath.o : SimplePath/TSimplePath.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/TSimplePath.o -c SimplePath/TSimplePath.cpp
-
-SimplePath.o : SimplePath/SimplePath.h SimplePath/SimplePath.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/SimplePath.o -c SimplePath/SimplePath.cpp
-
-TPathArray : PathArray.o Path.o TPathArray.o SimplePath.o
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/TPathArray .Build/PathArray.o .Build/Path.o .Build/SimplePath.o .Build/TPathArray.o  -lm
-
-TPathArray.o : PathArray/TPathArray.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/TPathArray.o -c PathArray/TPathArray.cpp
-
-PathArray.o : PathArray/PathArray.h PathArray/PathArray.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/PathArray.o -c PathArray/PathArray.cpp
-
-Path.o : Path/Path.h Path/Path.cpp
-	$(CC) $(DEBUG) $(CC_FLAGS) -o .Build/Path.o -c Path/Path.cpp
+CC                  =g++
+CC_FLAGS            =-Wall -Werror -pedantic -std=c++11
+CC_DEBUG_FLAGS      =-g -DMAP
 
 
-# COMMANDS
+### INITIALISATION
 
-clean:
-	rm -f *(BUILD_FOLDER)*.o
+# GET FILES
+
+object_files    := $(addprefix $(BUILD_FOLDER)/,$(MODULES_NAME))
+object_files    := $(BUILD_FOLDER)/$(MAIN_TEST_MODULE).o $(foreach object,$(object_files),$(object).o)
+
+modules_folders := $(foreach folder,$(MODULES_NAME),$(SRC_FOLDER)/$(folder))
+
+### RULES
+
+# MAIN RULES
+
+all: $(BUILD_FOLDER)/$(EXEC)
+all: clean
+
+debug: clean
+debug: $(BUILD_FOLDER)/$(EXEC)
+debug: CC_FLAGS += $(CC_DEBUG_FLAGS)
+
+.SILENT:
+
+# BUILD MAIN EXEC
+
+vpath %.cpp $(modules_folders) $(SRC_FOLDER)
+
+$(BUILD_FOLDER)/$(EXEC): $(object_files)
+	@echo "building executable : $@ with [$^]\n"
+	$(CC) $(CC_FLAGS) -o $@ $^ -lm
+
+$(BUILD_FOLDER)/%.o: %.cpp
+	@echo "building : [$@ $<]"
+	$(CC) $(CC_FLAGS) -o $@ -c $<
+	@echo "builded  : [$@ $<]\n"
+
+### OTHER
+
+clear : clean
+clean :
+	@echo "clean all file"
+	rm -f .Build/*.o
 
 init :
-	mkdir $(BUILD_FOLDER)
+	mkdir .Build/

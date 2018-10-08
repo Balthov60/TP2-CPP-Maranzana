@@ -33,16 +33,20 @@ void ComposedPath::AddStage(Path *path) const
     elements->Add(path);
 } //----- Fin de AddStage
 
-bool ComposedPath::StartFrom(const char * city) const
+char * ComposedPath::GetStartingCity() const
 {
-    return elements->Get(0)->StartFrom(city);
+    return elements->Get(0)->GetStartingCity();
 } //----- Fin de StartFrom
 
-bool ComposedPath::StopAt(const char * city) const
+char * ComposedPath::GetEndingCity() const
 {
-    return elements->Get(elements->GetCurrentCard() - 1)->StopAt(city);
+    return elements->Get(elements->GetCurrentCard() - 1)->GetEndingCity();
 } //----- Fin de StopAt
 
+ComposedPath* ComposedPath::Clone() const
+{
+    return new ComposedPath(*this);
+} //----- Fin de Clone
 
 //------------------------------------------------- Surcharge d'opérateurs
 ComposedPath& ComposedPath::operator=(ComposedPath& other) 
@@ -60,8 +64,8 @@ ComposedPath::ComposedPath ( const ComposedPath & other )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <ComposedPath>" << endl;
 #endif
-    //TODO clone() on PathArray() ?
-    elements = other.elements;
+    elements = new PathArray();
+    *elements = *other.elements;
 } //----- Fin de ComposedPath (constructeur de copie)
 
 
@@ -83,7 +87,7 @@ ComposedPath::~ComposedPath ( )
 #ifdef MAP
     cout << "Appel au destructeur de <ComposedPath>" << endl;
 #endif
-
+    delete elements;
 } //----- Fin de ~ComposedPath
 
 

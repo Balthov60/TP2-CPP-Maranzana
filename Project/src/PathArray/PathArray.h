@@ -95,7 +95,7 @@ public:
     //      > index : indice de l'élément à retourner
     // Contrat :
     //      0 <= index < currentCard
-    std::ostream& Print(std::ostream& os) const;
+    std::ostream& Print(std::ostream& os, bool advanced = false) const;
     // Mode d'emploi :
     //      Ecrit une représentation en chaîne de caractères de la collection
     // sur un flux standard.
@@ -105,7 +105,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    PathArray& operator=(PathArray& other);
+    PathArray& operator=(const PathArray & other);
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -133,9 +133,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-Path ** elements;
-unsigned int maxCard;
-unsigned int currentCard;
+    Path ** elements;
+    unsigned int maxCard;
+    unsigned int currentCard;
 };
 
 //-------------------------------- Autres définitions dépendantes de <PathArray>

@@ -12,6 +12,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <typeinfo>
 
 using std::cout;
 using std::endl;
@@ -29,6 +30,7 @@ using std::endl;
 
 Path& Path::operator=(Path& other) 
 {
+    //TODO
     return *this;
 } //----- Fin de =
 

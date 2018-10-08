@@ -61,15 +61,15 @@ void Catalog::Run()
         }
         else if (strcmp(input, "5") == 0)     
         {
-            cout << "Cette fonctionnalité n'est pas encore implémentée..." << endl;
             //recherche avancée
             searchForPath(true);
+            cout << SEPARATOR;
         }
         else
         {
             displayMainMenu();
         }
-
+        cout << "Entrez une nouvelle commande (0 pour afficher le menu) : " << endl;
         getInputWord(input);
     }
 
@@ -84,6 +84,7 @@ Catalog::Catalog ( )
     cout << "Appel au constructeur de <Catalog>" << endl;
 #endif
     pathArray = new PathArray();
+    searchEngine = new SearchEngine();
 } //----- Fin de Catalog
 
 
@@ -93,6 +94,7 @@ Catalog::~Catalog ( )
     cout << "Appel au destructeur de <Catalog>" << endl;
 #endif
     delete pathArray;
+    delete searchEngine;
 } //----- Fin de ~Catalog
 
 //------------------------------------------------------------------ PRIVE
@@ -163,6 +165,7 @@ void Catalog::addPathAndNotifyUser(Path * path) const
 {
     if (pathArray->Add(path))
     {
+        searchEngine->AddPath(path);
         cout << "Votre Trajet à bien été ajouté !" << endl;
     }
     else
@@ -180,7 +183,15 @@ void Catalog::searchForPath(const bool advanced) const
     char endingCity[INPUT_MAX_SIZE];
 
     cout << SEPARATOR;
-    cout << "Recherche d'un Trajet (Version Simple)..." << endl;
+    if (advanced)
+    {
+        cout << "Recherche d'un trajet (Version avancée)..." << endl;
+    }
+    else
+    {
+        cout << "Recherche d'un trajet (Version simple)..." << endl;
+    }
+    
 
     cout << "\tVille de départ : ";
     getInputLine(startingCity);
@@ -188,40 +199,16 @@ void Catalog::searchForPath(const bool advanced) const
     cout << "\tVille d'arrivée : ";
     getInputLine(endingCity);
 
+
+    cout << endl << "Trajet(s) trouvé(s) :" << endl;
     if (advanced)
     {
-        advancedSearchForPath(startingCity, endingCity);
+        searchEngine->AdvancedSearch(startingCity, endingCity);
     }
     else
     {
-        simpleSearchForPath(startingCity, endingCity);
+        searchEngine->SimpleSearch(startingCity, endingCity);
     }
-}
-
-void Catalog::simpleSearchForPath(const char * startingCity, const  char * endingCity) const
-{
-    cout << endl << "Trajet(s) trouvé(s) :" << endl;
-
-    for (unsigned int i = 0; i < pathArray->GetCurrentCard(); i++)
-    {
-        Path * temp = pathArray->Get(i);
-
-        if (temp->StartFrom(startingCity) && temp->StopAt(endingCity))
-        {
-            cout << endl << "#" << i << " " << *temp;
-        }
-    }
-
-    cout << SEPARATOR;
-}
-//TODO: Chercher Trajets (version avancée)
-void Catalog::advancedSearchForPath(const char * startingCity,const  char * endingCity) const
-{
-    cout << endl << "Trajet(s) trouvé(s) :" << endl;
-
-
-
-    cout << SEPARATOR;
 }
 
 /* Input Methods */

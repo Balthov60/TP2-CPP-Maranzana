@@ -13,7 +13,7 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 using std::cout;
-
+using std::endl;
 //------------------------------------------------------ Include personnel
 #include "PathArray.h"
 //------------------------------------------------------------- Constantes
@@ -80,16 +80,32 @@ void PathArray::Display ( void ) const
 	
 } //----- fin de Display
 
-std::ostream& PathArray::Print(std::ostream& os) const
+std::ostream& PathArray::Print(std::ostream& os, bool advanced) const
 // Algorithme :
 //
 {
 	unsigned int j;
-	for (j = 0; j < currentCard; j++)
+	if (advanced)
 	{
-		os << "Etape " << j + 1 << " - ";
-		os << *elements[j];
+		if (currentCard > 0)
+		{
+			for (j = 0; j < currentCard - 1; j++)
+			{
+				os << *elements[j];
+				os << "ou" << std::endl;
+			}
+			os << *elements[currentCard-1];
+		}
 	}
+	else
+	{
+		for (j = 0; j < currentCard; j++)
+		{
+			os << "Etape " << j + 1 << " - ";
+			os << *elements[j];
+		}
+	}
+	
 
 	return os;
 } //----- fin de Print
@@ -221,34 +237,28 @@ unsigned int PathArray::Remove(const PathArray & anotherPathArray)
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-PathArray& PathArray::operator=(PathArray& other) 
+PathArray& PathArray::operator=(const PathArray& other) 
 {
-	//TODO Test it ! 
-    Path** tmp = new Path*[currentCard];
-    for (unsigned int j = 0; j < currentCard; j++)
-    {
-    	tmp[j] = elements[j];
-    }
+#ifdef MAP
+	cout << "Appel à la surcharge du = de <PathArray>" << endl;
+#endif
+	if (this != &other)
+	{
+		for (unsigned int j = 0; j < currentCard; j++)
+	    {
+	    	delete elements[j];
+	    }
+		delete [] elements;
 
-    delete[] elements;
-    elements = new Path*[other.GetMaxCard()];
+		currentCard = other.GetCurrentCard();
+		maxCard = other.GetMaxCard();
 
-    for (unsigned int j = 0; j < other.GetCurrentCard(); j++)
-    {
-    	elements[j] = other.Get(j);
-    }
-
-    other.elements = tmp;
-
-    unsigned int tmpMax = maxCard;
-    unsigned int tmpCurr = currentCard;
-
-    currentCard = other.GetCurrentCard();
-    maxCard = other.GetMaxCard();
-
-
-   	other.currentCard = tmpCurr;
-   	other.maxCard = tmpMax;
+		elements = new Path*[maxCard];
+		for (unsigned int j = 0; j < currentCard; j++)
+		{
+			elements[j] = other.Get(j)->Clone();
+		}
+	}
     return *this;
 }
 
@@ -260,11 +270,13 @@ PathArray::PathArray ( const PathArray & anotherPathArray )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <PathArray>" << endl;
 #endif
-    elements = new Path*[anotherPathArray.GetMaxCard()];
+    maxCard = anotherPathArray.maxCard;
+    currentCard = anotherPathArray.currentCard;
+    elements = new Path*[maxCard];
     unsigned int j;
-    for (j = 0; j < anotherPathArray.GetCurrentCard(); j++)
+    for (j = 0; j < currentCard; j++)
     {
-    	elements[j] = anotherPathArray.Get(j);
+    	elements[j] = anotherPathArray.elements[j]->Clone();
     }
 } //----- Fin de PathArray (constructeur de copie)
 
@@ -288,12 +300,14 @@ PathArray::~PathArray ( )
 #ifdef MAP
     cout << "Appel au destructeur de <PathArray>" << endl;
 #endif
+    for (unsigned int j = 0; j < currentCard; j++)
+    {
+    	delete elements[j];
+    }
     delete [] elements;
-    elements = nullptr;
 } //----- Fin de ~PathArray
 
 
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-

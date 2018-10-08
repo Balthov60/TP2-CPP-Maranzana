@@ -15,7 +15,7 @@
 #include <iostream>
 
 #include "../PathArray/PathArray.h"
-
+#include "../SearchEngine/SearchEngine.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -59,8 +59,6 @@ private:
     void addPathAndNotifyUser(Path * path) const;
 
     void searchForPath(const bool advanced) const;
-    void simpleSearchForPath(const char * startingCity, const char * endingCity) const;
-    void advancedSearchForPath(const char * startingCity,const  char * endingCity) const;
 
     unsigned int askForStageQty() const;
     MeansOfTransport displayAndAskForMeansOfTransport() const;
@@ -78,6 +76,7 @@ private:
 //----------------------------------------------------- Attributs protégés
 
     PathArray * pathArray;
+    SearchEngine * searchEngine;
 
 };
 

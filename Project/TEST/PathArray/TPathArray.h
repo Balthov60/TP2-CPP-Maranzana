@@ -1,31 +1,37 @@
 /*************************************************************************
-                           TComposedPath  -  description
+                           TPathArray  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Interface du module <TComposedPath> (fichier TComposedPath.h) -------------------
-#if ! defined ( TCOMPOSEDPATH_H )
-#define TCOMPOSEDPATH_H
+//---------- Interface du module <TPathArray> (fichier TPathArray.h) -------------------
+#if ! defined ( TPATHARRAY_H )
+#define TPATHARRAY_H
 
 //------------------------------------------------------------------------
-// Rôle du module <TComposedPath>
+// Rôle du module <TPathArray>
 //
 //
 //------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
-#include "../SimplePath/SimplePath.h"
+#include "../../PathArray/PathArray.h"
+#include "../../SimplePath/SimplePath.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
+// type Nom ( liste de paramètres );
+// Mode d'emploi :
+//
+// Contrat :
+//
 int main();
 
-#endif // TCOMPOSEDPATH_H
+#endif // TPATHARRAY_H
 

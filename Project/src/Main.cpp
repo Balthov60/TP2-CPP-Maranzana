@@ -15,7 +15,7 @@
 
 //------------------------------------------------------ Include personnel
 
-#include "Catalog.h"
+#include "Catalog/Catalog.h"
 
 using namespace std;
 

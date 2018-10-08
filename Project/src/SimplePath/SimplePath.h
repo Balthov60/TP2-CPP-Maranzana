@@ -1,65 +1,60 @@
 /*************************************************************************
-                           ComposedPath  -  description
+                           SimplePath  -  description
                              -------------------
     début                : 27/09/2018
     copyright            : (C) 2018 par Valentin Wallyn et Balthazar Frolin
     e-mail               : ...@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la classe <ComposedPath> (fichier ComposedPath.h) ----------------
-#if ! defined ( COMPOSEDPATH_H )
-#define COMPOSEDPATH_H
+//---------- Interface de la classe <SimplePath> (fichier SimplePath.h) ----------------
+#if ! defined ( SIMPLEPATH_H )
+#define SIMPLEPATH_H
 
 //--------------------------------------------------- Interfaces utilisées
+
 #include "../Path/Path.h"
-#include "../PathArray/PathArray.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <ComposedPath>
-// Représente un trajet composé de plusieurs sous-trajets (simples ou eux-
-// mêmes composés)
+// Rôle de la classe <SimplePath>
+// Représente un trajet simple entre une ville de départ et une ville
+// d'arrivée par un unique moyen de transport.
 //------------------------------------------------------------------------
 
-class ComposedPath : public Path
+class SimplePath : public Path
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    PathArray* GetElements ( ) const;
-    // Mode d'emploi :
-    //  Retourne la collection des Path composant le trajet
-    // Contrat :
-    //
 
-    void AddStage(Path *path) const;
+   virtual char * GetStartingCity() const;
 
-    virtual bool StartFrom(const char * city) const;
+   virtual char * GetEndingCity() const;
 
-    virtual bool StopAt(const char * city) const;
+   virtual SimplePath* Clone() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
-    ComposedPath& operator=(ComposedPath& other);
+    SimplePath& operator=(SimplePath& other);
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    ComposedPath ( const ComposedPath & other );
+    SimplePath ( const SimplePath & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    ComposedPath ( unsigned int cardMax = CARD_MAX );
+    SimplePath ( char * startingCity, char * endingCity, MeansOfTransport vehicle);
     // Mode d'emploi :
-    //      > cardMax : cardinalité maximum initiale de la collection de trajets,
-    // par defaut égale à 10
+    //
     // Contrat :
     //
 
-    virtual ~ComposedPath ( );
+    virtual ~SimplePath ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,20 +77,22 @@ protected:
     // Renvoie true si les trajets sont égaux, faux sinon.
     // Contrat :
     //
-    friend void swap(ComposedPath& first, ComposedPath& second);
+    friend void swap(SimplePath& first, SimplePath& second);
     // Mode d'emploi :
-    //      Echange les valeurs des attributs entre 2 objets ComposedPath
+    //      Echange les valeurs des attributs entre 2 objets SimplePath
     //      > first : Premier objet de l'échange
     //      > second : Second objet de l'échange
     // Contrat :
     //
+
 //----------------------------------------------------- Attributs protégés
-     PathArray* elements;
-private:
+    char * startCity;
+    char * endCity;
+    MeansOfTransport meanOfTransport;
     
 };
 
-//-------------------------------- Autres définitions dépendantes de <ComposedPath>
+//-------------------------------- Autres définitions dépendantes de <SimplePath>
 
-#endif // COMPOSEDPATH_H
+#endif // SIMPLEPATH_H
 

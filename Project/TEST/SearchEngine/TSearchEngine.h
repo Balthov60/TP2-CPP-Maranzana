@@ -1,37 +1,31 @@
 /*************************************************************************
-                           TPathArray  -  description
+                           TSearchEngine  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Interface du module <TPathArray> (fichier TPathArray.h) -------------------
-#if ! defined ( TPATHARRAY_H )
-#define TPATHARRAY_H
+//---------- Interface du module <TSearchEngine> (fichier TSearchEngine.h) -------------------
+#if ! defined ( TSEARCHENGINE_H )
+#define TSEARCHENGINE_H
 
 //------------------------------------------------------------------------
-// Rôle du module <TPathArray>
+// Rôle du module <TSearchEngine>
 //
 //
 //------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
-#include "PathArray.h"
-#include "../SimplePath/SimplePath.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-// type Nom ( liste de paramètres );
-// Mode d'emploi :
-//
-// Contrat :
-//
 int main();
 
-#endif // TPATHARRAY_H
+#endif // TSEARCHENGINE_H
 
