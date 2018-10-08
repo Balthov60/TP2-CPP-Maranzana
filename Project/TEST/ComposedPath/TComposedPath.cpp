@@ -15,7 +15,7 @@
 using std::cout;
 //------------------------------------------------------ Include personnel
 #include "TComposedPath.h"
-#include "../../ComposedPath/ComposedPath.h"
+#include "../../src/ComposedPath/ComposedPath.h"
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
 

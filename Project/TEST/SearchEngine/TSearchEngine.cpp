@@ -15,8 +15,8 @@
 using std::cout;
 //------------------------------------------------------ Include personnel
 #include "TSearchEngine.h"
-#include "../SimplePath/SimplePath.h"
-#include "SearchEngine.h"
+#include "../../src/SimplePath/SimplePath.h"
+#include "../../src/SimplePath/SearchEngine.h"
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
 

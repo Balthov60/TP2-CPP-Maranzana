@@ -10,10 +10,10 @@
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 //------------------------------------------------------ Include personnel
 #include "TPathArray.h"
+using namespace std;
 
 
 

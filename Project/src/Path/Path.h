@@ -16,8 +16,7 @@
 const int MEAN_OF_TRANSPORT_STRING_MAX_SIZE = 15;
 enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION, END_DELIMITER };  //ne peut pas être placé dans les types sinon END_DELIMITER inconnu
 const int MEAN_OF_TRANSPORT_QTY = END_DELIMITER;
-const char MEAN_OF_TRANSPORT_STRINGS[MEAN_OF_TRANSPORT_QTY][MEAN_OF_TRANSPORT_STRING_MAX_SIZE]
-            { "Train", "Auto", "Bateau", "Avion"};
+const char MEAN_OF_TRANSPORT_STRINGS[MEAN_OF_TRANSPORT_QTY][MEAN_OF_TRANSPORT_STRING_MAX_SIZE] = { "Train", "Auto", "Bateau", "Avion"};
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------

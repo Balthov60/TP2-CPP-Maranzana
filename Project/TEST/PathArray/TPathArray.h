@@ -18,8 +18,8 @@
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
-#include "../../PathArray/PathArray.h"
-#include "../../SimplePath/SimplePath.h"
+#include "../../src/PathArray/PathArray.h"
+#include "../../src/SimplePath/SimplePath.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types

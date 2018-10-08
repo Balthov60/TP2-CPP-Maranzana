@@ -15,7 +15,7 @@
 using std::cout;
 //------------------------------------------------------ Include personnel
 #include "TSimplePath.h"
-#include "../../SimplePath/SimplePath.h"
+#include "../../src/SimplePath/SimplePath.h"
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
 
