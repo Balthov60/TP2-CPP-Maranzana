@@ -229,10 +229,10 @@ PathArray& PathArray::operator=(const PathArray& other)
 		}
 	}
     return *this;
-}
 #ifdef MAP
-cout << "Appel à la surcharge du = de <PathArray>" << endl;
+	cout << "Appel à la surcharge du = de <PathArray>" << endl;
 #endif
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 PathArray::PathArray(const PathArray & anotherPathArray)

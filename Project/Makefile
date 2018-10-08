@@ -25,7 +25,10 @@ CC_DEBUG_FLAGS      =-g -DMAP
 object_files    := $(addprefix $(BUILD_FOLDER)/,$(MODULES_NAME))
 test_o_files    := $(addprefix $(BUILD_FOLDER)/,$(MODULES_NAME_TEST))
 
-test_file       := $(lastword $(MAKECMDGOALS))
+
+ifneq (,$(findstring test,$(MAKECMDGOALS)))
+	test_file       := $(lastword $(MAKECMDGOALS))
+endif
 
 object_files    := $(BUILD_FOLDER)/$(MAIN_TEST_MODULE).o $(foreach object,$(object_files),$(object).o)
 test_o_files    := $(BUILD_FOLDER)/$(test_file).o $(foreach object,$(test_o_files),$(object).o)
@@ -47,6 +50,7 @@ debug: $(BUILD_FOLDER)/$(EXEC)
 
 test: clean
 test: CC_FLAGS += $(CC_DEBUG_FLAGS)
+test: $(test_file)
 
 .SILENT:
 
