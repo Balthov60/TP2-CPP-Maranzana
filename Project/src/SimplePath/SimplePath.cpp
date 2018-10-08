@@ -12,24 +12,26 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <string.h>
+#include <cstring>
 
 using std::cout;
 using std::endl;
+
 //------------------------------------------------------ Include personnel
 #include "SimplePath.h"
+
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
 
-char * SimplePath::GetStartingCity() const
+char * SimplePath::GetStartCity() const
 {
     return startCity;
 } //----- Fin de StartFrom
 
-char * SimplePath::GetEndingCity() const
+char * SimplePath::GetEndCity() const
 {
     return endCity;
 } //----- Fin de StopAt
@@ -40,71 +42,72 @@ SimplePath* SimplePath::Clone() const
 } //----- Fin de Clone
 
 //------------------------------------------------- Surcharge d'opérateurs
-SimplePath& SimplePath::operator=(SimplePath& other) 
+
+SimplePath& SimplePath::operator=(SimplePath& other)
 {
     swap(*this, other); 
 
     return *this;
 } //----- Fin de =
+
 //-------------------------------------------- Constructeurs - destructeur
+
 SimplePath::SimplePath ( const SimplePath & other )
-// Algorithme :
-//
 {
+    startCity = new char[strlen(other.startCity)+1];
+    strcpy(startCity, other.startCity);
+
+    endCity = new char[strlen(other.endCity)+1];
+    strcpy(endCity, other.endCity);
+
+    meanOfTransport = other.meanOfTransport;
+
 #ifdef MAP
     cout << "Appel au constructeur de copie de <SimplePath>" << endl;
 #endif
-    startCity = new char[strlen(other.startCity)+1];
-    strcpy(startCity, other.startCity);
-    endCity = new char[strlen(other.endCity)+1];
-    strcpy(endCity, other.endCity);
-    meanOfTransport = other.meanOfTransport;
 } //----- Fin de SimplePath (constructeur de copie)
 
 
-SimplePath::SimplePath ( char * startingCity, char * endingCity, 
-						MeansOfTransport vehicle) : meanOfTransport(vehicle)
-// Algorithme :
-//
+SimplePath::SimplePath(char * startingCity, char * endingCity, MeansOfTransport vehicle) : meanOfTransport(vehicle)
 {
+    startCity = new char[strlen(startingCity)+1];
+    strcpy(startCity, startingCity);
+
+    endCity = new char[strlen(endingCity)+1];
+    strcpy(endCity, endingCity);
 
 #ifdef MAP
     cout << "Appel au constructeur de <SimplePath>" << endl;
 #endif
-    startCity = new char[strlen(startingCity)+1];
-    strcpy(startCity, startingCity);
-    endCity = new char[strlen(endingCity)+1];
-    strcpy(endCity, endingCity);
 } //----- Fin de SimplePath
 
 
-SimplePath::~SimplePath ( )
-// Algorithme :
-//
+SimplePath::~SimplePath()
 {
+   	delete[] startCity;
+   	delete[] endCity;
+
 #ifdef MAP
     cout << "Appel au destructeur de <SimplePath>" << endl;
 #endif
-   	delete [] startCity;
-   	delete [] endCity;
-
 } //----- Fin de ~SimplePath
-
 
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+
 bool SimplePath::equals(const Path& other) const
 {
     const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
-    return (strcmp(startCity, other_derived.GetStartingCity()) == 0)
-        && (strcmp(endCity, other_derived.GetEndingCity()) == 0)
+
+    return (strcmp(startCity, other_derived.GetStartCity()) == 0)
+        && (strcmp(endCity, other_derived.GetEndCity()) == 0)
         && meanOfTransport == other_derived.meanOfTransport;
 } //----- Fin de equals
 
 std::ostream& SimplePath::print(std::ostream& os) const
 {
-	os 	<< "Trajet Simple :"													<< endl
+	os 	<< "Trajet Simple :"												<< endl
 		<< "\tDépart    : " << startCity									<< endl
 		<< "\tArrivée   : " << endCity 										<< endl
 		<< "\tTransport : " << MEAN_OF_TRANSPORT_STRINGS[meanOfTransport] 	<< endl;
@@ -114,26 +117,25 @@ std::ostream& SimplePath::print(std::ostream& os) const
 
 void swap(SimplePath& first, SimplePath& second)
 {
-    char * tmp = new char[strlen(first.GetStartingCity()) + 1];
-    strcpy(tmp, first.GetStartingCity());
+    char * tmp = new char[strlen(first.GetStartCity()) + 1];
+    strcpy(tmp, first.GetStartCity());
 
-    delete [] first.GetStartingCity();
-    first.startCity = new char[strlen(second.GetStartingCity()) + 1];
-    strcpy(first.startCity, second.GetStartingCity());
+    delete [] first.GetStartCity();
+    first.startCity = new char[strlen(second.GetStartCity()) + 1];
+    strcpy(first.startCity, second.GetStartCity());
 
-    delete [] second.GetStartingCity();
+    delete [] second.GetStartCity();
     second.startCity = tmp;
 
-    char * tmpE = new char[strlen(first.GetEndingCity()) + 1];
-    strcpy(tmpE, first.GetEndingCity());
+    char * tmpE = new char[strlen(first.GetEndCity()) + 1];
+    strcpy(tmpE, first.GetEndCity());
 
-    delete [] first.GetEndingCity();
-    first.endCity = new char[strlen(second.GetEndingCity()) + 1];
-    strcpy(first.endCity, second.GetEndingCity());
+    delete [] first.GetEndCity();
+    first.endCity = new char[strlen(second.GetEndCity()) + 1];
+    strcpy(first.endCity, second.GetEndCity());
 
-    delete [] second.GetEndingCity();
+    delete [] second.GetEndCity();
     second.endCity = tmpE;
-
 
 	MeansOfTransport tmpMot = second.meanOfTransport;
 	second.meanOfTransport = first.meanOfTransport;

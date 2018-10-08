@@ -37,9 +37,9 @@ public:
 
     void AddStage(Path *path) const;
 
-    virtual char * GetStartingCity() const;
+    virtual char * GetStartCity() const;
 
-    virtual char * GetEndingCity() const;
+    virtual char * GetEndCity() const;
 
     virtual ComposedPath* Clone() const;
 

@@ -33,14 +33,14 @@ void ComposedPath::AddStage(Path *path) const
     elements->Add(path);
 } //----- Fin de AddStage
 
-char * ComposedPath::GetStartingCity() const
+char * ComposedPath::GetStartCity() const
 {
-    return elements->Get(0)->GetStartingCity();
+    return elements->Get(0)->GetStartCity();
 } //----- Fin de StartFrom
 
-char * ComposedPath::GetEndingCity() const
+char * ComposedPath::GetEndCity() const
 {
-    return elements->Get(elements->GetCurrentCard() - 1)->GetEndingCity();
+    return elements->Get(elements->GetCurrentCard() - 1)->GetEndCity();
 } //----- Fin de StopAt
 
 ComposedPath* ComposedPath::Clone() const

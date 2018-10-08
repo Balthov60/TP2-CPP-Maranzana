@@ -41,30 +41,41 @@ class Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    virtual char * GetStartingCity() const = 0;
+    virtual char * GetStartCity() const = 0;
+    // Mode d'emploi :
+    // Récupère le nom de la ville de départ
+    // Voir les classes dérivées pour la réalisation concrète
 
-    virtual char * GetEndingCity() const = 0;
+    virtual char * GetEndCity() const = 0;
+    // Mode d'emploi :
+    // Récupère le nom de la ville d'arrivée
+    // Voir les classes dérivées pour la réalisation concrète
 
     virtual Path * Clone() const = 0;
+    // Mode d'emploi :
+    // Dublique le trajet
+    // Voir les classes dérivées pour la réalisation concrète
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-    // implémentation tirée de : 
+    friend bool operator ==(const Path& first, const Path& second);
+    // implémentation tirée de :
     // https://stackoverflow.com/questions/1691007/whats-the-right-way-to-overload-operator-for-a-class-hierarchy
     // https://stackoverflow.com/questions/9287704/is-there-an-idiomatic-approach-in-c-for-comparing-polymorphic-types-for-object?noredirect=1&lq=1
-    friend bool operator ==(const Path& first, const Path& second);
 
     friend std::ostream& operator<<(std::ostream& os, const Path& path);
+    // Mode d'emploi :
+    // Affiche les données formatées en utilisant la fonction print
 
 //-------------------------------------------- Constructeurs - destructeur
 
 protected:
-    Path ( );
+    Path();
     // Mode d'emploi :
     // Constructeur par défaut (vide)
 
 public:
-    virtual ~Path ( );
+    virtual ~Path();
     // Mode d'emploi :
     // Destructeur par défaut (vide)
 
@@ -74,10 +85,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
     virtual std::ostream& print(std::ostream& os) const = 0;
-        // Mode d'emploi :
-        // Méthode permettant l'affichage de la classe Path sur un flux (os). 
-        // Voir les classes dérivées pour la réalisation concrète
-        //
+    // Mode d'emploi :
+    // Méthode permettant l'affichage de la classe Path sur un flux (os).
+    // Voir les classes dérivées pour la réalisation concrète
 
 //----------------------------------------------------- Attributs protégés
 

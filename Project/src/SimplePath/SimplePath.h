@@ -31,31 +31,49 @@ class SimplePath : public Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
-   virtual char * GetStartingCity() const;
+    virtual char * GetStartCity() const;
+    // Mode d'emploi :
+    // Getter de "startCity"
+    //
+    // Contrat :
+    //
 
-   virtual char * GetEndingCity() const;
+    virtual char * GetEndCity() const;
+    // Mode d'emploi :
+    // Getter de "endCity"
+    //
+    // Contrat :
+    //
 
-   virtual SimplePath* Clone() const;
+    virtual SimplePath * Clone() const;
+    // Mode d'emploi :
+    // Duplique le trajet en appelant le constructeur par copie
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
-    SimplePath& operator=(SimplePath& other);
 
+    SimplePath & operator=(SimplePath& other);
 
 //-------------------------------------------- Constructeurs - destructeur
-    SimplePath ( const SimplePath & other );
+    SimplePath (const SimplePath & other);
     // Mode d'emploi (constructeur de copie) :
+    // Basic constructor copying each attributes of "other" in a new object
     //
     // Contrat :
     //
 
-    SimplePath ( char * startingCity, char * endingCity, MeansOfTransport vehicle);
-    // Mode d'emploi :
+    SimplePath (char * startingCity, char * endingCity, MeansOfTransport vehicle);
+    // Mode d'emploi
+    // Constructeur basique avec un parametre pour chaque attributs
     //
     // Contrat :
     //
 
-    virtual ~SimplePath ( );
-    // Mode d'emploi :
+    virtual ~SimplePath();
+    // Mode d'emploi
+    // Destructeur basique qui désalloue startCity & endCity
     //
     // Contrat :
     //
@@ -64,30 +82,39 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-    virtual std::ostream& print(std::ostream& os) const;
+
+    virtual std::ostream & print(std::ostream & os) const;
     // Mode d'emploi :
-    //      Ecrit une représentation de l'objet en chaîne de caractères sur un
+    //      Ecrit une représentation de l'objet en chaîne de caractères
+    //
     // flux standard
     //      > os : flux standard sur lequel on écrit
+    //
     // Contrat :
     //
+
     virtual bool equals(const Path& other) const;
     // Mode d'emploi :
     //      Compare si le ComposedPath est égal à un autre trajet.
     // Renvoie true si les trajets sont égaux, faux sinon.
+    //
     // Contrat :
     //
-    friend void swap(SimplePath& first, SimplePath& second);
+
+    friend void swap(SimplePath & first, SimplePath & second);
     // Mode d'emploi :
     //      Echange les valeurs des attributs entre 2 objets SimplePath
     //      > first : Premier objet de l'échange
     //      > second : Second objet de l'échange
+    //
     // Contrat :
     //
 
 //----------------------------------------------------- Attributs protégés
+
     char * startCity;
     char * endCity;
+
     MeansOfTransport meanOfTransport;
     
 };

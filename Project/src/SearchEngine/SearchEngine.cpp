@@ -95,14 +95,14 @@ void SearchEngine::AdvancedSearch(const char * startingCity, const char * ending
 
 void SearchEngine::AddPath(Path* path)
 {
-	unsigned int startCityIndex = getStartCityIndex(path->GetStartingCity());
-	unsigned int endCityIndex = getEndCityIndex(path->GetEndingCity());
+	unsigned int startCityIndex = getStartCityIndex(path->GetStartCity());
+	unsigned int endCityIndex = getEndCityIndex(path->GetEndCity());
 
 	if (startCityIndex == startCurrentSize)
 	{	
 
-		startCities[startCityIndex] = new char[strlen(path->GetStartingCity()) + 1];
-		strcpy(startCities[startCityIndex], path->GetStartingCity());
+		startCities[startCityIndex] = new char[strlen(path->GetStartCity()) + 1];
+		strcpy(startCities[startCityIndex], path->GetStartCity());
 		startCurrentSize++;
 		if (startCurrentSize == startMaxSize)
 		{
@@ -151,8 +151,8 @@ void SearchEngine::AddPath(Path* path)
 
 	if (endCityIndex == endCurrentSize)
 	{
-		endCities[endCityIndex] = new char[strlen(path->GetEndingCity()) + 1];
-		strcpy(endCities[endCityIndex], path->GetEndingCity());
+		endCities[endCityIndex] = new char[strlen(path->GetEndCity()) + 1];
+		strcpy(endCities[endCityIndex], path->GetEndCity());
 		endCurrentSize++;
 		if (endCurrentSize == endMaxSize)
 		{
