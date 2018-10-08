@@ -31,9 +31,11 @@ class SimplePath : public Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    virtual bool StartFrom(const char city[]) const;
+   virtual char * GetStartingCity() const;
 
-    virtual bool StopAt(const char city[]) const;
+   virtual char * GetEndingCity() const;
+
+   virtual SimplePath* Clone() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     SimplePath& operator=(SimplePath& other);
