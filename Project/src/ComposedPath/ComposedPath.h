@@ -108,8 +108,8 @@ protected:
     // Contrat :
     //
 //----------------------------------------------------- Attributs protégés
+
      PathArray* elements;
-private:
     
 };
 

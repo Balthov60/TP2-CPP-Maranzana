@@ -17,6 +17,7 @@
 const int DEFAULT_MAX_SIZE = 10;
 //------------------------------------------------------------------ Types
 
+
 //------------------------------------------------------------------------
 // Rôle de la classe <SearchEngine>
 //
@@ -31,7 +32,7 @@ class SearchEngine
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    struct node 
+    struct node
     {
         unsigned int startIndex;
         unsigned int endIndex;
@@ -98,13 +99,17 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
+
     unsigned int getStartCityIndex(const char * city) const;
     unsigned int getEndCityIndex(const char * city) const;
     bool recursiveSearch(node* node, unsigned int endIndex, bool * doneIndex) const;
+
 //----------------------------------------------------- Attributs protégés
+
     PathArray*** adjacencyMatrix;
     char ** startCities;
     char ** endCities;
+
     unsigned int startCurrentSize;
     unsigned int endCurrentSize;
     unsigned int startMaxSize;
