@@ -40,7 +40,7 @@ char * ComposedPath::GetStartCity() const
 
 char * ComposedPath::GetEndCity() const
 {
-    return elements->Get(elements->GetCurrentCard() - 1)->GetEndCity();
+    return elements->Get(elements->Getsize() - 1)->GetEndCity();
 } //----- Fin de StopAt
 
 ComposedPath* ComposedPath::Clone() const

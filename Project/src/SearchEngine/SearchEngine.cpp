@@ -24,25 +24,13 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-//TODO only for debug, remove!
-void SearchEngine::DisplayMatrix() const
-{
-	for (unsigned int i = 0; i < startCurrentSize; i++)
-	{
-		for (unsigned int j = 0; j < endCurrentSize; j++)
-		{
-			cout << "(" << i << "," << j << ") " << endl;
-			adjacencyMatrix[i][j]->Display();
-		}
-	}
-}
 
 void SearchEngine::SimpleSearch(const char * startingCity, const char * endingCity) const
 {
     unsigned int startIndex = getStartCityIndex(startingCity);
     unsigned int endIndex = getEndCityIndex(endingCity);
 
-    if (startIndex != startCurrentSize && endIndex != endCurrentSize && adjacencyMatrix[startIndex][endIndex]->GetCurrentCard() > 0)
+    if (startIndex != startCurrentSize && endIndex != endCurrentSize && adjacencyMatrix[startIndex][endIndex]->Getsize() > 0)
     {
     	adjacencyMatrix[startIndex][endIndex]->Print(cout);
     }
@@ -315,7 +303,7 @@ bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * don
 		//cout << "trying node (" << node->startIndex << "," << j << ")" << endl;
 		node->endIndex = j;
 		
-		if (adjacencyMatrix[node->startIndex][j]->GetCurrentCard() > 0)
+		if (adjacencyMatrix[node->startIndex][j]->Getsize() > 0)
 		{
 			if (j == endIndex)
 			{

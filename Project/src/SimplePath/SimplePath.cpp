@@ -43,7 +43,7 @@ SimplePath* SimplePath::Clone() const
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-SimplePath& SimplePath::operator=(SimplePath& other)
+SimplePath & SimplePath::operator=(SimplePath& other)
 {
     swap(*this, other); 
 
@@ -52,7 +52,7 @@ SimplePath& SimplePath::operator=(SimplePath& other)
 
 //-------------------------------------------- Constructeurs - destructeur
 
-SimplePath::SimplePath ( const SimplePath & other )
+SimplePath::SimplePath(const SimplePath & other)
 {
     startCity = new char[strlen(other.startCity)+1];
     strcpy(startCity, other.startCity);

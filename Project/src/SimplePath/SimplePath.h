@@ -57,14 +57,14 @@ public:
     SimplePath & operator=(SimplePath& other);
 
 //-------------------------------------------- Constructeurs - destructeur
-    SimplePath (const SimplePath & other);
+    SimplePath(const SimplePath & other);
     // Mode d'emploi (constructeur de copie) :
-    // Basic constructor copying each attributes of "other" in a new object
+    // Constructeur simple qui copie chaque attributs de "other" dans un nouveau objet
     //
     // Contrat :
     //
 
-    SimplePath (char * startingCity, char * endingCity, MeansOfTransport vehicle);
+    SimplePath(char * startingCity, char * endingCity, MeansOfTransport vehicle);
     // Mode d'emploi
     // Constructeur basique avec un parametre pour chaque attributs
     //

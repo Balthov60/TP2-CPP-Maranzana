@@ -54,7 +54,7 @@ public:
     // Contrat :
     //
 
-    ComposedPath ( unsigned int cardMax = CARD_MAX );
+    ComposedPath ( unsigned int cardMax = MAX_SIZE );
     // Mode d'emploi :
     //      > cardMax : cardinalité maximum initiale de la collection de trajets,
     // par defaut égale à 10

@@ -15,7 +15,8 @@
 #include "../Path/Path.h"
 
 //------------------------------------------------------------- Constantes
-const int CARD_MAX = 10;
+const int MAX_SIZE = 10;
+
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
@@ -29,12 +30,6 @@ class PathArray
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    
-    void Display(void) const;
-    // Mode d'emploi :
-    //      Affiche le contenu de la collection sur la sortie standard
-    // Contrat :
-    //
     bool Equals(const PathArray & otherPathArray) const;
     // Mode d'emploi :
     //      Compare le contenu de la collection avec une autre collection PathArray.
@@ -79,12 +74,12 @@ public:
     //      > value : Trajet à tester
     // Contrat :
     //      value pointe vers un objet Path valide
-    unsigned int GetCurrentCard(void) const;
+    unsigned int Getsize(void) const;
     // Mode d'emploi :
     //      Retourne la cardinalité courante de la collection
     // Contrat :
     //
-    unsigned int GetMaxCard(void) const;
+    unsigned int GetmaxSize(void) const;
     // Mode d'emploi :
     //      Retourne la cardinalité maximale actuelle de la collection
     // Contrat :
@@ -94,7 +89,8 @@ public:
     //      Retourne un élément de la collection
     //      > index : indice de l'élément à retourner
     // Contrat :
-    //      0 <= index < currentCard
+    //      0 <= index < size
+
     std::ostream& Print(std::ostream& os, bool advanced = false) const;
     // Mode d'emploi :
     //      Ecrit une représentation en chaîne de caractères de la collection
@@ -109,20 +105,26 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    PathArray ( const PathArray & otherPathArray );
+    PathArray(const PathArray & otherPathArray);
     // Mode d'emploi (constructeur de copie) :
+    // Constructeur simple qui copie chaque attributs de "other" dans un nouveau objet
     //
     // Contrat :
     //
 
-    PathArray (const unsigned int cardMax = CARD_MAX);
+    PathArray(const unsigned int maxSize = MAX_SIZE);
     // Mode d'emploi :
+    // Constructeur basique qui alloue un tableau de taille "cardMax"
+    //
+    // maxSize :
+    // Taille maximal de la collection sans réallocation (par défaut : MAX_SIZE)
     //
     // Contrat :
     //
 
-    virtual ~PathArray ( );
+    virtual ~PathArray();
     // Mode d'emploi :
+    // Destructeur basique qui désalloue le tableau elements
     //
     // Contrat :
     //
@@ -133,9 +135,10 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
+
     Path ** elements;
-    unsigned int maxCard;
-    unsigned int currentCard;
+    unsigned int maxSize;
+    unsigned int size;
 };
 
 //-------------------------------- Autres définitions dépendantes de <PathArray>

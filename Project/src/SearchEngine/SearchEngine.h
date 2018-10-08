@@ -37,8 +37,6 @@ public:
         node* next;
     };
 
-    void DisplayMatrix() const;
-
     void SimpleSearch(const char * startingCity, const  char * endingCity) const;
     // Mode d'emploi :
     //

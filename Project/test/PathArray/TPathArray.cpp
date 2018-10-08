@@ -136,7 +136,7 @@ static void testAdjust3()
 {
 	/*
 		expected output:
-		4 as maxCard
+		4 as maxSize
 	*/
 	PathArray e1(5);
 	e1.Adjust(-1);
@@ -147,7 +147,7 @@ static void testAdjust2()
 {
 	/*
 		expected output:
-		1 as maxCard
+		1 as maxSize
 	*/
 	PathArray e1(5);
 	char varsovie[] = "Varsovie";
@@ -163,7 +163,7 @@ static void testAdjust1()
 {
 	/*
 		expected output:
-		10 as maxCard
+		10 as maxSize
 	*/
 	PathArray e1(5);
 	e1.Adjust(5);
