@@ -43,7 +43,7 @@ SimplePath* SimplePath::Clone() const
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-SimplePath & SimplePath::operator=(SimplePath& other)
+SimplePath & SimplePath::operator=(SimplePath other)
 {
     swap(*this, other); 
 

@@ -45,7 +45,7 @@ public:
 
     Catalog();
     // Mode d'emploi :
-    // Simple constructeur qui alloue une PathArray & un SearchEngine
+    // Simple constructeur qui alloue une pathArray & un searchEngine
     //
     // Contrat :
     //
@@ -76,7 +76,7 @@ private:
     //
     void addPathAndNotifyUser(Path * path) const;
     // Mode d'emploi :
-    // Essai d'ajouter un Path à la collection et informe l'utilisateur
+    // Essaie d'ajouter un Path à la collection et informe l'utilisateur
     // Soit le Path est ajouté soit il existe déjà.
     //
     // Contrat :
@@ -84,49 +84,49 @@ private:
 
     void searchForPath(const bool advanced) const;
     // Mode d'emploi :
-    // Demande la ville de départ et d'arrivé et Lance une recherche de Trajet
+    // Demande la ville de départ et d'arrivée et lance une recherche de trajet
     //
-    // Advanced : permet d'activé la recherche avancé (avec correspondance).
+    // Advanced : permet d'activer la recherche avancée (avec composition).
     //
     // Contrat :
     //
 
     unsigned int askForStageQty() const;
     // Mode d'emploi :
-    // Demande un entier positif pour créer un trajet composé de n trajet simple.
+    // Demande un entier positif pour créer un trajet composé de n trajets simples.
     //
     // Contrat :
     //
 
     MeansOfTransport displayAndAskForMeansOfTransport() const;
     // Mode d'emploi :
-    // Affiche les differents moyen de transport et attend que l'utilisateur en selectionne un.
+    // Affiche les differents moyens de transport et attend que l'utilisateur en selectionne un.
     //
     // Contrat :
     //
 
     void getInputLine(char input[]) const;
     // Mode d'emploi :
-    // Récupère une entrée sur le flux basique jusqu'a rencontrée un retour à la ligne
+    // Récupère une entrée sur le flux standard jusqu'à rencontrer un retour à la ligne
     //
     // Contrat :
     //
     void getInputWord(char input[]) const;
     // Mode d'emploi :
-    // Récupère une entrée sur le flux basique jusqu'a rencontrée un espace ou un retour à la ligne
+    // Récupère une entrée sur le flux standard jusqu'a rencontrer un espace ou un retour à la ligne
     //
     // Contrat :
     //
 
     void cleanInputStream() const;
     // Mode d'emploi :
-    // Efface les données actuelle de l'entrée basique
+    // Efface les données actuelles de l'entrée standard
     //
     // Contrat :
     //
     void inputError() const;
     // Mode d'emploi :
-    // Afficbe un message d'erreur et quitte
+    // Affiche un message d'erreur et quitte
     //
     // Contrat :
     //

@@ -46,7 +46,7 @@ static void testConstructeurDefaut2()
 		{}
 	*/
 	PathArray ensemble(15);
-	ensemble.Display();
+	ensemble.Print(cout);
 }
 
 static void testConstructeurDefaut1()
@@ -58,7 +58,7 @@ static void testConstructeurDefaut1()
 		{}
 	*/
 	PathArray ensemble;
-	ensemble.Display();
+	ensemble.Print(cout);
 }
 
 static void testConstructeurDefaut()
@@ -76,16 +76,20 @@ static void testEstEgal2()
 		1
 	*/
 	
-	PathArray firstE;
-	PathArray secondE;
+	PathArray* firstE = new PathArray;
+	PathArray* secondE = new PathArray;
 
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	firstE.Add(&path1);
-	secondE.Add(&path1);
-	cout << firstE.Equals(firstE) << endl;
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	SimplePath* path2 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	firstE->Add(path1);
+	secondE->Add(path2);
+	cout << firstE->Equals(*firstE) << endl;
+
+	delete firstE;
+	delete secondE;
 }
 
 static void testEstEgal1()
@@ -94,17 +98,20 @@ static void testEstEgal1()
 		expected output:
 		0
 	*/
-	PathArray firstE;
-	PathArray secondE;
+	PathArray* firstE = new PathArray;
+	PathArray* secondE = new PathArray;
 
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	SimplePath path2 = SimplePath((char*)londres, (char*)varsovie, AVION);
-	firstE.Add(&path1);
-	secondE.Add(&path2);
-	cout << firstE.Equals(secondE) << endl;
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	SimplePath* path2 = new SimplePath((char*)londres, (char*)varsovie, AVION);
+	firstE->Add(path1);
+	secondE->Add(path2);
+	cout << firstE->Equals(*secondE) << endl;
+
+	delete firstE;
+	delete secondE;
 }
 
 static void testEstEgal()
@@ -118,18 +125,21 @@ static void testEstEgal()
 static void testAdd()
 {
 	cout << "Test Add" << endl; 
-	PathArray firstE;
+	PathArray* firstE = new PathArray;
 
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	SimplePath path2 = SimplePath((char*)londres, (char*)varsovie, AVION);
-	firstE.Add(&path1);
-	firstE.Add(&path2);
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	SimplePath* path2 = new SimplePath((char*)londres, (char*)varsovie, AVION);
+	firstE->Add(path1);
+	firstE->Add(path2);
 
-	firstE.Display();
+	firstE->Print(cout);
+	delete firstE;
 	cout << "Fin Test Add" << endl; 
+
+
 }
 
 static void testAdjust3()
@@ -138,9 +148,10 @@ static void testAdjust3()
 		expected output:
 		4 as maxSize
 	*/
-	PathArray e1(5);
-	e1.Adjust(-1);
-	e1.Display();
+	PathArray* e1 = new PathArray(5);
+	e1->Adjust(-1);
+	e1->Print(cout);
+	delete e1;
 }
 
 static void testAdjust2()
@@ -149,14 +160,16 @@ static void testAdjust2()
 		expected output:
 		1 as maxSize
 	*/
-	PathArray e1(5);
+	PathArray* e1 = new PathArray(5);
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath path1 = SimplePath((char*)varsovie, (char*)londres, AVION);
-	e1.Add(&path1);
-	e1.Adjust(-5);
-	e1.Display();
+	SimplePath* path1 = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	e1->Add(path1);
+	e1->Adjust(-5);
+	e1->Print(cout);
+
+	delete e1;
 }
 
 static void testAdjust1()
@@ -165,9 +178,11 @@ static void testAdjust1()
 		expected output:
 		10 as maxSize
 	*/
-	PathArray e1(5);
-	e1.Adjust(5);
-	e1.Display();
+	PathArray* e1 = new PathArray(5);
+	e1->Adjust(5);
+	e1->Print(cout);
+
+	delete e1;
 }
 
 static void testAdjust()

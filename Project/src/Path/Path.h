@@ -15,7 +15,7 @@
 #include <iostream>
 
 //------------------------------------------------------------------ Types
-// (On à inversé les catégories types et Constantes pour pouvoir faire les déclarations)
+// Note : Nous avons inversé les catégories types et constantes pour pouvoir faire les déclarations
 
 enum MeansOfTransport { TRAIN, AUTO, BATEAU, AVION, END_DELIMITER };
 

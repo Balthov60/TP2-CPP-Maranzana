@@ -14,14 +14,14 @@
 #include "../Path/Path.h"
 #include "../PathArray/PathArray.h"
 //------------------------------------------------------------- Constantes
-const int DEFAULT_MAX_SIZE = 1;
+const int DEFAULT_MAX_SIZE = 10;
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
 // Rôle de la classe <SearchEngine>
 //
-// Le search engine permet de chercher des trajets dans tous les catalogue
-// avec ou sans correspondances.
+// Le search engine permet de chercher des trajets entre 2 villes dans tout 
+// le catalogue avec ou sans composition.
 //
 //------------------------------------------------------------------------
 
@@ -41,21 +41,29 @@ public:
 
     void SimpleSearch(const char * startingCity, const  char * endingCity) const;
     // Mode d'emploi :
-    //
+    //      Cherche et affiche le(s) trajet(s) directs correspondant(s) du catalogue pour
+    // se rendre de la ville "startingCity" à la ville "endingCity"
+    //      > startingCity : ville de départ
+    //      > endingCity : ville d'arrivée
     // Contrat :
     //
 
     void AdvancedSearch(const char * startingCity,const  char * endingCity) const;
     // Mode d'emploi :
-    //
+    //      Cherche et affiche le(s) trajet(s) pour se rendre de la
+    // ville "startingCity" à la ville "endingCity" en effectuant une
+    // composition de plusieurs sous-trajets du catalogue
+    //      > startingCity : ville de départ
+    //      > endingCity : ville d'arrivée
     // Contrat :
     //
 
     void AddPath(Path* path);
     // Mode d'emploi :
-    //
+    //      Ajoute un trajet au moteur de recherche
+    //      > path : pointeur sur le trajet à ajouter
     // Contrat :
-    //
+    //      path est un pointeur sur trajet valide
 
 
 

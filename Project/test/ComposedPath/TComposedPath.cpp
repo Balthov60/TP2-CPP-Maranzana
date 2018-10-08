@@ -30,13 +30,15 @@ static void testDisplay()
 		expected output :
 	*/
 	cout << "testDisplay" << "\r\n";
-	ComposedPath path;
+	ComposedPath* path = new ComposedPath;
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath spath = SimplePath((char*)varsovie, (char*)londres, AVION);
-	path.GetElements()->Add(&spath);
-	cout << path << "\r\n";
+	SimplePath* spath = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	path->GetElements()->Add(spath);
+	cout << *path << "\r\n";
+
+	delete path;
 }
 
 static void testEqualOperator()
@@ -47,19 +49,23 @@ static void testEqualOperator()
 		0
 	*/
 	cout << "testEqualOperator" << "\r\n";
-	ComposedPath path1;
-	ComposedPath path2;
+	ComposedPath* path1 = new ComposedPath;
+	ComposedPath* path2 = new ComposedPath;
 
-	bool result = (path1 == path2);
+	bool result = (*path1 == *path2);
 	cout << result << "\r\n";
 
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath spath = SimplePath((char*)varsovie, (char*)londres, AVION);
-	path1.GetElements()->Add(&spath);
-	result = (path1 == path2);
+	SimplePath* spath = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	path1->GetElements()->Add(spath);
+	result = (*path1 == *path2);
 	cout << result << "\r\n";
+
+	
+	delete path1;
+	delete path2;
 }
 
 static void testAssignmentOperator()
@@ -71,11 +77,15 @@ static void testAssignmentOperator()
 		{}
 	*/
 	cout << "testAssignmentOperator" << "\r\n";
-	ComposedPath path1;
-	ComposedPath path2(50);
+	ComposedPath* path1 = new ComposedPath;
+	ComposedPath* path2 = new ComposedPath(50);
 
-	path1 = path2;
-	path1.GetElements()->Display();
+	*path1 = *path2;
+	path1->GetElements()->Print(cout);
+
+	delete path1;
+	delete path2;
+	
 }
 
 static void testCopyConstructor()
@@ -85,14 +95,17 @@ static void testCopyConstructor()
 		{ de Varsovie à Londres en MT3 }
 	*/
 	cout << "testCopyConstructor" << "\r\n";
-	ComposedPath path;
+	ComposedPath* path = new ComposedPath;
 	char varsovie[] = "Varsovie";
 	char londres[] = "Londres";
 
-	SimplePath spath = SimplePath((char*)varsovie, (char*)londres, AVION);
-	path.GetElements()->Add(&spath);
-	ComposedPath path2 = path;
-	cout << path2 << "\r\n";
+	SimplePath* spath = new SimplePath((char*)varsovie, (char*)londres, AVION);
+	path->GetElements()->Add(spath);
+	ComposedPath* path2 = new ComposedPath(*path);
+	cout << *path2 << "\r\n";
+
+	delete path;
+	delete path2;
 }
 
 //////////////////////////////////////////////////////////////////  PUBLIC

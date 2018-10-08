@@ -33,28 +33,28 @@ public:
 
     virtual char * GetStartCity() const;
     // Mode d'emploi :
-    // Getter de "startCity"
+    //      Getter de "startCity"
     //
     // Contrat :
     //
 
     virtual char * GetEndCity() const;
     // Mode d'emploi :
-    // Getter de "endCity"
+    //      Getter de "endCity"
     //
     // Contrat :
     //
 
     virtual SimplePath * Clone() const;
     // Mode d'emploi :
-    // Duplique le trajet en appelant le constructeur par copie
+    //      Duplique le trajet
     //
     // Contrat :
     //
 
 //------------------------------------------------- Surcharge d'opérateurs
 
-    SimplePath & operator=(SimplePath& other);
+    SimplePath & operator=(SimplePath other);
 
 //-------------------------------------------- Constructeurs - destructeur
     SimplePath(const SimplePath & other);
@@ -86,8 +86,7 @@ protected:
     virtual std::ostream & print(std::ostream & os) const;
     // Mode d'emploi :
     //      Ecrit une représentation de l'objet en chaîne de caractères
-    //
-    // flux standard
+    // sur un flux standard
     //      > os : flux standard sur lequel on écrit
     //
     // Contrat :
@@ -97,7 +96,7 @@ protected:
     // Mode d'emploi :
     //      Compare si le ComposedPath est égal à un autre trajet.
     // Renvoie true si les trajets sont égaux, faux sinon.
-    //
+    //      > other : trajet à comparer avec l'instance actuelle
     // Contrat :
     //
 

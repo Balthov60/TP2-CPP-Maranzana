@@ -36,26 +36,26 @@ bool PathArray::Contains(const Path* path) const
 	return false;
 } //----- fin de Contains
 
-unsigned int PathArray::Getsize(void) const
+unsigned int PathArray::GetSize(void) const
 // Algorithme :
 //
 {
 	return size;
-} //----- fin de Getsize
+} //----- fin de GetSize
 
-unsigned int PathArray::GetmaxSize(void) const
+unsigned int PathArray::GetMaxSize(void) const
 // Algorithme :
 //
 {
 	return maxSize;
-} //----- fin de GetmaxSize
+} //----- fin de GetMaxSize
 
 Path* PathArray::Get(int index) const
 // Algorithme :
 //
 {
 	return elements[index];
-} //----- fin de GetmaxSize
+} //----- fin de GetMaxSize
 
 std::ostream& PathArray::Print(std::ostream& os, bool advanced) const
 // Algorithme :
@@ -91,7 +91,7 @@ bool PathArray::Equals(const PathArray & anotherPathArray) const
 // Algorithme :
 //
 {
-	if (anotherPathArray.Getsize() != size)
+	if (anotherPathArray.GetSize() != size)
 	{
 		return false;
 	}
@@ -195,7 +195,7 @@ unsigned int PathArray::Remove(const PathArray & anotherPathArray)
 	}
 	else 
 	{
-		for (j = 0; j < anotherPathArray.Getsize(); j++)
+		for (j = 0; j < anotherPathArray.GetSize(); j++)
 		{
 			if (Remove(anotherPathArray.Get(j)))
 			{
@@ -219,8 +219,8 @@ PathArray& PathArray::operator=(const PathArray& other)
 	    }
 		delete [] elements;
 
-		size = other.Getsize();
-		maxSize = other.GetmaxSize();
+		size = other.GetSize();
+		maxSize = other.GetMaxSize();
 
 		elements = new Path*[maxSize];
 		for (unsigned int j = 0; j < size; j++)

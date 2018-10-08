@@ -31,20 +31,36 @@ public:
 //----------------------------------------------------- Méthodes publiques
     PathArray* GetElements ( ) const;
     // Mode d'emploi :
-    //  Retourne la collection des Path composant le trajet
+    //      Retourne la collection de Path composant le trajet
     // Contrat :
     //
 
     void AddStage(Path *path) const;
+    // Mode d'emploi :
+    //      Ajoute une étape (trajet) au trajet composé
+    //      > path : pointeur sur le trajet à ajouter
+    // Contrat :
+    //      path est un pointeur sur trajet valide
 
     virtual char * GetStartCity() const;
+    // Mode d'emploi :
+    //      Getter de "startCity"
+    // Contrat :
+    //
 
     virtual char * GetEndCity() const;
+    // Mode d'emploi :
+    //      Getter de "endCity"
+    // Contrat :
+    //
 
     virtual ComposedPath* Clone() const;
-
+    // Mode d'emploi :
+    //      Duplique le trajet
+    // Contrat :
+    //
 //------------------------------------------------- Surcharge d'opérateurs
-    ComposedPath& operator=(ComposedPath& other);
+    ComposedPath& operator=(ComposedPath other);
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -54,10 +70,10 @@ public:
     // Contrat :
     //
 
-    ComposedPath ( unsigned int cardMax = MAX_SIZE );
+    ComposedPath ( unsigned int maxSize = MAX_SIZE );
     // Mode d'emploi :
-    //      > cardMax : cardinalité maximum initiale de la collection de trajets,
-    // par defaut égale à 10
+    //      > maxSize : taille maximum initiale de la collection de trajets,
+    // par defaut égale à MAX_SIZE
     // Contrat :
     //
 

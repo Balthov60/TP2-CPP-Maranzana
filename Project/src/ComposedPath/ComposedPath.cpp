@@ -40,7 +40,7 @@ char * ComposedPath::GetStartCity() const
 
 char * ComposedPath::GetEndCity() const
 {
-    return elements->Get(elements->Getsize() - 1)->GetEndCity();
+    return elements->Get(elements->GetSize() - 1)->GetEndCity();
 } //----- Fin de StopAt
 
 ComposedPath* ComposedPath::Clone() const
@@ -49,7 +49,7 @@ ComposedPath* ComposedPath::Clone() const
 } //----- Fin de Clone
 
 //------------------------------------------------- Surcharge d'opérateurs
-ComposedPath& ComposedPath::operator=(ComposedPath& other) 
+ComposedPath& ComposedPath::operator=(ComposedPath other) 
 {
     swap(*this, other); 
 
@@ -69,14 +69,14 @@ ComposedPath::ComposedPath ( const ComposedPath & other )
 } //----- Fin de ComposedPath (constructeur de copie)
 
 
-ComposedPath::ComposedPath ( unsigned int cardMax)
+ComposedPath::ComposedPath ( unsigned int maxSize)
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de <ComposedPath>" << endl;
 #endif
-    elements = new PathArray(cardMax);
+    elements = new PathArray(maxSize);
 } //----- Fin de ComposedPath
 
 

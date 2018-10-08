@@ -303,7 +303,7 @@ void Catalog::display() const
     cout << "Liste des Voyages Disponibles..."                      << endl;
     cout                                                            << endl;
 
-    for (unsigned int i = 0; i < pathArray->Getsize(); i++)
+    for (unsigned int i = 0; i < pathArray->GetSize(); i++)
     {
         cout << "#" << i << " " << *pathArray->Get(i) << endl;
     }

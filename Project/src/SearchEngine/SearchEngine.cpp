@@ -26,11 +26,14 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 void SearchEngine::SimpleSearch(const char * startingCity, const char * endingCity) const
+// Algorithme :
+//		Recherche dans la matrice de proximité si un trajet direct existe entre startingCity
+// et endingCity. Si oui, affiche le trajet, sinon affiche qu'aucun trajet n'a été trouvé.
 {
     unsigned int startIndex = getStartCityIndex(startingCity);
     unsigned int endIndex = getEndCityIndex(endingCity);
 
-    if (startIndex != startCurrentSize && endIndex != endCurrentSize && adjacencyMatrix[startIndex][endIndex]->Getsize() > 0)
+    if (startIndex != startCurrentSize && endIndex != endCurrentSize && adjacencyMatrix[startIndex][endIndex]->GetSize() > 0)
     {
     	adjacencyMatrix[startIndex][endIndex]->Print(cout);
     }
@@ -43,22 +46,12 @@ void SearchEngine::SimpleSearch(const char * startingCity, const char * endingCi
 
 
 void SearchEngine::AdvancedSearch(const char * startingCity, const char * endingCity) const
+// Algorithme :
+//		Instancie le noeud initial de la recherche récursive puis apelle la fonction de recherche
+// récursive. Voir la fonction "recursiveSearch" pour l'algorithme de recherche.
 {
 	unsigned int startIndex = getStartCityIndex(startingCity);
     unsigned int endIndex = getEndCityIndex(endingCity);
-
-    /*for (unsigned int j = 0; j < startCurrentSize; j++)
-    {
-    	cout << j << "= " << startCities[j] << endl;
-    }
-
-    for (unsigned int j = 0; j < endCurrentSize; j++)
-    {
-    	cout << j << "= " << endCities[j] << endl;
-    }*/
-
-    //cout << "starting at (" << startIndex << "," << endIndex << ")" << endl;
-
 
     if (startIndex != startCurrentSize && endIndex != endCurrentSize)
     {
@@ -82,6 +75,10 @@ void SearchEngine::AdvancedSearch(const char * startingCity, const char * ending
 
 
 void SearchEngine::AddPath(Path* path)
+// Algorithme :
+//		Ajoute un trajet à la matrice de proximité en effectuant les réallocations
+// de mémoire nécessaires lorsque les tableaux sont pleins. Stocke les villes de départ
+// et d'arrivée de manière unique
 {
 	unsigned int startCityIndex = getStartCityIndex(path->GetStartCity());
 	unsigned int endCityIndex = getEndCityIndex(path->GetEndCity());
@@ -273,6 +270,9 @@ SearchEngine::~SearchEngine ( )
 
 //----------------------------------------------------- Méthodes protégées
 unsigned int SearchEngine::getStartCityIndex(const char * city) const
+// Algorithme :
+//		Parcoure la liste des villes de départ enregistrées et récupère l'index
+// de la ville "city"
 {
 	for (unsigned int  j = 0; j < startCurrentSize; j++)
 	{
@@ -285,6 +285,9 @@ unsigned int SearchEngine::getStartCityIndex(const char * city) const
 } //----- Fin de getStartCityIndex
 
 unsigned int SearchEngine::getEndCityIndex(const char * city) const
+// Algorithme :
+//		Parcoure la liste des villes d'arrivée enregistrées et récupère l'index
+// de la ville "city"
 {
 	for (unsigned int j = 0; j < endCurrentSize; j++)
 	{
@@ -297,17 +300,20 @@ unsigned int SearchEngine::getEndCityIndex(const char * city) const
 } //----- Fin de getEndCityIndex
 
 bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * doneIndex) const
+// Algorithme :
+//		Explore les noeuds reliés au noeud initial "node" dans la matrice de proximité récursivement
+// jusqu'à l'arrivée sur un noeud possèdant comme ville d'arrivée la destination objectif (endIndex)
+// ou que tous les noeuds de départs aient été explorés (stockés dans doneIndex)
+// Si un trajet a été trouvé, affiche la composition de celui-ci en parcourant les noeuds solution
 {
 	for (unsigned int j = 0; j < endCurrentSize; j++)
 	{
-		//cout << "trying node (" << node->startIndex << "," << j << ")" << endl;
 		node->endIndex = j;
 		
-		if (adjacencyMatrix[node->startIndex][j]->Getsize() > 0)
+		if (adjacencyMatrix[node->startIndex][j]->GetSize() > 0)
 		{
 			if (j == endIndex)
 			{
-				//cout << "node (" << node->startIndex << "," << node->endIndex << ") leads to endIndex !" << endl;
 				node->next = NULL;
 				while (node->previous != NULL)
 				{
@@ -319,10 +325,8 @@ bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * don
 				{
 					adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
 					cout << "puis" << endl;
-					//cout << " -> (" << node->startIndex << "," << node->endIndex << ") ";
 					node = node->next;
 				}
-				//cout << " -> (" << node->startIndex << "," << node->endIndex << ") ";
 				adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
 				cout << "Fin trajet" << endl;
 				cout <<  "=================================================\r\n";
@@ -331,7 +335,6 @@ bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * don
 			unsigned int startIndex = getStartCityIndex(endCities[j]);
 			if (startIndex != startCurrentSize)
 			{			
-				//cout << "node (" << node->startIndex << "," << node->endIndex << ") got path" << endl;
 				if (!doneIndex[startIndex])
 				{
 					doneIndex[node->startIndex] = true;

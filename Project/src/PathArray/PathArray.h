@@ -74,14 +74,14 @@ public:
     //      > value : Trajet à tester
     // Contrat :
     //      value pointe vers un objet Path valide
-    unsigned int Getsize(void) const;
+    unsigned int GetSize(void) const;
     // Mode d'emploi :
-    //      Retourne la cardinalité courante de la collection
+    //      Retourne la taille courante de la collection
     // Contrat :
     //
-    unsigned int GetmaxSize(void) const;
+    unsigned int GetMaxSize(void) const;
     // Mode d'emploi :
-    //      Retourne la cardinalité maximale actuelle de la collection
+    //      Retourne la taille maximale actuelle de la collection
     // Contrat :
     //
     Path* Get(int index) const;
