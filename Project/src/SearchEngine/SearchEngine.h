@@ -20,6 +20,8 @@ const int DEFAULT_MAX_SIZE = 1;
 //------------------------------------------------------------------------
 // Rôle de la classe <SearchEngine>
 //
+// Le search engine permet de chercher des trajets dans tous les catalogue
+// avec ou sans correspondances.
 //
 //------------------------------------------------------------------------
 
