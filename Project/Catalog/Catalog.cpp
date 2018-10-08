@@ -69,7 +69,7 @@ void Catalog::Run()
         {
             displayMainMenu();
         }
-        cout << "Entrez une nouvelle commande (2 pour afficher le menu) : " << endl;
+        cout << "Entrez une nouvelle commande (0 pour afficher le menu) : " << endl;
         getInputWord(input);
     }
 
