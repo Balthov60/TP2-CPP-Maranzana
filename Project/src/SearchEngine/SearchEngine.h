@@ -16,7 +16,13 @@
 //------------------------------------------------------------- Constantes
 const int DEFAULT_MAX_SIZE = 10;
 //------------------------------------------------------------------ Types
-
+struct node
+{
+    unsigned int startIndex;
+    unsigned int endIndex;
+    node* previous;
+    node* next;
+};
 
 //------------------------------------------------------------------------
 // Rôle de la classe <SearchEngine>
@@ -32,13 +38,7 @@ class SearchEngine
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    struct node
-    {
-        unsigned int startIndex;
-        unsigned int endIndex;
-        node* previous;
-        node* next;
-    };
+    
 
     void SimpleSearch(const char * startingCity, const  char * endingCity) const;
     // Mode d'emploi :

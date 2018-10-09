@@ -86,20 +86,21 @@ private:
     // Mode d'emploi :
     // Demande la ville de départ et d'arrivée et lance une recherche de trajet
     //
-    // Advanced : permet d'activer la recherche avancée (avec composition).
+    //      > advanced : true pour effectuer une recherche avancée, false pour
+    // une recherche simple
     //
     // Contrat :
     //
 
     void askForStartingCity(char *startingCity) const;
     // Mode d'emploi :
-    // Demande une chaine de caractère à l'utilisateur pour le champ startCity
+    // Demande une chaine de caractères à l'utilisateur pour le champ startCity
     //
     // Contrat :
     //
     void askForEndingCity(char *endingCity) const;
     // Mode d'emploi :
-    // Demande une chaine de caractère à l'utilisateur pour le champ endCity
+    // Demande une chaine de caractères à l'utilisateur pour le champ endCity
     //
     // Contrat :
     //
@@ -138,7 +139,7 @@ private:
     //
     void capitalizeFirstWordsLetter(char *input) const;
     // Mode d'emploi :
-    // Met en majuscule toutes les première lettre de mots
+    // Met en majuscule toutes les premières lettres de mots
     //
     // Contrat :
     //
