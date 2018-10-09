@@ -91,6 +91,18 @@ private:
     // Contrat :
     //
 
+    void askForStartingCity(char *startingCity) const;
+    // Mode d'emploi :
+    // Demande une chaine de caractère à l'utilisateur pour le champ startCity
+    //
+    // Contrat :
+    //
+    void askForEndingCity(char *endingCity) const;
+    // Mode d'emploi :
+    // Demande une chaine de caractère à l'utilisateur pour le champ endCity
+    //
+    // Contrat :
+    //
     unsigned int askForStageQty() const;
     // Mode d'emploi :
     // Demande un entier positif pour créer un trajet composé de n trajets simples.
@@ -105,13 +117,13 @@ private:
     // Contrat :
     //
 
-    void getInputLine(char input[]) const;
+    bool getInputLine(char input[]) const;
     // Mode d'emploi :
     // Récupère une entrée sur le flux standard jusqu'à rencontrer un retour à la ligne
     //
     // Contrat :
     //
-    void getInputWord(char input[]) const;
+    bool getInputWord(char input[]) const;
     // Mode d'emploi :
     // Récupère une entrée sur le flux standard jusqu'a rencontrer un espace ou un retour à la ligne
     //
@@ -121,6 +133,12 @@ private:
     void cleanInputStream() const;
     // Mode d'emploi :
     // Efface les données actuelles de l'entrée standard
+    //
+    // Contrat :
+    //
+    void capitalizeFirstWordsLetter(char *input) const;
+    // Mode d'emploi :
+    // Met en majuscule toutes les première lettre de mots
     //
     // Contrat :
     //

@@ -36,7 +36,7 @@ void Catalog::Run()
     char input[INPUT_MAX_SIZE];
     getInputWord(input);
 
-    while (strcmp(input,"9") != 0 && strcmp(input,"quit") != 0 && strcmp(input,"quitter") != 0 && strcmp(input,"q") != 0)
+    while (strcmp(input,"9") != 0 && strcmp(input,"Quit") != 0 && strcmp(input,"Quitter") != 0 && strcmp(input,"Q") != 0)
     {
         if (strcmp(input, "0") == 0)
         {
@@ -113,12 +113,8 @@ void Catalog::addSimplePath() const
     cout << SEPARATOR;
     cout << "Ajout d'un Trajet Simple..." << endl;
 
-    cout << "\tVille de départ : ";
-    getInputLine(startingCity);
-
-    cout << "\tVille d'arrivée : ";
-    getInputLine(endingCity);
-
+    askForStartingCity(startingCity);
+    askForEndingCity(endingCity);
     meansOfTransport = displayAndAskForMeansOfTransport();
 
     addPathAndNotifyUser(new SimplePath(startingCity, endingCity, meansOfTransport));
@@ -139,21 +135,18 @@ void Catalog::addComposedPath() const
     {
         cout << "Etape " << i << endl;
 
-        cout << "\tVille de départ : ";
-
         if (i > 1)
         {
+            cout << "\tVille de départ : ";
             strcpy(startingCity, endingCity);
             cout << startingCity << endl;
         }
         else
         {
-            getInputLine(startingCity);
+            askForStartingCity(startingCity);
         }
 
-        cout << "\tVille d'arrivée : ";
-        getInputLine(endingCity);
-
+        askForEndingCity(endingCity);
         meansOfTransport = displayAndAskForMeansOfTransport();
 
         composedPath->AddStage(new SimplePath(startingCity, endingCity, meansOfTransport));
@@ -192,13 +185,14 @@ void Catalog::searchForPath(const bool advanced) const
     {
         cout << "Recherche d'un trajet (Version simple)..." << endl;
     }
-    
 
-    cout << "\tVille de départ : ";
-    getInputLine(startingCity);
+    askForStartingCity(startingCity);
 
-    cout << "\tVille d'arrivée : ";
-    getInputLine(endingCity);
+    do
+    {
+        cout << "\tVille d'arrivée : ";
+    }
+    while (!getInputLine(endingCity));
 
 
     cout << endl << "Trajet(s) trouvé(s) :" << endl << endl;
@@ -216,6 +210,23 @@ void Catalog::searchForPath(const bool advanced) const
 
 /* Input Methods */
 
+
+void Catalog::askForStartingCity(char *startingCity) const
+{
+    do
+    {
+        cout << "\tVille de départ : ";
+    }
+    while (!getInputLine(startingCity));
+}
+void Catalog::askForEndingCity(char *endingCity) const
+{
+    do
+    {
+        cout << "\tVille d'arrivé : ";
+    }
+    while (!getInputLine(endingCity));
+}
 unsigned int Catalog::askForStageQty() const
 {
     unsigned int stageQty;
@@ -237,9 +248,11 @@ MeansOfTransport Catalog::displayAndAskForMeansOfTransport() const
 
     for ( ; ; )
     {
-        displayMeansOfTransport();
-
-        getInputWord(transport);
+        do
+        {
+            displayMeansOfTransport();
+        }
+        while (!getInputLine(transport));
 
         for (int i = 0; i < MEAN_OF_TRANSPORT_QTY; i++)
         {
@@ -251,25 +264,67 @@ MeansOfTransport Catalog::displayAndAskForMeansOfTransport() const
     }
 }
 
-void Catalog::getInputLine(char *input) const
+bool Catalog::getInputLine(char *input) const
 {
     if (fscanf(stdin, "%99[^\n]", input) != 1)
-        inputError();
+    {
+        cleanInputStream();
+        return false;
+    }
 
     cleanInputStream();
+    capitalizeFirstWordsLetter(input);
+
+    return true;
 }
-void Catalog::getInputWord(char *input) const
+bool Catalog::getInputWord(char *input) const
 {
     if (fscanf(stdin, "%99s", input) != 1)
+    {
         inputError();
+    }
 
     cleanInputStream();
+    capitalizeFirstWordsLetter(input);
+
+    return true;
 }
 
 void Catalog::cleanInputStream() const
 {
     int c = 0;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+void Catalog::capitalizeFirstWordsLetter(char *input) const
+// Algorithme :
+// Change la première lettre et toutes les lettres après un espace par des majuscule (si ce sont des lettres).
+// Change les autres lettres en majuscule en lettre minuscule.
+{
+    for (int i = 0; input[i] != '\0'; i++)
+    {
+        if (i == 0) // First Letter
+        {
+            if (input[i] >= 'a' && input[i] <= 'z')
+                input[i] -= 32;
+
+            continue;
+        }
+        if(input[i]==' ') // Check Space
+        {
+            i++;
+
+            if(input[i] >= 'a' && input[i] <= 'z')
+            {
+                input[i] -= 32;
+                continue;
+            }
+        }
+        else
+        {
+            if(input[i] >= 'A' && input[i] <= 'Z')
+                input[i] += 32;
+        }
+    }
 }
 
 void Catalog::inputError() const
