@@ -63,7 +63,6 @@ void Catalog::Run()
         {
             //recherche avancée
             searchForPath(true);
-            cout << SEPARATOR;
         }
         else
         {
