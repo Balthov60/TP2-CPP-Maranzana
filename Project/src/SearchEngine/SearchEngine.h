@@ -97,7 +97,7 @@ public:
 
 //------------------------------------------------------------------ PRIVE
 
-protected:
+private:
 //----------------------------------------------------- Méthodes protégées
 
     unsigned int getStartCityIndex(const char * city) const;

@@ -57,7 +57,7 @@ Path* PathArray::Get(int index) const
 	return elements[index];
 } //----- fin de GetMaxSize
 
-std::ostream& PathArray::Print(std::ostream& os, bool advanced) const
+std::ostream& PathArray::Print(std::ostream& os, bool advanced, bool composed) const
 // Algorithme :
 //
 {
@@ -68,8 +68,8 @@ std::ostream& PathArray::Print(std::ostream& os, bool advanced) const
 		{
 			for (j = 0; j < size - 1; j++)
 			{
-				os << *elements[j];
-				os << "ou" << std::endl;
+				os << *elements[j] << std::endl;
+				os << "ou" << endl << endl;
 			}
 			os << *elements[size-1];
 		}
@@ -78,8 +78,7 @@ std::ostream& PathArray::Print(std::ostream& os, bool advanced) const
 	{
 		for (j = 0; j < size; j++)
 		{
-			os << "Etape " << j + 1 << " - ";
-			os << *elements[j];
+			os << ((composed) ? "    Etape " : "Trajet ") << j + 1 << " - " << *elements[j] << endl;
 		}
 	}
 	

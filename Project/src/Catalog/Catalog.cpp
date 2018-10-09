@@ -202,7 +202,7 @@ void Catalog::searchForPath(const bool advanced) const
     getInputLine(endingCity);
 
 
-    cout << endl << "Trajet(s) trouvé(s) :" << endl;
+    cout << endl << "Trajet(s) trouvé(s) :" << endl << endl;
     if (advanced)
     {
         searchEngine->AdvancedSearch(startingCity, endingCity);
@@ -211,6 +211,8 @@ void Catalog::searchForPath(const bool advanced) const
     {
         searchEngine->SimpleSearch(startingCity, endingCity);
     }
+
+    cout << SEPARATOR;
 }
 
 /* Input Methods */
@@ -305,7 +307,7 @@ void Catalog::display() const
 
     for (unsigned int i = 0; i < pathArray->GetSize(); i++)
     {
-        cout << "#" << i << " " << *pathArray->Get(i) << endl;
+        cout << "#" << i + 1 << " " << *pathArray->Get(i) << endl;
     }
 
     cout << SEPARATOR;

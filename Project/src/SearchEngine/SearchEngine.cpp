@@ -319,7 +319,6 @@ bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * don
 				{
 					node = node->previous;
 				}
-				cout <<  "=================================================\r\n";
 				cout << "Début trajet :" << endl;
 				while (node->next != NULL)
 				{
@@ -328,8 +327,7 @@ bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * don
 					node = node->next;
 				}
 				adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
-				cout << "Fin trajet" << endl;
-				cout <<  "=================================================\r\n";
+				cout << "Fin trajet" << endl << endl;
 				return true;
 			}
 			unsigned int startIndex = getStartCityIndex(endCities[j]);

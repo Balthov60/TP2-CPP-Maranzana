@@ -91,7 +91,7 @@ public:
     // Contrat :
     //      0 <= index < size
 
-    std::ostream& Print(std::ostream& os, bool advanced = false) const;
+    std::ostream& Print(std::ostream& os, bool advanced = false, bool composed = false) const;
     // Mode d'emploi :
     //      Ecrit une représentation en chaîne de caractères de la collection
     // sur un flux standard.

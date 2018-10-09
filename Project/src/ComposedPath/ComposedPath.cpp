@@ -104,7 +104,7 @@ std::ostream& ComposedPath::print(std::ostream& os) const
 {
     os << "Trajet Composé :" << endl;
 
-	return elements->Print(os);
+	return elements->Print(os, false, true);
 } //----- Fin de print
 
 void swap(ComposedPath& first, ComposedPath& second)
