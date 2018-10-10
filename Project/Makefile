@@ -48,8 +48,13 @@ debug: clean
 debug: CC_FLAGS += $(CC_DEBUG_FLAGS)
 debug: $(BUILD_FOLDER)/$(EXEC)
 
+debug-test: test-debug
+
+test-debug: clean
+test-debug: CC_FLAGS += $(CC_DEBUG_FLAGS)
+test-debug: $(test_file)
+
 test: clean
-test: CC_FLAGS += $(CC_DEBUG_FLAGS)
 test: $(test_file)
 
 .SILENT:

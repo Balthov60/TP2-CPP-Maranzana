@@ -13,6 +13,8 @@ INSA TP2 C++ (Polymorphisme &amp; Heritage) Valentin Wallyn &amp; Balthazar Frol
     + Version de debug 		: Exécuter « make debug » 
 
     + Version de test	 	: Exécuter « make test T<Module> »
+    
+    + Version de test debug   	: Exécuter « make test-debug T<Module> »
  
 + Nettoyer les fichiers de build :
 
