@@ -116,6 +116,7 @@ bool PathArray::Add(Path* pathToAdd)
 	    
 		if (*elements[j] == *pathToAdd)
 		{
+			delete pathToAdd;
 			return false;
 		}
 	}

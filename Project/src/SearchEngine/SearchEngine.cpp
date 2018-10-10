@@ -55,7 +55,7 @@ void SearchEngine::AdvancedSearch(const char * startingCity, const char * ending
 
     if (startIndex != startCurrentSize && endIndex != endCurrentSize)
     {
-	    SearchEngine::node node;
+	    Node node;
 	    node.startIndex = startIndex;
 	    node.previous = NULL;
 
@@ -299,7 +299,7 @@ unsigned int SearchEngine::getEndCityIndex(const char * city) const
 	return endCurrentSize;
 } //----- Fin de getEndCityIndex
 
-bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * doneIndex) const
+bool SearchEngine::recursiveSearch(Node* node, unsigned int endIndex, bool * doneIndex) const
 // Algorithme :
 //		Explore les noeuds reliés au noeud initial "node" dans la matrice de proximité récursivement
 // jusqu'à l'arrivée sur un noeud possèdant comme ville d'arrivée la destination objectif (endIndex)
@@ -336,7 +336,7 @@ bool SearchEngine::recursiveSearch(node* node, unsigned int endIndex, bool * don
 				if (!doneIndex[startIndex])
 				{
 					doneIndex[node->startIndex] = true;
-					SearchEngine::node next;
+					Node next;
 					next.previous = node;
 					next.startIndex = startIndex;
 

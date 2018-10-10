@@ -223,7 +223,7 @@ void Catalog::askForEndingCity(char *endingCity) const
 {
     do
     {
-        cout << "\tVille d'arrivé : ";
+        cout << "\tVille d'arrivée : ";
     }
     while (!getInputLine(endingCity));
 }

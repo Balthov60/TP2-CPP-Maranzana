@@ -16,12 +16,12 @@
 //------------------------------------------------------------- Constantes
 const int DEFAULT_MAX_SIZE = 10;
 //------------------------------------------------------------------ Types
-struct node
+struct Node
 {
     unsigned int startIndex;
     unsigned int endIndex;
-    node* previous;
-    node* next;
+    Node* previous;
+    Node* next;
 };
 
 //------------------------------------------------------------------------
@@ -102,7 +102,7 @@ private:
 
     unsigned int getStartCityIndex(const char * city) const;
     unsigned int getEndCityIndex(const char * city) const;
-    bool recursiveSearch(node* node, unsigned int endIndex, bool * doneIndex) const;
+    bool recursiveSearch(Node* node, unsigned int endIndex, bool * doneIndex) const;
 
 //----------------------------------------------------- Attributs protégés
 
