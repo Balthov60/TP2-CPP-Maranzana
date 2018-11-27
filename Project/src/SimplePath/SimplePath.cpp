@@ -26,12 +26,12 @@ using std::endl;
 
 //----------------------------------------------------- Méthodes publiques
 
-char * SimplePath::GetStartCity() const
+const char * SimplePath::GetStartCity() const
 {
     return startCity;
 } //----- Fin de StartFrom
 
-char * SimplePath::GetEndCity() const
+const char * SimplePath::GetEndCity() const
 {
     return endCity;
 } //----- Fin de StopAt
@@ -99,7 +99,7 @@ SimplePath::~SimplePath()
 bool SimplePath::equals(const Path& other) const
 {
     const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
-
+    //TODO check nullptr or if dynamic_cast is necessary
     return (strcmp(startCity, other_derived.GetStartCity()) == 0)
         && (strcmp(endCity, other_derived.GetEndCity()) == 0)
         && meanOfTransport == other_derived.meanOfTransport;

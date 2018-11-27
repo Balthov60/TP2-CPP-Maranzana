@@ -96,6 +96,7 @@ ComposedPath::~ComposedPath ( )
 //----------------------------------------------------- Méthodes protégées
 bool ComposedPath::equals(const Path& other) const
 {
+    //TODO check nullptr or if dynamic_cast is necessary
     const ComposedPath& other_derived = dynamic_cast<const ComposedPath&>(other);
     return elements->Equals(*other_derived.elements);
 } //----- Fin de equals
