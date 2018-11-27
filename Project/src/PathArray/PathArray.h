@@ -114,7 +114,7 @@ public:
 
     PathArray(const unsigned int maxSize = MAX_SIZE);
     // Mode d'emploi :
-    // Constructeur basique qui alloue un tableau de taille "cardMax"
+    // Constructeur basique qui alloue un tableau de taille "maxSize"
     //
     // maxSize :
     // Taille maximal de la collection sans réallocation (par défaut : MAX_SIZE)

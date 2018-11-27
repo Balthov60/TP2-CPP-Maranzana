@@ -64,7 +64,7 @@ public:
     // Contrat :
     //
 
-    SimplePath(char * startingCity, char * endingCity, MeansOfTransport vehicle);
+    SimplePath(const char * startingCity, const char * endingCity, const MeansOfTransport vehicle);
     // Mode d'emploi
     // Constructeur basique avec un parametre pour chaque attributs
     //
