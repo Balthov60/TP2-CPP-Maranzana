@@ -26,12 +26,12 @@ using std::endl;
 
 //----------------------------------------------------- Méthodes publiques
 
-char * SimplePath::GetStartCity() const
+const char * SimplePath::GetStartCity() const
 {
     return startCity;
 } //----- Fin de StartFrom
 
-char * SimplePath::GetEndCity() const
+const char * SimplePath::GetEndCity() const
 {
     return endCity;
 } //----- Fin de StopAt
@@ -54,6 +54,10 @@ SimplePath & SimplePath::operator=(SimplePath other)
 
 SimplePath::SimplePath(const SimplePath & other)
 {
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <SimplePath>" << endl;
+#endif
+
     startCity = new char[strlen(other.startCity)+1];
     strcpy(startCity, other.startCity);
 
@@ -61,35 +65,31 @@ SimplePath::SimplePath(const SimplePath & other)
     strcpy(endCity, other.endCity);
 
     meanOfTransport = other.meanOfTransport;
-
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <SimplePath>" << endl;
-#endif
 } //----- Fin de SimplePath (constructeur de copie)
 
 
-SimplePath::SimplePath(char * startingCity, char * endingCity, MeansOfTransport vehicle) : meanOfTransport(vehicle)
+SimplePath::SimplePath(const char * startingCity, const char * endingCity, const MeansOfTransport vehicle) : meanOfTransport(vehicle)
 {
+#ifdef MAP
+    cout << "Appel au constructeur de <SimplePath>" << endl;
+#endif
+
     startCity = new char[strlen(startingCity)+1];
     strcpy(startCity, startingCity);
 
     endCity = new char[strlen(endingCity)+1];
     strcpy(endCity, endingCity);
-
-#ifdef MAP
-    cout << "Appel au constructeur de <SimplePath>" << endl;
-#endif
 } //----- Fin de SimplePath
 
 
 SimplePath::~SimplePath()
 {
-   	delete[] startCity;
-   	delete[] endCity;
-
 #ifdef MAP
     cout << "Appel au destructeur de <SimplePath>" << endl;
 #endif
+
+   	delete[] startCity;
+   	delete[] endCity;
 } //----- Fin de ~SimplePath
 
 //------------------------------------------------------------------ PRIVE
@@ -99,7 +99,7 @@ SimplePath::~SimplePath()
 bool SimplePath::equals(const Path& other) const
 {
     const SimplePath& other_derived = dynamic_cast<const SimplePath&>(other);
-
+    //TODO check nullptr or if dynamic_cast is necessary
     return (strcmp(startCity, other_derived.GetStartCity()) == 0)
         && (strcmp(endCity, other_derived.GetEndCity()) == 0)
         && meanOfTransport == other_derived.meanOfTransport;

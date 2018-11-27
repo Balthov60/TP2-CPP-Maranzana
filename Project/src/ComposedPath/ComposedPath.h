@@ -42,13 +42,13 @@ public:
     // Contrat :
     //      path est un pointeur sur trajet valide
 
-    virtual char * GetStartCity() const;
+    virtual const char * GetStartCity() const;
     // Mode d'emploi :
     //      Getter de "startCity"
     // Contrat :
     //
 
-    virtual char * GetEndCity() const;
+    virtual const char * GetEndCity() const;
     // Mode d'emploi :
     //      Getter de "endCity"
     // Contrat :
@@ -97,7 +97,7 @@ protected:
     virtual bool equals(const Path& other) const;
     // Mode d'emploi :
     //      Compare si le ComposedPath est égal à un autre trajet.
-    // Renvoie true si les trajets sont égaux, faux sinon.
+    // Renvoie true si les trajets sont égaux (tous les champs identique), faux sinon.
     // Contrat :
     //
     friend void swap(ComposedPath& first, ComposedPath& second);

@@ -33,12 +33,12 @@ void ComposedPath::AddStage(Path *path) const
     elements->Add(path);
 } //----- Fin de AddStage
 
-char * ComposedPath::GetStartCity() const
+const char * ComposedPath::GetStartCity() const
 {
     return elements->Get(0)->GetStartCity();
 } //----- Fin de StartFrom
 
-char * ComposedPath::GetEndCity() const
+const char * ComposedPath::GetEndCity() const
 {
     return elements->Get(elements->GetSize() - 1)->GetEndCity();
 } //----- Fin de StopAt
@@ -64,7 +64,7 @@ ComposedPath::ComposedPath ( const ComposedPath & other )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <ComposedPath>" << endl;
 #endif
-    elements = new PathArray();
+    elements = new PathArray;
     *elements = *other.elements;
 } //----- Fin de ComposedPath (constructeur de copie)
 
@@ -96,6 +96,7 @@ ComposedPath::~ComposedPath ( )
 //----------------------------------------------------- Méthodes protégées
 bool ComposedPath::equals(const Path& other) const
 {
+    //TODO check nullptr or if dynamic_cast is necessary
     const ComposedPath& other_derived = dynamic_cast<const ComposedPath&>(other);
     return elements->Equals(*other_derived.elements);
 } //----- Fin de equals

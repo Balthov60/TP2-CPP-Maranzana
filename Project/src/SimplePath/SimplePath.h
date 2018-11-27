@@ -31,14 +31,14 @@ class SimplePath : public Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    virtual char * GetStartCity() const;
+    virtual const char * GetStartCity() const;
     // Mode d'emploi :
     //      Getter de "startCity"
     //
     // Contrat :
     //
 
-    virtual char * GetEndCity() const;
+    virtual const char * GetEndCity() const;
     // Mode d'emploi :
     //      Getter de "endCity"
     //
@@ -64,7 +64,7 @@ public:
     // Contrat :
     //
 
-    SimplePath(char * startingCity, char * endingCity, MeansOfTransport vehicle);
+    SimplePath(const char * startingCity, const char * endingCity, const MeansOfTransport vehicle);
     // Mode d'emploi
     // Constructeur basique avec un parametre pour chaque attributs
     //

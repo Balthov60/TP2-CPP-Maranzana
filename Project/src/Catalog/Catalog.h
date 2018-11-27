@@ -82,7 +82,7 @@ private:
     // Contrat :
     //
 
-    void searchForPath(const bool advanced) const;
+    void searchForPath(const bool advanced = false) const;
     // Mode d'emploi :
     // Demande la ville de départ et d'arrivée et lance une recherche de trajet
     //
