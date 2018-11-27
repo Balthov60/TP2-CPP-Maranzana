@@ -41,12 +41,12 @@ class Path
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    virtual char * GetStartCity() const = 0;
+    virtual const char * GetStartCity() const = 0;
     // Mode d'emploi :
     // Récupère le nom de la ville de départ
     // Voir les classes dérivées pour la réalisation concrète
 
-    virtual char * GetEndCity() const = 0;
+    virtual const char * GetEndCity() const = 0;
     // Mode d'emploi :
     // Récupère le nom de la ville d'arrivée
     // Voir les classes dérivées pour la réalisation concrète
