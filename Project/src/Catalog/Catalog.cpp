@@ -79,23 +79,23 @@ void Catalog::Run()
 
 Catalog::Catalog ( )
 {
-    pathArray = new PathArray();
-    searchEngine = new SearchEngine();
-
 #ifdef MAP
     cout << "Appel au constructeur de <Catalog>" << endl;
 #endif
+
+    pathArray = new PathArray;
+    searchEngine = new SearchEngine;
 } //----- Fin de Catalog
 
 
 Catalog::~Catalog ( )
 {
-    delete pathArray;
-    delete searchEngine;
-
 #ifdef MAP
     cout << "Appel au destructeur de <Catalog>" << endl;
 #endif
+
+    delete pathArray;
+    delete searchEngine;
 } //----- Fin de ~Catalog
 
 //------------------------------------------------------------------ PRIVE
@@ -121,7 +121,7 @@ void Catalog::addSimplePath() const
 }
 void Catalog::addComposedPath() const
 {
-    ComposedPath *composedPath = new ComposedPath();
+    ComposedPath *composedPath = new ComposedPath;
     char startingCity[INPUT_MAX_SIZE];
     char endingCity[INPUT_MAX_SIZE];
     MeansOfTransport meansOfTransport;

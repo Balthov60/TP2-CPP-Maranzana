@@ -69,7 +69,7 @@ std::ostream& PathArray::Print(std::ostream& os, bool advanced, bool composed) c
 			for (j = 0; j < size - 1; j++)
 			{
 				os << *elements[j] << std::endl;
-				os << "ou" << endl << endl;
+				os << "ou" << endl << std::endl;
 			}
 			os << *elements[size-1];
 		}
@@ -211,6 +211,10 @@ unsigned int PathArray::Remove(const PathArray & anotherPathArray)
 //------------------------------------------------- Surcharge d'opérateurs
 PathArray& PathArray::operator=(const PathArray& other) 
 {
+#ifdef MAP
+    cout << "Appel à la surcharge du = de <PathArray>" << endl;
+#endif
+
 	if (this != &other)
 	{
 		for (unsigned int j = 0; j < size; j++)
@@ -229,14 +233,15 @@ PathArray& PathArray::operator=(const PathArray& other)
 		}
 	}
     return *this;
-#ifdef MAP
-	cout << "Appel à la surcharge du = de <PathArray>" << endl;
-#endif
 }
 
 //-------------------------------------------- Constructeurs - destructeur
 PathArray::PathArray(const PathArray & anotherPathArray)
 {
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <PathArray>" << endl;
+#endif
+
     maxSize = anotherPathArray.maxSize;
     size = anotherPathArray.size;
 
@@ -246,35 +251,31 @@ PathArray::PathArray(const PathArray & anotherPathArray)
     {
     	elements[j] = anotherPathArray.elements[j]->Clone();
     }
-
-#ifdef MAP
-	cout << "Appel au constructeur de copie de <PathArray>" << endl;
-#endif
 } //----- Fin de PathArray (constructeur de copie)
 
 PathArray::PathArray(const unsigned int maxSize)
 {
+#ifdef MAP
+    cout << "Appel au constructeur de <PathArray>" << endl;
+#endif
+
 	elements = new Path*[maxSize];
 	this->maxSize = maxSize;
 
 	size = 0;
-
-#ifdef MAP
-	cout << "Appel au constructeur de <PathArray>" << endl;
-#endif
 } //----- Fin de PathArray
 
 PathArray::~PathArray()
 {
+#ifdef MAP
+    cout << "Appel au destructeur de <PathArray>" << endl;
+#endif
+
     for (unsigned int j = 0; j < size; j++)
     {
     	delete elements[j];
     }
     delete [] elements;
-
-#ifdef MAP
-	cout << "Appel au destructeur de <PathArray>" << endl;
-#endif
 } //----- Fin de ~PathArray
 
 //------------------------------------------------------------------ PRIVE

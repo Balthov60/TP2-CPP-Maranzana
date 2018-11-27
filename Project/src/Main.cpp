@@ -33,7 +33,7 @@ using namespace std;
 
 int main()
 {
-    Catalog catalog = Catalog();
+    Catalog catalog;
     catalog.Run();
 
     return 0;
