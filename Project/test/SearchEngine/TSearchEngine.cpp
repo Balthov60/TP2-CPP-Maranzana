@@ -25,6 +25,76 @@ using std::cout;
 //---------------------------------------------------- Variables statiques
 
 //------------------------------------------------------ Fonctions privées
+static void testAdvancedSearch3()
+{
+	cout << "DEBUT testAdvancedSearch3" << "\r\n";
+	/*
+		expected output :
+		=================================================
+		Trajet Simple :
+		Départ    : A
+		Arrivée   : B
+		Transport : Avion
+		puis
+		Trajet Simple :
+		Départ    : B
+		Arrivée   : A
+		Transport : Avion
+		Fin trajet
+
+		Début trajet :
+		Trajet Simple :
+		Départ    : A
+		Arrivée   : B
+		Transport : Avion
+		puis
+		Trajet Simple :
+		Départ    : B
+		Arrivée   : C
+		Transport : Train
+		puis
+		Trajet Simple :
+		Départ    : C
+		Arrivée   : A
+		Transport : Train
+		Fin trajet
+
+		Début trajet :
+		Trajet Simple :
+		Départ    : A
+		Arrivée   : A
+		Transport : Train
+		Fin trajet
+		=================================================
+	*/
+	SearchEngine* se = new SearchEngine();
+	char a[] = "A";
+	char b[] = "B";
+	char c[] = "C";
+
+	SimplePath* ts1 = new SimplePath(a, b, AVION);
+	SimplePath* tc1 = new SimplePath(a, a, TRAIN);
+	SimplePath* ts2 = new SimplePath(b, a, AVION);
+	SimplePath* tc2 = new SimplePath(b, c, TRAIN);
+	SimplePath* ts3 = new SimplePath(c, a, TRAIN);
+
+	se->AddPath(ts1);
+	se->AddPath(tc1);
+	se->AddPath(ts2);
+	se->AddPath(tc2);
+	se->AddPath(ts3);
+
+	se->AdvancedSearch(a, a);
+	delete se;
+
+	delete ts1;
+	delete tc1;
+	delete ts2;
+	delete tc2;
+	delete ts3;
+	cout << "FIN testAdvancedSearch3" << "\r\n";
+}
+
 static void testAdvancedSearch2()
 {
 	cout << "DEBUT testAdvancedSearch2" << "\r\n";
@@ -85,6 +155,9 @@ static void testAdvancedSearch2()
 
 	cout << "FIN testAdvancedSearch2" << "\r\n";
 }
+
+
+
 
 static void testAdvancedSearch1()
 {
@@ -149,7 +222,7 @@ static void testAdvancedSearch()
 	cout << "DEBUT testAdvancedSearch" << "\r\n";
 	testAdvancedSearch1();
 	testAdvancedSearch2();
-
+	testAdvancedSearch3();
 	cout << "FIN testAdvancedSearch" << "\r\n";
 }
 

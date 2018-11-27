@@ -328,7 +328,7 @@ bool SearchEngine::recursiveSearch(Node* node, unsigned int endIndex, bool * don
 				}
 				adjacencyMatrix[node->startIndex][node->endIndex]->Print(cout, true);
 				cout << "Fin trajet" << endl << endl;
-				return true;
+				//return true;
 			}
 			unsigned int startIndex = getStartCityIndex(endCities[j]);
 			if (startIndex != startCurrentSize)
