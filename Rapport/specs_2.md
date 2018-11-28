@@ -6,19 +6,21 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
 #### Cas limites (à tester !)
 
 - Chargement :
-   - Fichier qui commence par 0;0, pas de chargement
+   - Fichier qui commence par 0;0 : pas de chargement
+   - Fichier Invalide / Inexistant : redemande un fichier
    - Trajets doublons : pas ajoutés
 - Sauvegarde :
    - catalogue vide : pas de sauvegarde
+   - Fichier déjà existant : demande de confirmation
 - Criterion :
- - TypeCriterion : basé sur le type de trajet "père"
- - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
- - IntervalCriterion : 
-   - intervalle complétement en dehors : **TODO**
-   - borne supérieure en dehors : **TODO**
-   - borne inférieure > borne supérieure : **TODO**
-   - borne supérieure = borne inférieure : **TODO**
-   - borne inférieure négative : **TODO**
+   - TypeCriterion : basé sur le type de trajet "père"
+   - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
+   - IntervalCriterion : 
+      - intervalle complétement en dehors : **TODO**
+      - borne supérieure en dehors : **TODO**
+      - borne inférieure > borne supérieure : **TODO**
+      - borne supérieure = borne inférieure : **TODO**
+      - borne inférieure négative : **TODO**
    
 #### Format de sauvegarde
 
