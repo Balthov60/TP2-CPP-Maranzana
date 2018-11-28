@@ -16,6 +16,7 @@
 
 #include "../PathArray/PathArray.h"
 #include "../SearchEngine/SearchEngine.h"
+#include "../FileSerializer/FileSerializer.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types

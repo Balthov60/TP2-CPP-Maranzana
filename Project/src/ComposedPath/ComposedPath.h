@@ -11,8 +11,12 @@
 #define COMPOSEDPATH_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
+
 #include "../Path/Path.h"
 #include "../PathArray/PathArray.h"
+
+using std::string;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -59,6 +63,11 @@ public:
     //      Duplique le trajet
     // Contrat :
     //
+
+    virtual string Serialize() const;
+    // Mode d'emploi :
+    // Méthode permettant d'obtenir une version serializé
+
 //------------------------------------------------- Surcharge d'opérateurs
     ComposedPath& operator=(ComposedPath other);
 
@@ -110,6 +119,11 @@ protected:
 //----------------------------------------------------- Attributs protégés
 
      PathArray* elements;
+
+//----------------------------------------------------- Attributs privés
+
+private:
+    static int serializationIndentationQty;
     
 };
 

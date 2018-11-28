@@ -11,7 +11,7 @@
 #define AbstractCriterion_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "../Path/Path.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -34,6 +34,9 @@ public:
     // Contrat :
     //
 
+    virtual const bool CheckLine(const char * line) const = 0;
+
+    virtual const bool CheckPath(const Path * path) const = 0;
 
 //------------------------------------------------- Surcharge d'opérateurs
     AbstractCriterion & operator = ( const AbstractCriterion & unAbstractCriterion );

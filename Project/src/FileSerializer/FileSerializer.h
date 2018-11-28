@@ -11,7 +11,14 @@
 #define FileSerializer_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
 
+#include "../Catalog/Catalog.h"
+#include "../Path/Path.h"
+#include "../SimplePath/SimplePath.h"
+#include "../AbstractCriterion/AbstractCriterion.h"
+
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -34,6 +41,18 @@ public:
     // Contrat :
     //
 
+    static FileSerializer * getInstance();
+    // Mode d'emploi :
+    //
+    // Contrat
+    //
+
+    bool save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    // path valide (testé dans Catalog)
+
 
 //------------------------------------------------- Surcharge d'opérateurs
     FileSerializer & operator = ( const FileSerializer & unFileSerializer );
@@ -50,12 +69,14 @@ public:
     // Contrat :
     //
 
+private:
     FileSerializer ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+public:
     virtual ~FileSerializer ( );
     // Mode d'emploi :
     //
@@ -68,6 +89,12 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
+
+private:
+//----------------------------------------------------- Méthodes privées
+
+//----------------------------------------------------- Attributs privés
+    static FileSerializer * instance;
 
 };
 

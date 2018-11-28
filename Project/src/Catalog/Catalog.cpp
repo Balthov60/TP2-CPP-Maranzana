@@ -59,10 +59,15 @@ void Catalog::Run()
             //recherche simple
             searchForPath(false);
         }
-        else if (strcmp(input, "5") == 0)     
+        else if (strcmp(input, "5") == 0)
         {
             //recherche avancée
             searchForPath(true);
+        }
+        else if (strcmp(input, "7") == 0)
+        {
+            FileSerializer::getInstance()->save(pathArray, "./save.txt");
+            cout << "DONE" << endl;
         }
         else
         {

@@ -41,6 +41,11 @@ SimplePath* SimplePath::Clone() const
     return new SimplePath(*this);
 } //----- Fin de Clone
 
+string SimplePath::Serialize() const
+{
+    return string().append(startCity).append(";").append(std::to_string(meanOfTransport)).append(";").append(endCity);
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 SimplePath & SimplePath::operator=(SimplePath other)
