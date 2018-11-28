@@ -6,10 +6,10 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
 #### Cas limites (à tester !)
 
 - Chargement :
- - Fichier qui commence par 0;0, pas de chargement
- - Trajets doublons : pas ajoutés
+   - Fichier qui commence par 0;0, pas de chargement
+   - Trajets doublons : pas ajoutés
 - Sauvegarde :
- - catalogue vide : pas de sauvegarde
+   - catalogue vide : pas de sauvegarde
 - Criterion :
  - TypeCriterion : basé sur le type de trajet "père"
  - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
