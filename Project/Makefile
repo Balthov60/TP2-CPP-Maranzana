@@ -10,7 +10,8 @@ EXEC                = VoyageVoyage
 MAIN_TEST_MODULE    = Main
 MODULES_NAME        = Catalog SearchEngine ComposedPath SimplePath PathArray Path FileSerializer \
 			CityCriterion EmptyCriterion IntervalCriterion TypeCriterion AbstractCriterion
-MODULES_NAME_TEST   = SearchEngine ComposedPath SimplePath PathArray Path
+MODULES_NAME_TEST   = SearchEngine ComposedPath SimplePath PathArray Path FileSerializer \
+			CityCriterion EmptyCriterion IntervalCriterion TypeCriterion AbstractCriterion
 
 ADDITIONAL_FOLDER   = Criterions
 
