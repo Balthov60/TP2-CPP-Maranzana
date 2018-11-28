@@ -16,6 +16,7 @@
 #include "../Catalog/Catalog.h"
 #include "../Path/Path.h"
 #include "../SimplePath/SimplePath.h"
+#include "../ComposedPath/ComposedPath.h"
 #include "../AbstractCriterion/AbstractCriterion.h"
 
 using namespace std;
@@ -35,11 +36,6 @@ class FileSerializer
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
     static FileSerializer * getInstance();
     // Mode d'emploi :
@@ -47,31 +43,24 @@ public:
     // Contrat
     //
 
-    bool save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
+    void save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
     // Mode d'emploi :
+    // Sauvegarde la collection "pathArray" dans le fichier pointé par "path" selon les critères "criterion"
     //
     // Contrat :
     // path valide (testé dans Catalog)
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-    FileSerializer & operator = ( const FileSerializer & unFileSerializer );
+    void load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
     // Mode d'emploi :
+    // Charge les données du fichier pointé par "path" dans la collection "pathArray" selon les critères "criterion"
     //
     // Contrat :
-    //
-
-
-//-------------------------------------------- Constructeurs - destructeur
-    FileSerializer ( const FileSerializer & unFileSerializer );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
+    // path valide (testé dans Catalog)
 
 private:
     FileSerializer ( );
     // Mode d'emploi :
+    // Constructeur par défaut (privé car Singleton)
     //
     // Contrat :
     //
@@ -79,6 +68,7 @@ private:
 public:
     virtual ~FileSerializer ( );
     // Mode d'emploi :
+    // Destructeur par défaut
     //
     // Contrat :
     //
@@ -87,6 +77,11 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
+
+void processLine(PathArray * pathArray, ifstream * file, char * line);
+Path * deserialize(string object);
+string removeIndentationAndMetadata(string object);
+
 
 //----------------------------------------------------- Attributs protégés
 
