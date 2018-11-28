@@ -8,8 +8,11 @@ TEST_FOLDER         = test
 EXEC                = VoyageVoyage
 
 MAIN_TEST_MODULE    = Main
-MODULES_NAME        = Catalog SearchEngine ComposedPath SimplePath PathArray Path
+MODULES_NAME        = Catalog SearchEngine ComposedPath SimplePath PathArray Path FileSerializer \
+			CityCriterion EmptyCriterion IntervalCriterion TypeCriterion AbstractCriterion
 MODULES_NAME_TEST   = SearchEngine ComposedPath SimplePath PathArray Path
+
+ADDITIONAL_FOLDER   = Criterions
 
 # COMPILATION CONFIGURATION
 
@@ -57,18 +60,20 @@ test-debug: $(test_file)
 test: clean
 test: $(test_file)
 
+$(info $$modules_folders is [${modules_folders}])
+
 .SILENT:
 
 # BUILD MAIN EXEC
 
-vpath %.cpp $(modules_folders) $(test_folders) $(SRC_FOLDER) $(TEST_FOLDER)
+vpath %.cpp $(modules_folders) $(test_folders) $(SRC_FOLDER) $(TEST_FOLDER) $(ADDITIONAL_FOLDER)
 
 $(BUILD_FOLDER)/$(EXEC): $(object_files)
 	@echo "building executable : $@ with [$^]\n"
 	$(CC) $(CC_FLAGS) -o $@ $^ -lm
 	@echo "building done."
 
-# BUILD TESTS   # UNABLE TO BUILD ONLY USEFULL OBJECY FOR TEST
+# BUILD TESTS   # UNABLE TO BUILD ONLY USEFUL OBJECT FOR TEST
 
 $(test_file) : $(test_o_files)
 	@echo "building Test : $@"
