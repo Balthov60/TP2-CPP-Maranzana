@@ -11,15 +11,14 @@
 #define AbstractCriterion_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "../Path/Path.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
 // Rôle de la classe <AbstractCriterion>
-//
-//
+// Critère de sélection pour la sauvegarde et le chargement de trajets
 //------------------------------------------------------------------------
 
 class AbstractCriterion
@@ -28,34 +27,48 @@ class AbstractCriterion
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    virtual const bool CheckMetadata(const char * line) const = 0;
     // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Vérifie que les métadonnées du fichier vérifient le critère
+    // Retourne :
+    //      - true si le critère est vérifié
+    //      - false sinon
+
+    virtual const bool CheckLine(const char * line) const = 0;
+    // Mode d'emploi :
+    // Vérifie si la chaîne de caractères représentant un trajet vérifie 
+    // ce critère ou pas, ie. si elle est sélectionnée pour le parsing ou pas
+    // Retourne :
+    //      - true si le critère est vérifié
+    //      - false sinon
+
+    virtual const bool CheckPath(const Path * path) const = 0;
+    // Mode d'emploi :
+    // Vérifie si le trajet vérifie ce critère ou pas, ie. si il 
+    // est sélectionné pour la sauvegarde ou non
+    // Retourne :
+    //      - true si le critère est vérifié
+    //      - false sinon
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    AbstractCriterion & operator = ( const AbstractCriterion & unAbstractCriterion );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    AbstractCriterion ( const AbstractCriterion & unAbstractCriterion );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
+protected:
     AbstractCriterion ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    AbstractCriterion ( const AbstractCriterion & other );
+    // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
+public:
     virtual ~AbstractCriterion ( );
     // Mode d'emploi :
     //

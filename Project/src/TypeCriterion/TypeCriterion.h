@@ -11,32 +11,31 @@
 #define TypeCriterion_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "../AbstractCriterion/AbstractCriterion.h"
+#include "../Path/Path.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
 // Rôle de la classe <TypeCriterion>
-//
-//
+// Critère de sélection selon le type du trajet (simple ou composé)
 //------------------------------------------------------------------------
 
-class TypeCriterion
+class TypeCriterion : public AbstractCriterion
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    virtual const bool CheckMetadata(const char * line) const;
+    
+    virtual const bool CheckLine(const char * path) const;
 
+    virtual const bool CheckPath(const Path * path) const;
 
 //------------------------------------------------- Surcharge d'opérateurs
-    TypeCriterion & operator = ( const TypeCriterion & unTypeCriterion );
+    TypeCriterion & operator = ( const TypeCriterion & other );
     // Mode d'emploi :
     //
     // Contrat :
@@ -44,13 +43,13 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    TypeCriterion ( const TypeCriterion & unTypeCriterion );
+    TypeCriterion ( const TypeCriterion & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    TypeCriterion ( );
+    TypeCriterion ( bool selecComposed );
     // Mode d'emploi :
     //
     // Contrat :
@@ -68,7 +67,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+    bool composed;
 };
 
 //-------------------------------- Autres définitions dépendantes de <TypeCriterion>

@@ -11,32 +11,31 @@
 #define EmptyCriterion_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "../AbstractCriterion/AbstractCriterion.h"
+#include "../Path/Path.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
 // Rôle de la classe <EmptyCriterion>
-//
-//
+// Représente le critère vide ie. qui valide toutes les entrées
 //------------------------------------------------------------------------
 
-class EmptyCriterion
+class EmptyCriterion  : public AbstractCriterion
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    virtual const bool CheckMetadata(const char * line) const;
 
+    virtual const bool CheckLine(const char * line) const;
+
+    virtual const bool CheckPath(const Path * path) const;
 
 //------------------------------------------------- Surcharge d'opérateurs
-    EmptyCriterion & operator = ( const EmptyCriterion & unEmptyCriterion );
+    EmptyCriterion & operator = ( const EmptyCriterion & other );
     // Mode d'emploi :
     //
     // Contrat :
@@ -44,7 +43,7 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    EmptyCriterion ( const EmptyCriterion & unEmptyCriterion );
+    EmptyCriterion ( const EmptyCriterion & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :

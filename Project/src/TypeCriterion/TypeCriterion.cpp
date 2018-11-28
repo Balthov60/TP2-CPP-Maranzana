@@ -12,41 +12,65 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <cstring>
 
 //------------------------------------------------------ Include personnel
 #include "TypeCriterion.h"
+#include "../SimplePath/SimplePath.h"
+#include "../ComposedPath/ComposedPath.h"
 using namespace std;
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type TypeCriterion::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+const bool TypeCriterion::CheckMetadata(const char * line) const
+{
+    char * buffer = new char[strlen(line) + 1];
+    strcpy(buffer, line);
+    char * pch = strtok (buffer,";");
+    if (composed) {
+        pch = strtok (NULL, ";");
+    }
+    
+    bool result =  (strcmp(pch, "0") != 0);
+    delete[] buffer;
 
-/*
+    return result;
+} //----- Fin de CheckMetadata
+
+const bool TypeCriterion::CheckLine(const char * path) const
+{
+	return composed ? (strstr(path, ":") != nullptr) : (strstr(path, ":") == nullptr);
+} //----- Fin de CheckLine
+
+const bool TypeCriterion::CheckPath(const Path * path) const
+{
+	return (typeid(*path) == (composed ? typeid(ComposedPath) : typeid(SimplePath)));
+} //----- Fin de CheckPath
+
+
 //------------------------------------------------- Surcharge d'opérateurs
-TypeCriterion & TypeCriterion::operator = ( const TypeCriterion & unTypeCriterion )
+TypeCriterion & TypeCriterion::operator = ( const TypeCriterion & other )
 // Algorithme :
 //
 {
+	composed = other.composed;
+	return *this;
 } //----- Fin de operator =
 
 //-------------------------------------------- Constructeurs - destructeur
-TypeCriterion::TypeCriterion ( const TypeCriterion & unTypeCriterion )
+TypeCriterion::TypeCriterion ( const TypeCriterion & other ) : composed(other.composed)
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <TypeCriterion>" << endl;
 #endif
-} //----- Fin de TypeCriterion (constructeur de copie)
-*/ //TODO: Implement
 
-TypeCriterion::TypeCriterion ( )
+} //----- Fin de TypeCriterion (constructeur de copie)
+
+TypeCriterion::TypeCriterion ( bool selecComposed ) : composed(selecComposed)
 // Algorithme :
 //
 {
