@@ -11,32 +11,32 @@
 #define CityCriterion_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "../AbstractCriterion/AbstractCriterion.h"
+#include "../Path/Path.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
 // Rôle de la classe <CityCriterion>
-//
-//
+// Critère de sélection selon la ville de départ et/ou d'arrivée
 //------------------------------------------------------------------------
 
-class CityCriterion
+class CityCriterion  : public AbstractCriterion
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    virtual const bool CheckMetadata(const char * line) const;
+    
+    virtual const bool CheckLine(const char * path) const;
+
+    virtual const bool CheckPath(const Path * path) const;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    CityCriterion & operator = ( const CityCriterion & unCityCriterion );
+    CityCriterion & operator = ( CityCriterion other );
     // Mode d'emploi :
     //
     // Contrat :
@@ -44,13 +44,13 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    CityCriterion ( const CityCriterion & unCityCriterion );
+    CityCriterion ( const CityCriterion & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    CityCriterion ( );
+    CityCriterion ( const char * startingCity = nullptr, const char * endingCity = nullptr );
     // Mode d'emploi :
     //
     // Contrat :
@@ -66,9 +66,11 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-
+    void create( const char * startingCity = nullptr, const char * endingCity = nullptr );
+    void dispose();
 //----------------------------------------------------- Attributs protégés
-
+    char * startCity;
+    char * endCity;
 };
 
 //-------------------------------- Autres définitions dépendantes de <CityCriterion>

@@ -18,7 +18,7 @@ ADDITIONAL_FOLDER   = Criterions
 # COMPILATION CONFIGURATION
 
 CC                  =g++
-CC_FLAGS            =-Wall -Werror -pedantic -std=c++11
+CC_FLAGS            =-Wall -pedantic -std=c++11 
 CC_DEBUG_FLAGS      =-g -DMAP
 
 

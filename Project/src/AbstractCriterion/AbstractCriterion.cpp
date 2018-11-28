@@ -17,7 +17,9 @@
 #include "AbstractCriterion.h"
 using namespace std;
 //------------------------------------------------------------- Constantes
-
+const char * AbstractCriterion::METADATA_DELIMITER = "|";
+const char * AbstractCriterion::COMPOSED_PATH_FLAG = ":";
+const char * AbstractCriterion::PATH_DELIMITER = ";";
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques

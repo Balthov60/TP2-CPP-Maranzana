@@ -28,9 +28,9 @@ const bool TypeCriterion::CheckMetadata(const char * line) const
 {
     char * buffer = new char[strlen(line) + 1];
     strcpy(buffer, line);
-    char * pch = strtok (buffer,";");
+    char * pch = strtok (buffer, METADATA_DELIMITER);
     if (composed) {
-        pch = strtok (NULL, ";");
+        pch = strtok (NULL, METADATA_DELIMITER);
     }
     
     bool result =  (strcmp(pch, "0") != 0);
@@ -41,7 +41,7 @@ const bool TypeCriterion::CheckMetadata(const char * line) const
 
 const bool TypeCriterion::CheckLine(const char * path) const
 {
-	return composed ? (strstr(path, ":") != nullptr) : (strstr(path, ":") == nullptr);
+	return composed ? (strstr(path, COMPOSED_PATH_FLAG) != nullptr) : (strstr(path, COMPOSED_PATH_FLAG) == nullptr);
 } //----- Fin de CheckLine
 
 const bool TypeCriterion::CheckPath(const Path * path) const

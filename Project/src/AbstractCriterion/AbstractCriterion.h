@@ -81,7 +81,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+static const char * METADATA_DELIMITER;
+static const char * COMPOSED_PATH_FLAG;
+static const char * PATH_DELIMITER;
 };
 
 //-------------------------------- Autres définitions dépendantes de <AbstractCriterion>
