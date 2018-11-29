@@ -11,7 +11,8 @@
 #define IntervalCriterion_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "../AbstractCriterion/AbstractCriterion.h"
+#include "../Path/Path.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -22,21 +23,21 @@
 //
 //------------------------------------------------------------------------
 
-class IntervalCriterion
+class IntervalCriterion : public AbstractCriterion
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    virtual const bool CheckMetadata(const char * line);
+    
+    virtual const bool CheckLine(const char * path);
+
+    virtual const bool CheckPath(const Path * path);
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    IntervalCriterion & operator = ( const IntervalCriterion & unIntervalCriterion );
+    IntervalCriterion & operator = ( IntervalCriterion other );
     // Mode d'emploi :
     //
     // Contrat :
@@ -44,13 +45,13 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    IntervalCriterion ( const IntervalCriterion & unIntervalCriterion );
+    IntervalCriterion ( const IntervalCriterion & other );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    IntervalCriterion ( );
+    IntervalCriterion ( int startIndex, int endIndex = -1 );
     // Mode d'emploi :
     //
     // Contrat :
@@ -68,7 +69,10 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+    int startIndex;
+    int endIndex;
+    int pathCount;
+    int lineCount;
 };
 
 //-------------------------------- Autres définitions dépendantes de <IntervalCriterion>
