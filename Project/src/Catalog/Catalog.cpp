@@ -66,8 +66,13 @@ void Catalog::Run()
         }
         else if (strcmp(input, "7") == 0)
         {
-            FileSerializer::getInstance()->save(pathArray, "./save.txt");
-            cout << "DONE" << endl;
+            FileSerializer::getInstance()->Save(pathArray, "./save.txt");
+            cout << "DONE SAVE" << endl;
+        }
+        else if (strcmp(input, "8") == 0)
+        {
+            FileSerializer::getInstance()->Load(pathArray, "./save.txt");
+            cout << "DONE LOAD" << endl;
         }
         else
         {

@@ -38,6 +38,8 @@ public:
 
     virtual const bool CheckPath(const Path * path) const = 0;
 
+    virtual const bool CheckMetadata(const char * line);
+
 //------------------------------------------------- Surcharge d'opérateurs
     AbstractCriterion & operator = ( const AbstractCriterion & unAbstractCriterion );
     // Mode d'emploi :

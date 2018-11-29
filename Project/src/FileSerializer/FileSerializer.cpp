@@ -31,14 +31,19 @@ FileSerializer * FileSerializer::getInstance()
     return instance;
 }
 
-void FileSerializer::save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
+void FileSerializer::Save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
 {
     ofstream file;
     file.open(path);
 
-    string data = string();
+    // Meta
     int composedPathQty = 0;
     int simplePathQty = 0;
+    string startCityList("");
+    string endCityList("");
+
+    //Data
+    string data("");
 
     for (int i = 0; i < pathArray->GetSize(); i++)
     {
@@ -46,41 +51,53 @@ void FileSerializer::save(PathArray * pathArray, const char * path/*, AbstractCr
 
         if (true /*criterion.CheckPath(path)*/)
         {
-            data.append(path->Serialize()).append("\r\n");
-            (typeid(path) == typeid(SimplePath)) ? simplePathQty++ : composedPathQty++;
+            data.append(path->Serialize());
+            data.append("\r\n");
+
+            (dynamic_cast<const ComposedPath *>(path) == NULL) ? simplePathQty++ : composedPathQty++;
+
+            if (startCityList.find(path->GetStartCity()) == string::npos)
+            {
+                startCityList.append(path->GetStartCity());
+                startCityList.append(";");
+            }
+
+            if (endCityList.find(path->GetEndCity()) == string::npos)
+            {
+                endCityList.append(path->GetEndCity());
+                endCityList.append(";");
+            }
         }
     }
 
-    file << simplePathQty << ";" << composedPathQty << std::endl;
+    file << simplePathQty << "|" << composedPathQty << "|" << startCityList << "|" << endCityList << std::endl;
     file << data;
     file.close();
 }
 
-void FileSerializer::load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
+void FileSerializer::Load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
 {
     ifstream file;
     file.open(path);
 
     char line[1024] = "";
-    string object = string();
+    string object("");
 
     // First Metadata Line
     file.getline(line, 1024);
-    /*
-    if (!criterion.CheckMetadata(line)
+
+    /*if (!criterion.CheckMetadata(line))
         return;
     */
-
     while(file.getline(line, 1024))
     {
         if (line[0] == '\t') // If you find \t that mean Composed Path must be Skipped
             continue;
 
-        /*
-        if (!criterion.checkLine(line))
+    /*
+        if (!criterion.CheckLine(line))
             continue;
-        */
-
+    */
         processLine(pathArray, &file, line);
     }
 

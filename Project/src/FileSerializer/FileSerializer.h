@@ -43,14 +43,14 @@ public:
     // Contrat
     //
 
-    void save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
+    void Save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
     // Mode d'emploi :
     // Sauvegarde la collection "pathArray" dans le fichier pointé par "path" selon les critères "criterion"
     //
     // Contrat :
     // path valide (testé dans Catalog)
 
-    void load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
+    void Load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
     // Mode d'emploi :
     // Charge les données du fichier pointé par "path" dans la collection "pathArray" selon les critères "criterion"
     //
