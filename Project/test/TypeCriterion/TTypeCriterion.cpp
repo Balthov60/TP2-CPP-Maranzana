@@ -31,23 +31,23 @@ static void testCheckMetadata()
 {
 	cout << "testCheckMetadata..." << "\r\n";
 	TypeCriterion criterion(false);
-	bool result = criterion.CheckMetadata("0|0");
+	bool result = criterion.CheckMetadata("0|0|XXXX;YYYY|ZZZZ;OOOO");
 	assert(result == false);
 	
-	result = criterion.CheckMetadata("0|12");
+	result = criterion.CheckMetadata("0|12|XXXX;YYYY|ZZZZ;OOOO");
 	assert(result == false);
 
-	result = criterion.CheckMetadata("12|0");
+	result = criterion.CheckMetadata("12|0|XXXX;YYYY|ZZZZ;OOOO");
 	assert(result == true);
 
 	TypeCriterion criterionComp(true);
-	result = criterionComp.CheckMetadata("1|0");
+	result = criterionComp.CheckMetadata("1|0|XXXX;YYYY|ZZZZ;OOOO");
 	assert(result == false);
 	
-	result = criterionComp.CheckMetadata("12|12");
+	result = criterionComp.CheckMetadata("12|12|XXXX;YYYY|ZZZZ;OOOO");
 	assert(result == true);
 
-	result = criterionComp.CheckMetadata("0|12");
+	result = criterionComp.CheckMetadata("0|12|XXXX;YYYY|ZZZZ;OOOO");
 	assert(result == true);
 
 	cout << "ok" << "\r\n";
