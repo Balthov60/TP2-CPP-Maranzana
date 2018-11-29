@@ -24,7 +24,7 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-const bool TypeCriterion::CheckMetadata(const char * line) const
+const bool TypeCriterion::CheckMetadata(const char * line)
 {
     char * buffer = new char[strlen(line) + 1];
     strcpy(buffer, line);
@@ -39,12 +39,12 @@ const bool TypeCriterion::CheckMetadata(const char * line) const
     return result;
 } //----- Fin de CheckMetadata
 
-const bool TypeCriterion::CheckLine(const char * path) const
+const bool TypeCriterion::CheckLine(const char * path)
 {
 	return composed ? (strstr(path, COMPOSED_PATH_FLAG) != nullptr) : (strstr(path, COMPOSED_PATH_FLAG) == nullptr);
 } //----- Fin de CheckLine
 
-const bool TypeCriterion::CheckPath(const Path * path) const
+const bool TypeCriterion::CheckPath(const Path * path) 
 {
 	return (typeid(*path) == (composed ? typeid(ComposedPath) : typeid(SimplePath)));
 } //----- Fin de CheckPath

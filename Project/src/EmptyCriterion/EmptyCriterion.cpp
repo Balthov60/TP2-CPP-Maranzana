@@ -21,17 +21,17 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-const bool EmptyCriterion::CheckMetadata(const char * line) const
+const bool EmptyCriterion::CheckMetadata(const char * line)
 {
 	return true;
 } //----- Fin de CheckMetadata
 
-const bool EmptyCriterion::CheckLine(const char * line) const
+const bool EmptyCriterion::CheckLine(const char * line)
 {
 	return true;
 } //----- Fin de CheckLine
 
-const bool EmptyCriterion::CheckPath(const Path * path) const
+const bool EmptyCriterion::CheckPath(const Path * path)
 {
 	return true;
 } //----- Fin de CheckPath

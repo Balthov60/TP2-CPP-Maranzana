@@ -13,6 +13,7 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 #include <cstring>
+#include <cctype>
 //------------------------------------------------------ Include personnel
 #include "CityCriterion.h"
 using namespace std;
@@ -21,7 +22,7 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-const bool CityCriterion::CheckMetadata(const char * line) const
+const bool CityCriterion::CheckMetadata(const char * line)
 {
 	if (startCity == nullptr && endCity == nullptr)
 	{
@@ -47,6 +48,7 @@ const bool CityCriterion::CheckMetadata(const char * line) const
     	char * city_token = strtok_r(buffer2, PATH_DELIMITER, &save_ptr2);
     	do
     	{
+    		cityToLower(city_token);
     		result = (strcmp(city_token, startCity) == 0);
     		city_token = strtok_r(NULL, PATH_DELIMITER, &save_ptr2);
     	} while (city_token != nullptr && !result);
@@ -62,6 +64,7 @@ const bool CityCriterion::CheckMetadata(const char * line) const
     	char * city_token = strtok_r(buffer2, PATH_DELIMITER, &save_ptr2);
     	do 
     	{
+    		cityToLower(city_token);
     		endResult = (strcmp(city_token, endCity) == 0);
     		city_token = strtok_r(NULL, PATH_DELIMITER, &save_ptr2);
     	} while (city_token != nullptr && !endResult);
@@ -75,7 +78,7 @@ const bool CityCriterion::CheckMetadata(const char * line) const
 	return result;
 } //----- Fin de CheckMetadata
 
-const bool CityCriterion::CheckLine(const char * line) const
+const bool CityCriterion::CheckLine(const char * line)
 {
 	if (startCity == nullptr && endCity == nullptr)
 	{
@@ -97,6 +100,7 @@ const bool CityCriterion::CheckLine(const char * line) const
     bool result = false;
     if (startCity != nullptr)
     {    
+    	cityToLower(simple_token);
 	    result = (strcmp(simple_token, startCity) == 0);
     }
 
@@ -110,10 +114,12 @@ const bool CityCriterion::CheckLine(const char * line) const
     		strtok_r(NULL, PATH_DELIMITER, &save_ptr1);
     		simple_token = strtok_r(NULL, PATH_DELIMITER, &save_ptr1);
     		// if we are in AND condition, combine with former result
+    		cityToLower(simple_token);
     		result = (startCity != nullptr) ? (result && strcmp(simple_token, endCity) == 0) : (strcmp(simple_token, endCity) == 0);
     	}
     	else
     	{
+    		cityToLower(comp_token);
     		// if we are in AND condition, combine with former result
     		result = (startCity != nullptr) ? (result && strcmp(comp_token, endCity) == 0) : (strcmp(comp_token, endCity) == 0);
     	}
@@ -125,7 +131,7 @@ const bool CityCriterion::CheckLine(const char * line) const
     return result;
 } //----- Fin de CheckLine
 
-const bool CityCriterion::CheckPath(const Path * path) const
+const bool CityCriterion::CheckPath(const Path * path)
 {
 	if (startCity == nullptr && endCity == nullptr)
 	{
@@ -135,12 +141,20 @@ const bool CityCriterion::CheckPath(const Path * path) const
 	bool result = false;
 	if (startCity != nullptr)
     {    
-	    result = (strcmp(path->GetStartCity(), startCity) == 0);
+    	char * startCpy = new char[strlen(path->GetStartCity()) + 1];
+    	strcpy(startCpy, path->GetStartCity());
+    	cityToLower(startCpy);
+	    result = (strcmp(startCpy, startCity) == 0);
+	    delete [] startCpy;
     }
     if (endCity != nullptr)
     {
+    	char * endCpy = new char[strlen(path->GetEndCity()) + 1];
+    	strcpy(endCpy, path->GetEndCity());
+    	cityToLower(endCpy);
     	// if we are in AND condition, combine with former result
-    	result = (startCity != nullptr) ? (result && strcmp(path->GetEndCity(), endCity) == 0) : (strcmp(path->GetEndCity(), endCity) == 0);
+    	result = (startCity != nullptr) ? (result && strcmp(endCpy, endCity) == 0) : (strcmp(endCpy, endCity) == 0);
+    	delete[] endCpy;
     }
     return result;
 } //----- Fin de CheckPath
@@ -201,6 +215,7 @@ void CityCriterion::create( const char * startingCity, const char * endingCity )
 	{
 		startCity = new char[strlen(startingCity) + 1];
 		strcpy(startCity, startingCity);
+		cityToLower(startCity);
 	}
 	else
 	{
@@ -210,6 +225,7 @@ void CityCriterion::create( const char * startingCity, const char * endingCity )
 	{
 		endCity = new char[strlen(endingCity) + 1];
 		strcpy(endCity, endingCity);
+		cityToLower(endCity);
 	}
 	else
 	{
@@ -221,4 +237,12 @@ void CityCriterion::dispose()
 {
 	delete[] startCity;
 	delete[] endCity;
+}
+
+void CityCriterion::cityToLower(char * city) const
+{
+	for (unsigned int i = 0; i < strlen(city); i++)
+	{
+		city[i] = tolower(city[i]);
+	}
 }

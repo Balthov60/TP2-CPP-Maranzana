@@ -22,17 +22,17 @@
 // Critère de sélection selon la ville de départ et/ou d'arrivée
 //------------------------------------------------------------------------
 
-class CityCriterion  : public AbstractCriterion
+class CityCriterion : public AbstractCriterion
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    virtual const bool CheckMetadata(const char * line) const;
+    virtual const bool CheckMetadata(const char * line);
     
-    virtual const bool CheckLine(const char * path) const;
+    virtual const bool CheckLine(const char * path);
 
-    virtual const bool CheckPath(const Path * path) const;
+    virtual const bool CheckPath(const Path * path);
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -68,6 +68,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
     void create( const char * startingCity = nullptr, const char * endingCity = nullptr );
     void dispose();
+    void cityToLower( char * city ) const;
 //----------------------------------------------------- Attributs protégés
     char * startCity;
     char * endCity;

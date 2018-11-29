@@ -28,11 +28,11 @@ class TypeCriterion : public AbstractCriterion
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    virtual const bool CheckMetadata(const char * line) const;
+    virtual const bool CheckMetadata(const char * line);
     
-    virtual const bool CheckLine(const char * path) const;
+    virtual const bool CheckLine(const char * path);
 
-    virtual const bool CheckPath(const Path * path) const;
+    virtual const bool CheckPath(const Path * path);
 
 //------------------------------------------------- Surcharge d'opérateurs
     TypeCriterion & operator = ( const TypeCriterion & other );
