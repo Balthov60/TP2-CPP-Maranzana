@@ -14,11 +14,11 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
  - TypeCriterion : basé sur le type de trajet "père"
  - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
  - IntervalCriterion : 
-   - intervalle complétement en dehors : **TODO**
-   - borne supérieure en dehors : **TODO**
-   - borne inférieure > borne supérieure : **TODO**
-   - borne supérieure = borne inférieure : **TODO**
-   - borne inférieure négative : **TODO**
+   - intervalle complétement en dehors : pas de sélection (check metadata return false)
+   - borne supérieure en dehors : on met borne sup = -1, pas de limite de fin
+   - borne inférieure > borne supérieure : on met borne sup = -1, pas de limite de fin
+   - borne supérieure = borne inférieure : selection 1 seul ligne d'index m (n)
+   - borne inférieure négative : on met borne inf = 0, traitremnt as usual
    
 #### Format de sauvegarde
 
