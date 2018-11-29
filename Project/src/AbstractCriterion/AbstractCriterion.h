@@ -27,14 +27,14 @@ class AbstractCriterion
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    virtual const bool CheckMetadata(const char * line) const = 0;
+    virtual const bool CheckMetadata(const char * line) = 0;
     // Mode d'emploi :
     // Vérifie que les métadonnées du fichier vérifient le critère
     // Retourne :
     //      - true si le critère est vérifié
     //      - false sinon
 
-    virtual const bool CheckLine(const char * line) const = 0;
+    virtual const bool CheckLine(const char * line) = 0;
     // Mode d'emploi :
     // Vérifie si la chaîne de caractères représentant un trajet vérifie 
     // ce critère ou pas, ie. si elle est sélectionnée pour le parsing ou pas
@@ -42,7 +42,7 @@ public:
     //      - true si le critère est vérifié
     //      - false sinon
 
-    virtual const bool CheckPath(const Path * path) const = 0;
+    virtual const bool CheckPath(const Path * path) = 0;
     // Mode d'emploi :
     // Vérifie si le trajet vérifie ce critère ou pas, ie. si il 
     // est sélectionné pour la sauvegarde ou non
