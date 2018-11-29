@@ -6,10 +6,12 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
 #### Cas limites (à tester !)
 
 - Chargement :
- - Fichier qui commence par 0;0, pas de chargement
- - Trajets doublons : pas ajoutés
+   - Fichier qui commence par 0;0 : pas de chargement
+   - Fichier Invalide / Inexistant : redemande un fichier
+   - Trajets doublons : pas ajoutés
 - Sauvegarde :
- - catalogue vide : pas de sauvegarde
+   - catalogue vide : pas de sauvegarde
+   - Fichier déjà existant : demande de confirmation
 - Criterion :
  - TypeCriterion : basé sur le type de trajet "père"
  - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
@@ -26,7 +28,7 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
 
 demo.txt :
 
-    2;1
+    2|1|Lyon|Bordeaux;Paris
     Lyon;1;Bordeaux
     Lyon;2;Paris
     Lyon;3;Marseille:Paris
