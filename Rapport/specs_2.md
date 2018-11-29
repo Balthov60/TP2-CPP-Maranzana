@@ -14,11 +14,13 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
  - TypeCriterion : basé sur le type de trajet "père"
  - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
  - IntervalCriterion : 
+   - on commence à compter à 1
    - intervalle complétement en dehors : pas de sélection (check metadata return false)
    - borne supérieure en dehors : on met borne sup = -1, pas de limite de fin
-   - borne inférieure > borne supérieure : on met borne sup = -1, pas de limite de fin
+   - borne inférieure > borne supérieure : on redemande à l'utilisateur
    - borne supérieure = borne inférieure : selection 1 seul ligne d'index m (n)
-   - borne inférieure négative : on met borne inf = 0, traitremnt as usual
+   - borne inférieure négative ou nulle : on met borne inf = 1, traitremnt as usual
+   - deux bornes négatives : on redemande à l'utilisateur
    
 #### Format de sauvegarde
 
