@@ -3,5 +3,6 @@ CMakeLists.txt
 .DS_Store
 .idea/
 .Build/
+*.txt
 
 /~$pport_TP2_MARANZANA-Wallyn_Frolin.docx

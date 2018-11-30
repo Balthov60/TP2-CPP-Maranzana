@@ -63,6 +63,24 @@ public:
 private:
 //----------------------------------------------------- Méthodes protégées
 
+    void save() const;
+    // Mode d'emploi :
+    // Demande un chemin et utiliser FileSerializer pour sauvegarder les données.
+    //
+    // Si le fichier existe déjà, demande une confirmation.
+    // Si le chemin n'est pas valide, affiche un message d'erreur.
+    //
+    // Contrat :
+    //
+    void load() const;
+    // Mode d'emploi :
+    // Demande un chemin et utiliser FileSerializer pour charger les données.
+    //
+    // Si le chemin n'est pas valide, affiche un message d'erreur.
+    //
+    // Contrat :
+    //
+
     void addSimplePath() const;
     // Mode d'emploi :
     // Demande des informations et ajoute un SimplePath à la collection
@@ -166,6 +184,13 @@ private:
     void displayMeansOfTransport() const;
     // Mode d'emploi :
     // Affiche les différents moyens de transport.
+    //
+    // Contrat :
+    //
+
+    bool askForFileOverride() const;
+    // Mode d'emploi :
+    // Return true si l'utilisateur répond [y/Y/yes/Yes] et false si il répond [n/N/no/No]
     //
     // Contrat :
     //

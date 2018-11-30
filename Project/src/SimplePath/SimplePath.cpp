@@ -43,7 +43,18 @@ SimplePath* SimplePath::Clone() const
 
 string SimplePath::Serialize() const
 {
-    return string().append(startCity).append(";").append(std::to_string(meanOfTransport)).append(";").append(endCity);
+    string serialized("");
+
+    serialized.append(startCity);
+    serialized.append(";");
+
+    serialized.append(std::to_string(meanOfTransport));
+    serialized.append(";");
+
+    serialized.append(endCity);
+    serialized.append(";");
+
+    return serialized;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs

@@ -75,7 +75,7 @@ void FileSerializer::Save(PathArray * pathArray, const char * path/*, AbstractCr
     file.close();
 }
 
-void FileSerializer::Load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
+bool FileSerializer::Load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
 {
     ifstream file;
     file.open(path);
@@ -89,73 +89,41 @@ void FileSerializer::Load(PathArray * pathArray, const char * path/*, AbstractCr
     /*if (!criterion.CheckMetadata(line))
         return;
     */
-    while(file.getline(line, 1024))
-    {
-        if (line[0] == '\t') // If you find \t that mean Composed Path must be Skipped
-            continue;
 
-    /*
-        if (!criterion.CheckLine(line))
-            continue;
-    */
-        processLine(pathArray, &file, line);
+    try
+    {
+        while(file.getline(line, 1024))
+        {
+            if (line[0] == '\t') // If you find \t that mean Composed Path must be Skipped
+                continue;
+
+            /*
+                if (!criterion.CheckLine(line))
+                    continue;
+            */
+            processLine(pathArray, &file, line);
+        }
+    }
+    catch (const std::invalid_argument & e)
+    {
+        file.close();
+       return false;
     }
 
     file.close();
+    return true;
 }
 
-void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char line[1024])
+bool FileSerializer::FileExist(const char path[])
 {
-    if (strstr(line, ":") == NULL)
-    {
-       pathArray->Add(deserialize(line));
-       return;
-    }
-
-    ComposedPath * composedPath = new ComposedPath();
-
-    do {
-        if (line[0] != '\t' && strstr(line, ":") == NULL)
-        {
-            pathArray->Add(composedPath);
-
-            processLine(pathArray, file, line);
-            return;
-        }
-
-        composedPath->AddStage(deserialize(line));
-    }
-    while (file->getline(line, 1024));
+    ifstream f(path);
+    return f.good();
 }
 
-Path * FileSerializer::deserialize(string object)
+bool FileSerializer::FileCanBeCreated(const char path[])
 {
-    object = removeIndentationAndMetadata(object);
-
-    char values[3][256];
-    size_t lastPos = 0;
-
-    for (int i = 0; i < 3; i++)
-    {
-        size_t pos = object.find(";", lastPos);
-        strcpy(values[i], object.substr(lastPos, pos - lastPos).data());
-        lastPos = pos + 1;
-    }
-
-    return new SimplePath(values[0], values[2], (MeansOfTransport) stoi(values[1]));
-}
-string FileSerializer::removeIndentationAndMetadata(string object)
-{
-    size_t first = object.find_last_of("\t");
-    size_t last = object.find_last_of(":");
-
-    if (first == string::npos)
-        first = -1;
-
-    if (last == string::npos)
-        last = object.size();
-
-    return object.substr(first + 1, last - first - 1);
+    ofstream f(path);
+    return f.is_open();
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -185,3 +153,61 @@ FileSerializer * FileSerializer::instance = nullptr;
 
 //----------------------------------------------------- Méthodes protégées
 
+void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char line[1024])
+{
+    if (strstr(line, ":") == NULL)
+    {
+        pathArray->Add(deserialize(line));
+        return;
+    }
+
+    ComposedPath * composedPath = new ComposedPath();
+    composedPath->AddStage(deserialize(line));
+
+    while (file->getline(line, 1024))
+    {
+        if (line[0] != '\t')
+        {
+            pathArray->Add(composedPath);
+
+            processLine(pathArray, file, line);
+            return;
+        }
+        composedPath->AddStage(deserialize(line));
+    }
+    pathArray->Add(composedPath); // In Case file end with a composed path.
+}
+
+Path * FileSerializer::deserialize(string object)
+{
+    object = removeIndentationAndMetadata(object);
+
+    char values[3][256];
+    size_t lastPos = 0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        size_t pos = object.find(";", lastPos);
+
+        if (pos == string::npos)
+            throw std::invalid_argument("Le contenu du fichier n'est pas valide...");
+
+        strcpy(values[i], object.substr(lastPos, pos - lastPos).data());
+        lastPos = pos + 1;
+    }
+
+    return new SimplePath(values[0], values[2], (MeansOfTransport) stoi(values[1]));
+}
+string FileSerializer::removeIndentationAndMetadata(string object)
+{
+    size_t first = object.find_last_of("\t");
+    size_t last = object.find_last_of(":");
+
+    if (first == string::npos)
+        first = -1;
+
+    if (last == string::npos)
+        last = object.size();
+
+    return object.substr(first + 1, last - first - 1);
+}

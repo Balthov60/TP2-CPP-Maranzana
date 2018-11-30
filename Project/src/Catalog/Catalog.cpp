@@ -22,7 +22,8 @@
 using std::cout;
 using std::endl;
 //------------------------------------------------------------- Constantes
-const int INPUT_MAX_SIZE = 100;
+const int INPUT_MAX_SIZE = 50;
+const int PATH_MAX_LENGHT = 256;
 const char SEPARATOR[] = "=================================================\r\n";
 //----------------------------------------------------------------- PUBLIC
 
@@ -66,13 +67,11 @@ void Catalog::Run()
         }
         else if (strcmp(input, "7") == 0)
         {
-            FileSerializer::getInstance()->Save(pathArray, "./save.txt");
-            cout << "DONE SAVE" << endl;
+            save();
         }
         else if (strcmp(input, "8") == 0)
         {
-            FileSerializer::getInstance()->Load(pathArray, "./save.txt");
-            cout << "DONE LOAD" << endl;
+            load();
         }
         else
         {
@@ -111,6 +110,53 @@ Catalog::~Catalog ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+
+/* File Linked Methods */
+
+void Catalog::save() const
+{
+    char input[PATH_MAX_LENGHT];
+
+    do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
+    while (!getInputWord(input));
+
+    FileSerializer * fileSerializer = FileSerializer::getInstance();
+
+    if ((fileSerializer->FileExist(input) && askForFileOverride()) || fileSerializer->FileCanBeCreated(input))
+    {
+        if (askForFileOverride())
+        {
+            fileSerializer->Save(pathArray, input);
+            cout << "La sauvegarde à bien été créé." << endl;
+        }
+    }
+    else
+    {
+        cout << "Votre Fichier ne peut pas être créer, le chemin est invalide..." << endl;
+    }
+}
+
+void Catalog::load() const
+{
+    char input[PATH_MAX_LENGHT];
+
+    do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
+    while (!getInputWord(input));
+
+    FileSerializer * fileSerializer = FileSerializer::getInstance();
+
+    if (fileSerializer->FileExist(input))
+    {
+        if (fileSerializer->Load(pathArray, input))
+            cout << "Vos données ont bien été chargé." << endl;
+        else
+            cout << "Vos données sont pas pu être chargées dans leur totalité, le format du fichier n'est pas valide..." << endl;
+    }
+    else
+    {
+        cout << "Votre Fichier n'existe pas..." << endl;
+    }
+}
 
 /* Edition Methods */
 
@@ -220,7 +266,6 @@ void Catalog::searchForPath(const bool advanced) const
 
 /* Input Methods */
 
-
 void Catalog::askForStartingCity(char *startingCity) const
 {
     do
@@ -305,6 +350,12 @@ void Catalog::cleanInputStream() const
     int c = 0;
     while ((c = getchar()) != '\n' && c != EOF);
 }
+void Catalog::inputError() const
+{
+    cout << "input Error\n";
+    exit(1);
+}
+
 void Catalog::capitalizeFirstWordsLetter(char *input) const
 // Algorithme :
 // Change la première lettre et toutes les lettres après un espace par des majuscule (si ce sont des lettres).
@@ -337,10 +388,24 @@ void Catalog::capitalizeFirstWordsLetter(char *input) const
     }
 }
 
-void Catalog::inputError() const
+bool Catalog::askForFileOverride() const
 {
-    cout << "input Error\n";
-    exit(1);
+    char answer[INPUT_MAX_SIZE];
+
+    for ( ; ; )
+    {
+        do
+        {
+            cout << "File Exist do you want to override it ? (y/n) : ";
+        }
+        while (!getInputWord(answer));
+
+        if (strcmp(answer, "y") == 0 || strcmp(answer, "Y") == 0 || strcmp(answer, "Yes") == 0 || strcmp(answer, "yes") == 0)
+            return true;
+
+        if (strcmp(answer, "n") == 0 || strcmp(answer, "N") == 0 || strcmp(answer, "No") == 0 || strcmp(answer, "no") == 0)
+            return false;
+    }
 }
 
 /* Output Methods */
@@ -357,6 +422,9 @@ void Catalog::displayMainMenu() const
             <<                                                             endl
             << "Taper 4 pour chercher un trajet (version simple)."      << endl
             << "Taper 5 pour chercher un trajet (version avancée)."     << endl
+            <<                                                             endl
+            << "Taper 7 pour sauvegarder votre catalogue."              << endl
+            << "Taper 8 pour charger un catalogue."                     << endl
             <<                                                             endl
             << "Taper 9 pour quitter l'application \"Voyage Voyage\""   << endl
             << SEPARATOR
@@ -381,7 +449,8 @@ void Catalog::displayMeansOfTransport() const
 {
     cout << "\tMoyen de transport ( ";
 
-    for (int i = 0; i < MEAN_OF_TRANSPORT_QTY; i++) {
+    for (int i = 0; i < MEAN_OF_TRANSPORT_QTY; i++)
+    {
         cout << MEAN_OF_TRANSPORT_STRINGS[i] << " ";
     }
 
