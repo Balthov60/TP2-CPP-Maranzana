@@ -28,6 +28,11 @@ using namespace std;
 //} //----- Fin de Méthode
 
 
+const bool AbstractCriterion::CheckMetadata(const char * line)
+{
+    return true;
+}
+
 /*
 //------------------------------------------------- Surcharge d'opérateurs
 AbstractCriterion & AbstractCriterion::operator = ( const AbstractCriterion & unAbstractCriterion )
