@@ -130,6 +130,7 @@ void Catalog::save() const
     else
     {
         cout << "Impossible de sauvegarder le catalogue (chemin invalide)" << endl;
+        displayMainMenu();
     }
 }
 
@@ -157,6 +158,7 @@ void Catalog::load() const
     else
     {
         cout << "Votre fichier n'existe pas..." << endl;
+        displayMainMenu();
     }
 }
 
