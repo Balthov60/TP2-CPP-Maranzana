@@ -28,7 +28,7 @@ using namespace std;
 // Rôle de la classe <FileSerializer>
 //
 // La classe FileSerializer permet de sauvegarder et de charger des catalogues
-// dans des fichiers de sauvegarde.
+// dans des fichiers.
 //
 // La classe met aussi à disposition des méthodes de gestion de fichiers.
 //
@@ -48,14 +48,17 @@ public:
     // Contrat
     //
 
-    void Save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
+    void Save(PathArray * pathArray, const char * path, AbstractCriterion criterion);
     // Mode d'emploi :
-    // Sauvegarde la collection "pathArray" dans le fichier pointé par "path" selon les critères "criterion"
+    // Sauvegarde une sélection de trajets de la collection dans un fichier
+    //       pathArray : collection de trajets à sauvegarder
+    //       path : chemin du fichier de sauvegarde
+    //       criterion : critère de sélection des trajets
     //
     // Contrat :
     // path valide (testé dans Catalog)
 
-    bool Load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/);
+    bool Load(PathArray * pathArray, const char * path, AbstractCriterion criterion);
     // Mode d'emploi :
     // Charge les données du fichier pointé par "path" dans la collection "pathArray" selon les critères "criterion"
     //
@@ -101,11 +104,7 @@ protected:
 
     void processLine(PathArray * pathArray, ifstream * file, char * line);
     // Mode d'emploi :
-    // Prend une ligne du fichier
-    //      SI la ligne représente un trajet simple, envoi la ligne dans deserialize()
-    //      SI la ligne représente le début d'un trajet composé, récupère le reste des données et utilise deserialize
-    //
-    // Une fois l'objet deserializé, il est ajouté au catalogue (pathArray).
+    // Traite une ligne du fichier représentant un SimplePath ou ComposedPath.
     //
     // Contrat :
     //
@@ -120,7 +119,7 @@ protected:
 
     string removeIndentationAndMetadata(string object);
     // Mode d'emploi :
-    // Supprime les tabulation en début de string et toutes les données situé après ":"
+    // Supprime les tabulations en début de string et toutes les données situé après ":"
     //
     // Contrat :
     //

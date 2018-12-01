@@ -23,7 +23,7 @@ using std::cout;
 using std::endl;
 //------------------------------------------------------------- Constantes
 const int INPUT_MAX_SIZE = 50;
-const int PATH_MAX_LENGHT = 256;
+const int PATH_MAX_LENGTH = 256;
 const char SEPARATOR[] = "=================================================\r\n";
 //----------------------------------------------------------------- PUBLIC
 
@@ -115,7 +115,7 @@ Catalog::~Catalog ( )
 
 void Catalog::save() const
 {
-    char input[PATH_MAX_LENGHT];
+    char input[PATH_MAX_LENGTH];
 
     do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
     while (!getInputWord(input));
@@ -124,21 +124,18 @@ void Catalog::save() const
 
     if ((fileSerializer->FileExist(input) && askForFileOverride()) || fileSerializer->FileCanBeCreated(input))
     {
-        if (askForFileOverride())
-        {
-            fileSerializer->Save(pathArray, input);
-            cout << "La sauvegarde à bien été créé." << endl;
-        }
+        fileSerializer->Save(pathArray, input);
+        cout << "La sauvegarde à bien été créé." << endl;
     }
     else
     {
-        cout << "Votre Fichier ne peut pas être créer, le chemin est invalide..." << endl;
+        cout << "Impossible de sauvegarder le catalogue (chemin invalide)" << endl;
     }
 }
 
 void Catalog::load() const
 {
-    char input[PATH_MAX_LENGHT];
+    char input[PATH_MAX_LENGTH];
 
     do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
     while (!getInputWord(input));
@@ -147,14 +144,19 @@ void Catalog::load() const
 
     if (fileSerializer->FileExist(input))
     {
+        int previousSize = pathArray->GetSize();
+
         if (fileSerializer->Load(pathArray, input))
-            cout << "Vos données ont bien été chargé." << endl;
+            cout << "Vos données ont bien été chargées. " << (pathArray->GetSize() - previousSize) << " Trajet(s) ajouté(s)." << endl;
         else
-            cout << "Vos données sont pas pu être chargées dans leur totalité, le format du fichier n'est pas valide..." << endl;
+        {
+            cout << "Vos données n'ont pas pu être chargées dans leur totalité, le format du fichier n'est pas valide... "
+                    << (pathArray->GetSize() - previousSize) << " Trajet(s) ajouté(s)." << endl;
+        }
     }
     else
     {
-        cout << "Votre Fichier n'existe pas..." << endl;
+        cout << "Votre fichier n'existe pas..." << endl;
     }
 }
 
@@ -394,16 +396,13 @@ bool Catalog::askForFileOverride() const
 
     for ( ; ; )
     {
-        do
-        {
-            cout << "File Exist do you want to override it ? (y/n) : ";
-        }
-        while (!getInputWord(answer));
+        cout << "Le fichier existe déjà, voulez vous l'écraser, (o/n) : ";
+        getInputWord(answer);
 
-        if (strcmp(answer, "y") == 0 || strcmp(answer, "Y") == 0 || strcmp(answer, "Yes") == 0 || strcmp(answer, "yes") == 0)
+        if (answer[0] == 'O')
             return true;
 
-        if (strcmp(answer, "n") == 0 || strcmp(answer, "N") == 0 || strcmp(answer, "No") == 0 || strcmp(answer, "no") == 0)
+        if (answer[0] == 'N')
             return false;
     }
 }

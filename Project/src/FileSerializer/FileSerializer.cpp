@@ -18,7 +18,9 @@
 #include "FileSerializer.h"
 
 //------------------------------------------------------------- Constantes
-
+const int MAX_LINE_SIZE = 1024;
+const int MAX_FIELD_SIZE = 256;
+const int FIELD_QTY = 3;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
@@ -31,7 +33,7 @@ FileSerializer * FileSerializer::getInstance()
     return instance;
 }
 
-void FileSerializer::Save(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
+void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCriterion criterion)
 {
     ofstream file;
     file.open(path);
@@ -49,12 +51,12 @@ void FileSerializer::Save(PathArray * pathArray, const char * path/*, AbstractCr
     {
         const Path *path = pathArray->Get(i);
 
-        if (true /*criterion.CheckPath(path)*/)
+        if (criterion.CheckPath(path))
         {
             data.append(path->Serialize());
             data.append("\r\n");
 
-            (dynamic_cast<const ComposedPath *>(path) == NULL) ? simplePathQty++ : composedPathQty++;
+            (dynamic_cast<const ComposedPath *>(path) == nullptr) ? simplePathQty++ : composedPathQty++;
 
             if (startCityList.find(path->GetStartCity()) == string::npos)
             {
@@ -75,38 +77,38 @@ void FileSerializer::Save(PathArray * pathArray, const char * path/*, AbstractCr
     file.close();
 }
 
-bool FileSerializer::Load(PathArray * pathArray, const char * path/*, AbstractCriterion criterion*/)
+bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCriterion criterion)
 {
     ifstream file;
     file.open(path);
 
-    char line[1024] = "";
+    char line[MAX_LINE_SIZE] = "";
     string object("");
 
     // First Metadata Line
-    file.getline(line, 1024);
+    file.getline(line, MAX_LINE_SIZE);
 
-    /*if (!criterion.CheckMetadata(line))
-        return;
-    */
+    if (!criterion.CheckMetadata(line))
+        return true;
 
     try
     {
-        while(file.getline(line, 1024))
+        while(file.getline(line, MAX_LINE_SIZE))
         {
-            if (line[0] == '\t') // If you find \t that mean Composed Path must be Skipped
+            if (line[0] == '\t') // If you find \t that means Composed Path must be Skipped
                 continue;
 
-            /*
-                if (!criterion.CheckLine(line))
+            if (!criterion.CheckLine(line))
                     continue;
-            */
+
             processLine(pathArray, &file, line);
         }
     }
     catch (const std::invalid_argument & e)
     {
-        file.close();
+       file.close();
+       cerr << e.what();
+
        return false;
     }
 
@@ -153,9 +155,15 @@ FileSerializer * FileSerializer::instance = nullptr;
 
 //----------------------------------------------------- Méthodes protégées
 
-void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char line[1024])
+void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char line[MAX_LINE_SIZE])
+// Algorithme
+// Prend une ligne du fichier
+//      SI la ligne représente un trajet simple, envoi la ligne dans deserialize()
+//      SI la ligne représente le début d'un trajet composé, récupère le reste des données et utilise deserialize
+//
+// Une fois l'objet deserializé, il est ajouté au catalogue (pathArray).
 {
-    if (strstr(line, ":") == NULL)
+    if (strstr(line, ":") == nullptr)
     {
         pathArray->Add(deserialize(line));
         return;
@@ -164,7 +172,7 @@ void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char li
     ComposedPath * composedPath = new ComposedPath();
     composedPath->AddStage(deserialize(line));
 
-    while (file->getline(line, 1024))
+    while (file->getline(line, MAX_LINE_SIZE))
     {
         if (line[0] != '\t')
         {
@@ -173,7 +181,15 @@ void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char li
             processLine(pathArray, file, line);
             return;
         }
-        composedPath->AddStage(deserialize(line));
+        try
+        {
+            composedPath->AddStage(deserialize(line));
+        }
+        catch (const std::invalid_argument & e)
+        {
+            delete composedPath;
+            throw e;
+        }
     }
     pathArray->Add(composedPath); // In Case file end with a composed path.
 }
@@ -182,7 +198,7 @@ Path * FileSerializer::deserialize(string object)
 {
     object = removeIndentationAndMetadata(object);
 
-    char values[3][256];
+    char values[FIELD_QTY][MAX_FIELD_SIZE];
     size_t lastPos = 0;
 
     for (int i = 0; i < 3; i++)

@@ -57,7 +57,7 @@ public:
 
     virtual string Serialize() const;
     // Mode d'emploi :
-    // Méthode permettant d'obtenir une version serializé
+    // Méthode permettant d'obtenir une version serializée (texte) du trajet
 
 //------------------------------------------------- Surcharge d'opérateurs
 

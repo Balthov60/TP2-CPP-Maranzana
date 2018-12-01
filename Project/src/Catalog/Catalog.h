@@ -65,7 +65,7 @@ private:
 
     void save() const;
     // Mode d'emploi :
-    // Demande un chemin et utiliser FileSerializer pour sauvegarder les données.
+    // Demande un chemin et utilise FileSerializer pour sauvegarder les données.
     //
     // Si le fichier existe déjà, demande une confirmation.
     // Si le chemin n'est pas valide, affiche un message d'erreur.
@@ -74,7 +74,7 @@ private:
     //
     void load() const;
     // Mode d'emploi :
-    // Demande un chemin et utiliser FileSerializer pour charger les données.
+    // Demande un chemin et utilise FileSerializer pour charger les données.
     //
     // Si le chemin n'est pas valide, affiche un message d'erreur.
     //
