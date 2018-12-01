@@ -41,7 +41,7 @@ public:
     // Retourne :
     //      - true si le critère est vérifié
     //      - false sinon
-
+  
     virtual const bool CheckPath(const Path * path) = 0;
     // Mode d'emploi :
     // Vérifie si le trajet vérifie ce critère ou pas, ie. si il 
