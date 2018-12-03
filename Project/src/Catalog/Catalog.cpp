@@ -18,6 +18,8 @@
 #include "Catalog.h"
 #include "../SimplePath/SimplePath.h"
 #include "../ComposedPath/ComposedPath.h"
+#include "../EmptyCriterion/EmptyCriterion.h"
+
 
 using std::cout;
 using std::endl;
@@ -124,7 +126,8 @@ void Catalog::save() const
 
     if ((fileSerializer->FileExist(input) && askForFileOverride()) || fileSerializer->FileCanBeCreated(input))
     {
-        fileSerializer->Save(pathArray, input);
+        EmptyCriterion criterion; // TODO Menu criterion
+        fileSerializer->Save(pathArray, input, criterion);
         cout << "La sauvegarde à bien été créé." << endl;
     }
     else
@@ -146,8 +149,8 @@ void Catalog::load() const
     if (fileSerializer->FileExist(input))
     {
         int previousSize = pathArray->GetSize();
-
-        if (fileSerializer->Load(pathArray, input))
+        EmptyCriterion criterion; // TODO menu criterion
+        if (fileSerializer->Load(pathArray, input, criterion))
             cout << "Vos données ont bien été chargées. " << (pathArray->GetSize() - previousSize) << " Trajet(s) ajouté(s)." << endl;
         else
         {
