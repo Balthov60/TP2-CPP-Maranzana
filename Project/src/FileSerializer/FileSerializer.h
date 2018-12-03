@@ -41,14 +41,21 @@ class FileSerializer
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    static FileSerializer * getInstance();
+    static FileSerializer * GetInstance();
     // Mode d'emploi :
     // Retourne l'instance singleton de la classe FileSerializer.
     //
     // Contrat
     //
 
-    void Save(PathArray * pathArray, const char * path, AbstractCriterion & criterion);
+    static void Dispose();
+    // Mode d'emploi :
+    // Désalloue la mémoire du FileSerializer
+    //
+    // Contrat
+    //
+
+    void Save(PathArray * pathArray, const string & path, AbstractCriterion * criterion) const;
     // Mode d'emploi :
     // Sauvegarde une sélection de trajets de la collection dans un fichier
     //       pathArray : collection de trajets à sauvegarder
@@ -58,7 +65,7 @@ public:
     // Contrat :
     // path valide (testé dans Catalog)
 
-    bool Load(PathArray * pathArray, const char * path, AbstractCriterion & criterion);
+    bool Load(PathArray * pathArray, const string & path, AbstractCriterion * criterion) const;
     // Mode d'emploi :
     // Charge les données du fichier pointé par "path" dans la collection "pathArray" selon les critères "criterion"
     //
@@ -67,14 +74,14 @@ public:
     // Contrat :
     // path valide (testé dans Catalog)
 
-    bool FileExist(const char * path);
+    bool FileExist(const string & path) const;
     // Mode d'emploi :
     // Renvoi true si le fichier existe false sinon.
     //
     // Contrat :
     //
 
-    bool FileCanBeCreated(const char path[]);
+    bool FileCanBeCreated(const string & path) const;
     // Mode d'emploi ;
     // Renvoi true si le fichier peut être créer donc si le dossier parent existe.
     //
@@ -102,14 +109,14 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
 
-    void processLine(PathArray * pathArray, ifstream * file, char * line);
+    void processLine(PathArray * pathArray, ifstream * file, char * line) const;
     // Mode d'emploi :
     // Traite une ligne du fichier représentant un SimplePath ou ComposedPath.
     //
     // Contrat :
     //
 
-    Path * deserialize(string object);
+    Path * deserialize(string object) const;
     // Mode d'emploi :
     // Transforme un objet string en objet de type SimplePath ou ComposedPath
     //
@@ -117,7 +124,7 @@ protected:
     // Avoir un objet string représentant un Path
     //
 
-    string removeIndentationAndMetadata(string object);
+    string removeIndentationAndMetadata(string object) const;
     // Mode d'emploi :
     // Supprime les tabulations en début de string et toutes les données situé après ":"
     //

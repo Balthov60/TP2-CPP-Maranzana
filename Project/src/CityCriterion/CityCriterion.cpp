@@ -39,9 +39,10 @@ const bool CityCriterion::CheckMetadata(const char * line)
 
     strtok_r(buffer, METADATA_DELIMITER, &save_ptr1); //number of simple path
     strtok_r(NULL, METADATA_DELIMITER, &save_ptr1); //number of composed path
+
     char * list_token = strtok_r(NULL, METADATA_DELIMITER, &save_ptr1); //list of starting cities
-    
-    if (startCity != nullptr)
+
+    if (list_token && startCity != nullptr)
     {
     	char * buffer2 = new char[strlen(list_token) + 1];
     	strcpy(buffer2, list_token);
@@ -55,7 +56,7 @@ const bool CityCriterion::CheckMetadata(const char * line)
     	delete[] buffer2;
     }
 
-    if (endCity != nullptr)
+    if (list_token && endCity != nullptr)
     {
     	bool endResult = false;
     	list_token = strtok_r(NULL, METADATA_DELIMITER, &save_ptr1); //list of ending cities
@@ -85,7 +86,6 @@ const bool CityCriterion::CheckLine(const char * line)
 		return false;
 	}
 
-	
 	char * buffer = new char[strlen(line) + 1];
     strcpy(buffer, line);
 
