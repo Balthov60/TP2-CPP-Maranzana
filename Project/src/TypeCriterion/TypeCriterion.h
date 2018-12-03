@@ -29,15 +29,21 @@ class TypeCriterion : public AbstractCriterion
 public:
 //----------------------------------------------------- Méthodes publiques
     virtual const bool CheckMetadata(const char * line);
-    
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
+
     virtual const bool CheckLine(const char * path);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
 
     virtual const bool CheckPath(const Path * path);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
 
 //------------------------------------------------- Surcharge d'opérateurs
     TypeCriterion & operator = ( const TypeCriterion & other );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
@@ -45,19 +51,19 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     TypeCriterion ( const TypeCriterion & other );
     // Mode d'emploi (constructeur de copie) :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
     TypeCriterion ( bool selecComposed );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
     virtual ~TypeCriterion ( );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 

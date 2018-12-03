@@ -19,8 +19,8 @@
 
 //------------------------------------------------------------------------
 // Rôle de la classe <IntervalCriterion>
-//
-//
+// Représente le critère d'intervalle qui permet de sélectionner un intervalle
+// de trajets
 //------------------------------------------------------------------------
 
 class IntervalCriterion : public AbstractCriterion
@@ -30,16 +30,22 @@ class IntervalCriterion : public AbstractCriterion
 public:
 //----------------------------------------------------- Méthodes publiques
     virtual const bool CheckMetadata(const char * line);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
     
     virtual const bool CheckLine(const char * path);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
 
     virtual const bool CheckPath(const Path * path);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
 
 
 //------------------------------------------------- Surcharge d'opérateurs
     IntervalCriterion & operator = ( IntervalCriterion other );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
@@ -47,19 +53,19 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     IntervalCriterion ( const IntervalCriterion & other );
     // Mode d'emploi (constructeur de copie) :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
     IntervalCriterion ( int startIndex, int endIndex = -1 );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
     virtual ~IntervalCriterion ( );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 

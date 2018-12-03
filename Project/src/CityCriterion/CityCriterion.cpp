@@ -133,11 +133,6 @@ const bool CityCriterion::CheckLine(const char * line)
 
 const bool CityCriterion::CheckPath(const Path * path)
 {
-	if (startCity == nullptr && endCity == nullptr)
-	{
-		return false;
-	}
-
 	bool result = false;
 	if (startCity != nullptr)
     {    

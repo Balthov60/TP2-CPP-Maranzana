@@ -58,20 +58,20 @@ public:
 protected:
     AbstractCriterion ( );
     // Mode d'emploi :
-    //
+    //      Constructeur (ne doit jamais être utilisée)
     // Contrat :
     //
 
     AbstractCriterion ( const AbstractCriterion & other );
     // Mode d'emploi (constructeur de copie) :
-    //
+    //      Constructeur de copie (ne doit jamais être utilisée)
     // Contrat :
     //
 
 public:
     virtual ~AbstractCriterion ( );
     // Mode d'emploi :
-    //
+    //      Destructeur
     // Contrat :
     //
 

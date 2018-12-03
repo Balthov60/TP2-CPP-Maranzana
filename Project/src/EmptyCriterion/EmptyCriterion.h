@@ -29,35 +29,41 @@ class EmptyCriterion  : public AbstractCriterion
 public:
 //----------------------------------------------------- Méthodes publiques
     virtual const bool CheckMetadata(const char * line);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
 
     virtual const bool CheckLine(const char * line);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
 
     virtual const bool CheckPath(const Path * path);
+    // Mode d'emploi :
+    //  cf. AbstractCriterion
 
 //------------------------------------------------- Surcharge d'opérateurs
     EmptyCriterion & operator = ( const EmptyCriterion & other );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
-    //
+    //  
 
 
 //-------------------------------------------- Constructeurs - destructeur
     EmptyCriterion ( const EmptyCriterion & other );
     // Mode d'emploi (constructeur de copie) :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
     EmptyCriterion ( );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
     virtual ~EmptyCriterion ( );
     // Mode d'emploi :
-    //
+    //  cf. AbstractCriterion
     // Contrat :
     //
 
