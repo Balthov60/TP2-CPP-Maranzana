@@ -30,6 +30,11 @@ const char * AbstractCriterion::PATH_DELIMITER = ";";
 //} //----- Fin de Méthode
 
 
+const bool AbstractCriterion::CheckMetadata(const char * line)
+{
+    return true;
+}
+
 /*
 //------------------------------------------------- Surcharge d'opérateurs
 AbstractCriterion & AbstractCriterion::operator = ( const AbstractCriterion & unAbstractCriterion )

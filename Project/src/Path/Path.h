@@ -13,6 +13,9 @@
 //--------------------------------------------------- Interfaces utilisées
 
 #include <iostream>
+#include <string>
+
+using std::string;
 
 //------------------------------------------------------------------ Types
 // Note : Nous avons inversé les catégories types et constantes pour pouvoir faire les déclarations
@@ -55,6 +58,10 @@ public:
     // Mode d'emploi :
     // Dublique le trajet
     // Voir les classes dérivées pour la réalisation concrète
+
+    virtual string Serialize() const = 0;
+    // Mode d'emploi :
+    // Méthode permettant d'obtenir une version serializé
 
 //------------------------------------------------- Surcharge d'opérateurs
 
