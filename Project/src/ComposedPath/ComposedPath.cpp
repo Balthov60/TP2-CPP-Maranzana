@@ -48,6 +48,34 @@ ComposedPath* ComposedPath::Clone() const
     return new ComposedPath(*this);
 } //----- Fin de Clone
 
+string ComposedPath::Serialize() const
+{
+    string serialized = "";
+    serializationIndentationQty++;
+
+    for (unsigned int i = 0; i < elements->GetSize(); i++)
+    {
+        if (i != 0)
+        {
+            for (int j = 0; j < serializationIndentationQty; j++)
+                serialized += "\t";
+        }
+
+        serialized += elements->Get(i)->Serialize();
+
+        if (i == 0)
+            serialized.append(":").append(GetEndCity());
+
+        if (i != elements->GetSize() - 1)
+            serialized += "\r\n";
+    }
+
+    if (serializationIndentationQty > 0)
+        serializationIndentationQty--;
+
+    return serialized;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 ComposedPath& ComposedPath::operator=(ComposedPath other) 
 {
@@ -92,6 +120,8 @@ ComposedPath::~ComposedPath ( )
 
 
 //------------------------------------------------------------------ PRIVE
+
+int ComposedPath::serializationIndentationQty = 0;
 
 //----------------------------------------------------- Méthodes protégées
 bool ComposedPath::equals(const Path& other) const

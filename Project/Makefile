@@ -10,14 +10,15 @@ EXEC                = VoyageVoyage
 MAIN_TEST_MODULE    = Main
 MODULES_NAME        = Catalog SearchEngine ComposedPath SimplePath PathArray Path FileSerializer \
 			CityCriterion EmptyCriterion IntervalCriterion TypeCriterion AbstractCriterion
-MODULES_NAME_TEST   = SearchEngine ComposedPath SimplePath PathArray Path
+MODULES_NAME_TEST   = SearchEngine ComposedPath SimplePath PathArray Path FileSerializer \
+			CityCriterion EmptyCriterion IntervalCriterion TypeCriterion AbstractCriterion
 
 ADDITIONAL_FOLDER   = Criterions
 
 # COMPILATION CONFIGURATION
 
 CC                  =g++
-CC_FLAGS            =-Wall -Werror -pedantic -std=c++11
+CC_FLAGS            =-Wall -pedantic -std=c++11 
 CC_DEBUG_FLAGS      =-g -DMAP
 
 
