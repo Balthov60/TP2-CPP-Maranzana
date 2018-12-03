@@ -25,7 +25,7 @@ const int FIELD_QTY = 3;
 
 //----------------------------------------------------- Méthodes publiques
 
-FileSerializer * FileSerializer::getInstance()
+FileSerializer * FileSerializer::GetInstance()
 {
     if (!instance)
         instance = new FileSerializer;
@@ -116,13 +116,13 @@ bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCrit
     return true;
 }
 
-bool FileSerializer::FileExist(const char path[])
+bool FileSerializer::FileExist(const char * path)
 {
     ifstream f(path);
     return f.good();
 }
 
-bool FileSerializer::FileCanBeCreated(const char path[])
+bool FileSerializer::FileCanBeCreated(const char * path)
 {
     ofstream f(path);
     return f.is_open();

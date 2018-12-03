@@ -122,7 +122,7 @@ void Catalog::save() const
     do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
     while (!getInputWord(input));
 
-    FileSerializer * fileSerializer = FileSerializer::getInstance();
+    FileSerializer * fileSerializer = FileSerializer::GetInstance();
 
     if ((fileSerializer->FileExist(input) && askForFileOverride()) || fileSerializer->FileCanBeCreated(input))
     {
@@ -144,7 +144,7 @@ void Catalog::load() const
     do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
     while (!getInputWord(input));
 
-    FileSerializer * fileSerializer = FileSerializer::getInstance();
+    FileSerializer * fileSerializer = FileSerializer::GetInstance();
 
     if (fileSerializer->FileExist(input))
     {

@@ -41,7 +41,7 @@ class FileSerializer
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    static FileSerializer * getInstance();
+    static FileSerializer * GetInstance();
     // Mode d'emploi :
     // Retourne l'instance singleton de la classe FileSerializer.
     //
@@ -67,14 +67,14 @@ public:
     // Contrat :
     // path valide (testé dans Catalog)
 
-    bool FileExist(const char * path);
+    bool FileExist(const char * path) const;
     // Mode d'emploi :
     // Renvoi true si le fichier existe false sinon.
     //
     // Contrat :
     //
 
-    bool FileCanBeCreated(const char path[]);
+    bool FileCanBeCreated(const char * path) const;
     // Mode d'emploi ;
     // Renvoi true si le fichier peut être créer donc si le dossier parent existe.
     //
