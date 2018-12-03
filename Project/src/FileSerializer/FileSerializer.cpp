@@ -13,7 +13,7 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 #include <fstream>
-
+#include <cstring>
 //------------------------------------------------------ Include personnel
 #include "FileSerializer.h"
 
@@ -33,7 +33,7 @@ FileSerializer * FileSerializer::getInstance()
     return instance;
 }
 
-void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCriterion criterion)
+void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCriterion & criterion)
 {
     ofstream file;
     file.open(path);
@@ -47,7 +47,7 @@ void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCrit
     //Data
     string data("");
 
-    for (int i = 0; i < pathArray->GetSize(); i++)
+    for (unsigned int i = 0; i < pathArray->GetSize(); i++)
     {
         const Path *path = pathArray->Get(i);
 
@@ -77,7 +77,7 @@ void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCrit
     file.close();
 }
 
-bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCriterion criterion)
+bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCriterion & criterion)
 {
     ifstream file;
     file.open(path);

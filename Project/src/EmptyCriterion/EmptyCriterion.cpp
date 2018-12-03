@@ -21,24 +21,33 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type EmptyCriterion::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+const bool EmptyCriterion::CheckMetadata(const char * line)
+{
+	return true;
+} //----- Fin de CheckMetadata
+
+const bool EmptyCriterion::CheckLine(const char * line)
+{
+	return true;
+} //----- Fin de CheckLine
+
+const bool EmptyCriterion::CheckPath(const Path * path)
+{
+	return true;
+} //----- Fin de CheckPath
 
 
-/*
 //------------------------------------------------- Surcharge d'opérateurs
-EmptyCriterion & EmptyCriterion::operator = ( const EmptyCriterion & unEmptyCriterion )
+EmptyCriterion & EmptyCriterion::operator = ( const EmptyCriterion & other )
 // Algorithme :
 //
 {
+	return *this;
 } //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-EmptyCriterion::EmptyCriterion ( const EmptyCriterion & unEmptyCriterion )
+EmptyCriterion::EmptyCriterion ( const EmptyCriterion & other )
 // Algorithme :
 //
 {
@@ -46,7 +55,6 @@ EmptyCriterion::EmptyCriterion ( const EmptyCriterion & unEmptyCriterion )
     cout << "Appel au constructeur de copie de <EmptyCriterion>" << endl;
 #endif
 } //----- Fin de EmptyCriterion (constructeur de copie)
-*/ //TODO: Implement
 
 
 EmptyCriterion::EmptyCriterion ( )

@@ -13,20 +13,22 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
    - catalogue vide : pas de sauvegarde
    - Fichier déjà existant : demande de confirmation
 - Criterion :
-   - TypeCriterion : basé sur le type de trajet "père"
-   - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
-   - IntervalCriterion : 
-      - intervalle complétement en dehors : **TODO**
-      - borne supérieure en dehors : **TODO**
-      - borne inférieure > borne supérieure : **TODO**
-      - borne supérieure = borne inférieure : **TODO**
-      - borne inférieure négative : **TODO**
+ - TypeCriterion : basé sur le type de trajet "père"
+ - CityCriterion : pas sensible à la casse en-US (uppercase/lowercase, mais accents importants)
+ - IntervalCriterion : 
+   - on commence à compter à 1
+   - intervalle complétement en dehors : pas de sélection (check metadata return false)
+   - borne supérieure en dehors : on met borne sup = -1, pas de limite de fin
+   - borne inférieure > borne supérieure : on redemande à l'utilisateur
+   - borne supérieure = borne inférieure : selection 1 seul ligne d'index m (n)
+   - borne inférieure négative ou nulle : on met borne inf = 1, traitremnt as usual
+   - deux bornes négatives : on redemande à l'utilisateur
    
 #### Format de sauvegarde
 
 demo.txt :
 
-    2;1
+    2|1|Lyon|Bordeaux;Paris
     Lyon;1;Bordeaux
     Lyon;2;Paris
     Lyon;3;Marseille:Paris

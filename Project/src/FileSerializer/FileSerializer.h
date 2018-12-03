@@ -48,7 +48,7 @@ public:
     // Contrat
     //
 
-    void Save(PathArray * pathArray, const char * path, AbstractCriterion criterion);
+    void Save(PathArray * pathArray, const char * path, AbstractCriterion & criterion);
     // Mode d'emploi :
     // Sauvegarde une sélection de trajets de la collection dans un fichier
     //       pathArray : collection de trajets à sauvegarder
@@ -58,7 +58,7 @@ public:
     // Contrat :
     // path valide (testé dans Catalog)
 
-    bool Load(PathArray * pathArray, const char * path, AbstractCriterion criterion);
+    bool Load(PathArray * pathArray, const char * path, AbstractCriterion & criterion);
     // Mode d'emploi :
     // Charge les données du fichier pointé par "path" dans la collection "pathArray" selon les critères "criterion"
     //

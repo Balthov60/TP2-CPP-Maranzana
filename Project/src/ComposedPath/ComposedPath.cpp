@@ -53,7 +53,7 @@ string ComposedPath::Serialize() const
     string serialized = "";
     serializationIndentationQty++;
 
-    for (int i = 0; i < elements->GetSize(); i++)
+    for (unsigned int i = 0; i < elements->GetSize(); i++)
     {
         if (i != 0)
         {
