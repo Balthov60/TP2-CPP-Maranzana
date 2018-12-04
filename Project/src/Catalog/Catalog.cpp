@@ -78,6 +78,7 @@ void Catalog::Run()
         {
             displayMainMenu();
         }
+
         cout << "Entrez une nouvelle commande (0 pour afficher le menu) : " << endl;
         getStringInput(input);
     }
@@ -122,6 +123,8 @@ void Catalog::save() const
     do { cout << "Choisir le chemin de votre sauvegarde : "; }
     while (!getStringInput(input));
 
+    cout << endl;
+
     FileSerializer * fileSerializer = FileSerializer::GetInstance();
 
     if ((fileSerializer->FileExist(input) && askForFileOverride()) || fileSerializer->FileCanBeCreated(input))
@@ -138,9 +141,9 @@ void Catalog::save() const
     }
     else
     {
-        cout << "Impossible de sauvegarder le catalogue (chemin invalide)" << endl;
-        displayMainMenu();
+        cout << endl << "Impossible de sauvegarder le catalogue. Le fichier n'existe pas ou vous avez choisi de ne pas l'écraser." << endl;
     }
+    cout << endl;
 }
 
 void Catalog::load() const
@@ -172,9 +175,9 @@ void Catalog::load() const
     }
     else
     {
-        cout << "Le fichier ne semble pas exister. Retour au menu principal..." << endl;
-        displayMainMenu();
+        cout << endl << "Le fichier ne semble pas exister. Retour au menu principal..." << endl;
     }
+    cout << endl;
 }
 
 /* Edition Methods */

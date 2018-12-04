@@ -112,7 +112,7 @@ bool FileSerializer::Load(PathArray * pathArray, const string & path, AbstractCr
     catch (const std::invalid_argument & e)
     {
        file.close();
-       cerr << e.what();
+       cerr << "Le contenu du fichier ne semble pas être valide." << endl;
 
        return false;
     }
@@ -133,6 +133,7 @@ bool FileSerializer::FileCanBeCreated(const string & path) const
     {
         return false;
     }
+
     ofstream f(path);
     return f.is_open();
 }
@@ -215,7 +216,7 @@ Path * FileSerializer::deserialize(string object) const
         size_t pos = object.find(";", lastPos);
 
         if (pos == string::npos)
-            throw std::invalid_argument("Le contenu du fichier ne semble pas être valide.");
+            throw std::invalid_argument("Le contenu du fichier ne semble pas être valide.\r\n");
 
         strcpy(values[i], object.substr(lastPos, pos - lastPos).data());
         lastPos = pos + 1;
