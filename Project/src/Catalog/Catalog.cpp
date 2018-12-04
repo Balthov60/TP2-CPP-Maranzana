@@ -11,21 +11,20 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-#include <iostream>
 #include <cstring>
-
 //------------------------------------------------------ Include personnel
 #include "Catalog.h"
 #include "../SimplePath/SimplePath.h"
 #include "../ComposedPath/ComposedPath.h"
 #include "../EmptyCriterion/EmptyCriterion.h"
+#include "../AbstractCriterion/AbstractCriterion.h"
+#include "../TypeCriterion/TypeCriterion.h"
+#include "../CityCriterion/CityCriterion.h"
+#include "../IntervalCriterion/IntervalCriterion.h"
+#include<limits>
 
-
-using std::cout;
-using std::endl;
+using namespace std;
 //------------------------------------------------------------- Constantes
-const int INPUT_MAX_SIZE = 50;
-const int PATH_MAX_LENGTH = 256;
 const char SEPARATOR[] = "=================================================\r\n";
 //----------------------------------------------------------------- PUBLIC
 
@@ -36,42 +35,42 @@ void Catalog::Run()
     cout << "Bienvenue sur VoyageVoyage, L'app qui vous fera voyager !" << endl;
     displayMainMenu();
 
-    char input[INPUT_MAX_SIZE];
-    getInputWord(input);
+    string input;
+    getStringInput(input);
 
-    while (strcmp(input,"9") != 0 && strcmp(input,"Quit") != 0 && strcmp(input,"Quitter") != 0 && strcmp(input,"Q") != 0)
+    while (input != "9" && input != "Quit" && input != "Quitter" && input != "Q")
     {
-        if (strcmp(input, "0") == 0)
+        if (input ==  "0")
         {
             displayMainMenu();
         }
-        else if (strcmp(input,"1") == 0)
+        else if (input == "1")
         {
             display();
         }
-        else if (strcmp(input, "2") == 0)
+        else if (input ==  "2")
         {
             addSimplePath();
         }
-        else if (strcmp(input, "3") == 0)
+        else if (input ==  "3")
         {
             addComposedPath();
         }
-        else if (strcmp(input, "4") == 0)
+        else if (input ==  "4")
         {
             //recherche simple
             searchForPath(false);
         }
-        else if (strcmp(input, "5") == 0)
+        else if (input ==  "5")
         {
             //recherche avancée
             searchForPath(true);
         }
-        else if (strcmp(input, "7") == 0)
+        else if (input ==  "7")
         {
             save();
         }
-        else if (strcmp(input, "8") == 0)
+        else if (input ==  "8")
         {
             load();
         }
@@ -80,7 +79,7 @@ void Catalog::Run()
             displayMainMenu();
         }
         cout << "Entrez une nouvelle commande (0 pour afficher le menu) : " << endl;
-        getInputWord(input);
+        getStringInput(input);
     }
 
     cout << "Merci d'avoir utilisé VoyageVoyage ! à Bientot !" << endl;
@@ -107,6 +106,7 @@ Catalog::~Catalog ( )
 
     delete pathArray;
     delete searchEngine;
+    FileSerializer::Dispose();
 } //----- Fin de ~Catalog
 
 //------------------------------------------------------------------ PRIVE
@@ -117,18 +117,24 @@ Catalog::~Catalog ( )
 
 void Catalog::save() const
 {
-    char input[PATH_MAX_LENGTH];
+    string input;
 
-    do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
-    while (!getInputWord(input));
+    do { cout << "Choisir le chemin de votre sauvegarde : "; }
+    while (!getStringInput(input));
 
     FileSerializer * fileSerializer = FileSerializer::GetInstance();
 
     if ((fileSerializer->FileExist(input) && askForFileOverride()) || fileSerializer->FileCanBeCreated(input))
     {
-        EmptyCriterion criterion; // TODO Menu criterion
+        AbstractCriterion * criterion = askForCriterion();
+        if (criterion == nullptr)
+        {
+            displayMainMenu();
+            return;
+        }
         fileSerializer->Save(pathArray, input, criterion);
-        cout << "La sauvegarde à bien été créé." << endl;
+        cout << "La sauvegarde à bien été créée." << endl;
+        delete criterion;
     }
     else
     {
@@ -139,28 +145,34 @@ void Catalog::save() const
 
 void Catalog::load() const
 {
-    char input[PATH_MAX_LENGTH];
+    string input;
 
-    do { cout << "Choisir le chemin de votre sauvegarde (sans espace) : "; }
-    while (!getInputWord(input));
+    do { cout << "Choisir le chemin de votre sauvegarde : "; }
+    while (!getStringInput(input));
 
     FileSerializer * fileSerializer = FileSerializer::GetInstance();
 
     if (fileSerializer->FileExist(input))
     {
         int previousSize = pathArray->GetSize();
-        EmptyCriterion criterion; // TODO menu criterion
+        AbstractCriterion * criterion = askForCriterion();
+        if (criterion == nullptr)
+        {
+            displayMainMenu();
+            return;
+        }
         if (fileSerializer->Load(pathArray, input, criterion))
             cout << "Vos données ont bien été chargées. " << (pathArray->GetSize() - previousSize) << " Trajet(s) ajouté(s)." << endl;
         else
         {
-            cout << "Vos données n'ont pas pu être chargées dans leur totalité, le format du fichier n'est pas valide... "
-                    << (pathArray->GetSize() - previousSize) << " Trajet(s) ajouté(s)." << endl;
+            cout << "Vos données n'ont pas pu être chargées dans leur totalité : le format du fichier n'est pas valide."
+                    << endl << (pathArray->GetSize() - previousSize) << " Trajet(s) ajouté(s)." << endl;
         }
+        delete criterion;
     }
     else
     {
-        cout << "Votre fichier n'existe pas..." << endl;
+        cout << "Le fichier ne semble pas exister. Retour au menu principal..." << endl;
         displayMainMenu();
     }
 }
@@ -169,8 +181,8 @@ void Catalog::load() const
 
 void Catalog::addSimplePath() const
 {
-    char startingCity[INPUT_MAX_SIZE];
-    char endingCity[INPUT_MAX_SIZE];
+    string startingCity;
+    string endingCity;
     MeansOfTransport meansOfTransport;
 
     cout << SEPARATOR;
@@ -180,13 +192,13 @@ void Catalog::addSimplePath() const
     askForEndingCity(endingCity);
     meansOfTransport = displayAndAskForMeansOfTransport();
 
-    addPathAndNotifyUser(new SimplePath(startingCity, endingCity, meansOfTransport));
+    addPathAndNotifyUser(new SimplePath(startingCity.c_str(), endingCity.c_str(), meansOfTransport));
 }
 void Catalog::addComposedPath() const
 {
     ComposedPath *composedPath = new ComposedPath;
-    char startingCity[INPUT_MAX_SIZE];
-    char endingCity[INPUT_MAX_SIZE];
+    string startingCity;
+    string endingCity;
     MeansOfTransport meansOfTransport;
 
     cout << SEPARATOR;
@@ -201,7 +213,7 @@ void Catalog::addComposedPath() const
         if (i > 1)
         {
             cout << "\tVille de départ : ";
-            strcpy(startingCity, endingCity);
+            startingCity = endingCity;
             cout << startingCity << endl;
         }
         else
@@ -212,7 +224,7 @@ void Catalog::addComposedPath() const
         askForEndingCity(endingCity);
         meansOfTransport = displayAndAskForMeansOfTransport();
 
-        composedPath->AddStage(new SimplePath(startingCity, endingCity, meansOfTransport));
+        composedPath->AddStage(new SimplePath(startingCity.c_str(), endingCity.c_str(), meansOfTransport));
     }
 
     addPathAndNotifyUser(composedPath);
@@ -236,8 +248,8 @@ void Catalog::addPathAndNotifyUser(Path * path) const
 /* Search Methods */
 void Catalog::searchForPath(const bool advanced) const
 {
-    char startingCity[INPUT_MAX_SIZE];
-    char endingCity[INPUT_MAX_SIZE];
+    string startingCity;
+    string endingCity;
 
     cout << SEPARATOR;
     if (advanced)
@@ -255,17 +267,17 @@ void Catalog::searchForPath(const bool advanced) const
     {
         cout << "\tVille d'arrivée : ";
     }
-    while (!getInputLine(endingCity));
+    while (!getStringInput(endingCity));
 
 
     cout << endl << "Trajet(s) trouvé(s) :" << endl << endl;
     if (advanced)
     {
-        searchEngine->AdvancedSearch(startingCity, endingCity);
+        searchEngine->AdvancedSearch(startingCity.c_str(), endingCity.c_str());
     }
     else
     {
-        searchEngine->SimpleSearch(startingCity, endingCity);
+        searchEngine->SimpleSearch(startingCity.c_str(), endingCity.c_str());
     }
 
     cout << SEPARATOR;
@@ -273,40 +285,156 @@ void Catalog::searchForPath(const bool advanced) const
 
 /* Input Methods */
 
-void Catalog::askForStartingCity(char *startingCity) const
+void Catalog::askForStartingCity(string & startingCity) const
 {
     do
     {
         cout << "\tVille de départ : ";
     }
-    while (!getInputLine(startingCity));
+    while (!getStringInput(startingCity));
 }
-void Catalog::askForEndingCity(char *endingCity) const
+void Catalog::askForEndingCity(string & endingCity) const
 {
     do
     {
         cout << "\tVille d'arrivée : ";
     }
-    while (!getInputLine(endingCity));
+    while (!getStringInput(endingCity));
 }
 unsigned int Catalog::askForStageQty() const
 {
-    unsigned int stageQty;
+    int stageQty;
 
     do
     {
         cout << "Nombre d'étapes du trajet (entre 2 et 10) : ";
-        scanf("%ul", &stageQty);
-        cleanInputStream();
+        getNumberInput(stageQty);
     }
     while (stageQty <= 1 || stageQty > 10);
 
-    return stageQty;
+    return (unsigned int)stageQty;
+}
+
+AbstractCriterion * Catalog::askForCriterion() const
+{
+    cout    <<                                                             endl
+            << SEPARATOR
+            << "Taper 0 pour sélectionner tous les trajets"                                          << endl
+            << "Taper 1 pour sélectionner les trajets par type."                                     << endl
+            << "Taper 2 pour sélectionner les trajets par ville de départ ou d'arrivée."             << endl
+            << "Taper 3 pour sélectionner un intervalle de trajet."                                  << endl
+            <<                                                                                          endl
+            << "Taper 4 revenir au menu principal"                                                   << endl
+            << SEPARATOR
+            <<                                                             endl;
+
+    string input;
+    getStringInput(input);
+
+    if (input ==  "0")
+    {
+        return new EmptyCriterion;
+    }
+    else if (input == "1")
+    {
+        string type; 
+        do
+        {
+            cout    <<                                                             endl
+            << SEPARATOR
+            << "Taper 0 pour sélectionner tous les trajets simples."                                 << endl
+            << "Taper 1 pour sélectionner les trajets composés."                                     << endl
+            <<                                                                                          endl
+            << "Taper 2 revenir au menu principal"                                                   << endl
+            << SEPARATOR
+            <<                                                             endl;
+        }
+        while (!getStringInput(type));
+        if (type == "0")
+        {
+            return new TypeCriterion(false);
+        }
+        else if (type == "1")
+        {
+            return new TypeCriterion(true);
+        }
+        else if (type == "2")
+        {
+            return nullptr;
+        } 
+        else
+        {
+            return askForCriterion();
+        }
+
+    }
+    else if (input ==  "2")
+    {
+        string start;
+        string end;
+        do
+        {
+            cout << "\tVille de départ (entrez \"-\" pour ne pas filtrer sur les villes de départ) : ";
+        }
+        while (!getStringInput(start));
+
+        do
+        {
+            cout << "\tVille d'arrivée (entrez \"-\" pour ne pas filtrer sur les villes d'arrivée) : ";
+        }
+        while (!getStringInput(end));
+
+        const char * startParam = start.c_str();
+        const char * endParam = end.c_str();
+        if (start == "-" && end == "-")
+        {
+            cout << "Aucun filtre de ville détecté ; tous les trajets seront sélectionnés.";
+            return new EmptyCriterion;
+        }
+        return new CityCriterion((start == "-") ? (nullptr) : (startParam), (end == "-") ? (nullptr) : (endParam));
+    }
+    else if (input ==  "3")
+    {
+        int startInterval;
+        int endInterval;
+        bool correct = false;
+        do 
+        {
+            do
+            {
+                cout << "\tBorne inférieure : ";
+            }
+            while (!getNumberInput(startInterval));
+
+            do
+            {
+                cout << "\tBorne supérieure : ";
+            }
+            while (!getNumberInput(endInterval));
+
+            correct = (startInterval < endInterval) && (endInterval > 0);
+            if (!correct)
+            {
+                cout << "Les bornes ne forment pas un intervalle correct. Vérifiez que votre borne inférieure soit bien inférieure à votre borne supérieure et " << endl;
+                cout << "que au moins une de vos bornes soit positive." << endl << endl;
+            }
+        } while (!correct);
+        return new IntervalCriterion(startInterval, endInterval);
+    }
+    else if (input ==  "4")
+    {
+        return nullptr;
+    }
+    else
+    {
+        return askForCriterion();
+    }
+    return nullptr;
 }
 
 MeansOfTransport Catalog::displayAndAskForMeansOfTransport() const
 {
-    char transport[MEAN_OF_TRANSPORT_STRING_MAX_SIZE];
+    string transport;
 
     for ( ; ; )
     {
@@ -314,11 +442,11 @@ MeansOfTransport Catalog::displayAndAskForMeansOfTransport() const
         {
             displayMeansOfTransport();
         }
-        while (!getInputLine(transport));
+        while (!getStringInput(transport));
 
         for (int i = 0; i < MEAN_OF_TRANSPORT_QTY; i++)
         {
-            if (strcmp(transport, MEAN_OF_TRANSPORT_STRINGS[i]) == 0)
+            if (transport == MEAN_OF_TRANSPORT_STRINGS[i])
                 return (MeansOfTransport) i;
         }
 
@@ -326,44 +454,34 @@ MeansOfTransport Catalog::displayAndAskForMeansOfTransport() const
     }
 }
 
-bool Catalog::getInputLine(char *input) const
+bool Catalog::getStringInput(string & input) const
 {
-    if (fscanf(stdin, "%99[^\n]", input) != 1)
+    getline(cin >> std::ws, input);
+    if(cin.eof() || cin.bad() || cin.fail())
     {
-        cleanInputStream();
+        cerr << "Erreur, saisie incorrecte." << endl;
         return false;
     }
-
-    cleanInputStream();
+    cin.clear();
     capitalizeFirstWordsLetter(input);
-
     return true;
 }
-bool Catalog::getInputWord(char *input) const
+
+bool Catalog::getNumberInput(int & input) const
 {
-    if (fscanf(stdin, "%99s", input) != 1)
+    while (!(cin >> input))
     {
-        inputError();
+        cerr << "Erreur, saisie incorrecte." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return false;
     }
-
-    cleanInputStream();
-    capitalizeFirstWordsLetter(input);
-
+    cin.clear();
     return true;
 }
 
-void Catalog::cleanInputStream() const
-{
-    int c = 0;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
-void Catalog::inputError() const
-{
-    cout << "input Error\n";
-    exit(1);
-}
 
-void Catalog::capitalizeFirstWordsLetter(char *input) const
+void Catalog::capitalizeFirstWordsLetter(string & input) const
 // Algorithme :
 // Change la première lettre et toutes les lettres après un espace par des majuscule (si ce sont des lettres).
 // Change les autres lettres en majuscule en lettre minuscule.
@@ -397,12 +515,11 @@ void Catalog::capitalizeFirstWordsLetter(char *input) const
 
 bool Catalog::askForFileOverride() const
 {
-    char answer[INPUT_MAX_SIZE];
-
+    string answer;
     for ( ; ; )
     {
         cout << "Le fichier existe déjà, voulez vous l'écraser, (o/n) : ";
-        getInputWord(answer);
+        getStringInput(answer);
 
         if (answer[0] == 'O')
             return true;
