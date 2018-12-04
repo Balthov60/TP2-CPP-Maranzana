@@ -68,7 +68,14 @@ void Catalog::Run()
         }
         else if (input ==  "7")
         {
-            save();
+            if (pathArray->GetSize() == 0)
+            {
+                cout << "Il n'y a rien à sauvegarder..." << endl << endl;
+            }
+            else
+            {
+                save();
+            }
         }
         else if (input ==  "8")
         {
