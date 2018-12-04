@@ -33,7 +33,12 @@ FileSerializer * FileSerializer::GetInstance()
     return instance;
 }
 
-void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCriterion & criterion)
+void FileSerializer::Dispose()
+{
+    delete instance;
+}
+
+void FileSerializer::Save(PathArray * pathArray, const string & path, AbstractCriterion * criterion) const
 {
     ofstream file;
     file.open(path);
@@ -51,7 +56,7 @@ void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCrit
     {
         const Path *path = pathArray->Get(i);
 
-        if (criterion.CheckPath(path))
+        if (criterion->CheckPath(path))
         {
             data.append(path->Serialize());
             data.append("\r\n");
@@ -77,7 +82,7 @@ void FileSerializer::Save(PathArray * pathArray, const char * path, AbstractCrit
     file.close();
 }
 
-bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCriterion & criterion)
+bool FileSerializer::Load(PathArray * pathArray, const string & path, AbstractCriterion * criterion) const
 {
     ifstream file;
     file.open(path);
@@ -88,7 +93,7 @@ bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCrit
     // First Metadata Line
     file.getline(line, MAX_LINE_SIZE);
 
-    if (!criterion.CheckMetadata(line))
+    if (!criterion->CheckMetadata(line))
         return true;
 
     try
@@ -98,7 +103,7 @@ bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCrit
             if (line[0] == '\t') // If you find \t that means Composed Path must be Skipped
                 continue;
 
-            if (!criterion.CheckLine(line))
+            if (!criterion->CheckLine(line))
                     continue;
 
             processLine(pathArray, &file, line);
@@ -116,13 +121,13 @@ bool FileSerializer::Load(PathArray * pathArray, const char * path, AbstractCrit
     return true;
 }
 
-bool FileSerializer::FileExist(const char * path)
+bool FileSerializer::FileExist(const string & path) const
 {
     ifstream f(path);
     return f.good();
 }
 
-bool FileSerializer::FileCanBeCreated(const char * path)
+bool FileSerializer::FileCanBeCreated(const string & path) const
 {
     ofstream f(path);
     return f.is_open();
@@ -155,7 +160,7 @@ FileSerializer * FileSerializer::instance = nullptr;
 
 //----------------------------------------------------- Méthodes protégées
 
-void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char line[MAX_LINE_SIZE])
+void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char line[MAX_LINE_SIZE]) const
 // Algorithme
 // Prend une ligne du fichier
 //      SI la ligne représente un trajet simple, envoi la ligne dans deserialize()
@@ -194,7 +199,7 @@ void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char li
     pathArray->Add(composedPath); // In Case file end with a composed path.
 }
 
-Path * FileSerializer::deserialize(string object)
+Path * FileSerializer::deserialize(string object) const
 {
     object = removeIndentationAndMetadata(object);
 
@@ -206,7 +211,7 @@ Path * FileSerializer::deserialize(string object)
         size_t pos = object.find(";", lastPos);
 
         if (pos == string::npos)
-            throw std::invalid_argument("Le contenu du fichier n'est pas valide...");
+            throw std::invalid_argument("Le contenu du fichier ne semble pas être valide.");
 
         strcpy(values[i], object.substr(lastPos, pos - lastPos).data());
         lastPos = pos + 1;
@@ -214,7 +219,7 @@ Path * FileSerializer::deserialize(string object)
 
     return new SimplePath(values[0], values[2], (MeansOfTransport) stoi(values[1]));
 }
-string FileSerializer::removeIndentationAndMetadata(string object)
+string FileSerializer::removeIndentationAndMetadata(string object) const
 {
     size_t first = object.find_last_of("\t");
     size_t last = object.find_last_of(":");

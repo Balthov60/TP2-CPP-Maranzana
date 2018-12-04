@@ -68,6 +68,10 @@ static void testCheckMetadata()
 	result = criterion4.CheckMetadata("15|5|Lyon;XXXX|XXXX;Bordeaux");
 	assert(result == false);
 
+	CityCriterion criterion5("a", nullptr);
+	result = criterion5.CheckMetadata("0|0||");
+	assert(result == false);
+
 	cout << "ok" << "\r\n";
 }
 

@@ -35,6 +35,5 @@ int main()
 {
     Catalog catalog;
     catalog.Run();
-
     return 0;
 }

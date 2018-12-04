@@ -11,12 +11,13 @@
 #define CATALOG_H
 
 //--------------------------------------------------- Interfaces utilisées
-
 #include <iostream>
+#include <string>
 
 #include "../PathArray/PathArray.h"
 #include "../SearchEngine/SearchEngine.h"
 #include "../FileSerializer/FileSerializer.h"
+#include "../AbstractCriterion/AbstractCriterion.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -111,13 +112,13 @@ private:
     // Contrat :
     //
 
-    void askForStartingCity(char *startingCity) const;
+    void askForStartingCity(string & startingCity) const;
     // Mode d'emploi :
     // Demande une chaine de caractères à l'utilisateur pour le champ startCity
     //
     // Contrat :
     //
-    void askForEndingCity(char *endingCity) const;
+    void askForEndingCity(string & endingCity) const;
     // Mode d'emploi :
     // Demande une chaine de caractères à l'utilisateur pour le champ endCity
     //
@@ -129,6 +130,9 @@ private:
     //
     // Contrat :
     //
+    
+    // TODO
+    AbstractCriterion * askForCriterion() const;
 
     MeansOfTransport displayAndAskForMeansOfTransport() const;
     // Mode d'emploi :
@@ -137,18 +141,18 @@ private:
     // Contrat :
     //
 
-    bool getInputLine(char input[]) const;
+    bool getStringInput(string & input) const;
     // Mode d'emploi :
-    // Récupère une entrée sur le flux standard jusqu'à rencontrer un retour à la ligne
+    // Récupère une entrée chaîne de caractère sur le flux standard jusqu'à rencontrer un retour à la ligne
     //
     // Contrat :
-    //
-    bool getInputWord(char input[]) const;
+
+    
+    bool getNumberInput(int & input) const; 
     // Mode d'emploi :
-    // Récupère une entrée sur le flux standard jusqu'a rencontrer un espace ou un retour à la ligne
+    // Récupère une entrée nombre sur le flux standard
     //
     // Contrat :
-    //
 
     void cleanInputStream() const;
     // Mode d'emploi :
@@ -156,15 +160,9 @@ private:
     //
     // Contrat :
     //
-    void capitalizeFirstWordsLetter(char *input) const;
+    void capitalizeFirstWordsLetter(string & input) const;
     // Mode d'emploi :
     // Met en majuscule toutes les premières lettres de mots
-    //
-    // Contrat :
-    //
-    void inputError() const;
-    // Mode d'emploi :
-    // Affiche un message d'erreur et quitte
     //
     // Contrat :
     //
