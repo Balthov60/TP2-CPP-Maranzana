@@ -167,7 +167,7 @@ bool PathArray::Remove(Path* element)
 		for (j = 0; j < size; j++)
 		{
 		    
-			if (!(*elements[j] == *element)) //TODO we could define != operator 
+			if (!(*elements[j] == *element))
 			{
 				newElements[i] = elements[j];
 				i++;

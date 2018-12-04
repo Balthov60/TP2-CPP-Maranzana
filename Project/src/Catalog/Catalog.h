@@ -131,8 +131,13 @@ private:
     // Contrat :
     //
     
-    // TODO
     AbstractCriterion * askForCriterion() const;
+    // Mode d'emploi :
+    // Demande selon quel critère sauvegarder/charger et demande les paramètres
+    // nécessaires correspondants 
+    //
+    // Contrat :
+    //
 
     MeansOfTransport displayAndAskForMeansOfTransport() const;
     // Mode d'emploi :

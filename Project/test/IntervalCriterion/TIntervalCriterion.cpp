@@ -31,7 +31,7 @@ static void testCheckMetadata()
 {
 	cout << "testCheckMetadata..." << "\r\n";
 
-	char* line = "2|3|Lyon;XXXX|XXXX;Bordeaux";
+	char* line = "2|3|Lyon;XXXX;|XXXX;Bordeaux;";
 
 	IntervalCriterion criterion(1, 1);
 	bool result = criterion.CheckMetadata(line);

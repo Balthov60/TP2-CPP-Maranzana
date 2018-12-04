@@ -28,7 +28,7 @@ Nom choisi par l'utilisateur. Doit être un nom de fichier linux valide, sinon r
 
 demo.txt :
 
-    2|1|Lyon|Bordeaux;Paris
+    2|1|Lyon;|Bordeaux;Paris;
     Lyon;1;Bordeaux
     Lyon;2;Paris
     Lyon;3;Marseille:Paris

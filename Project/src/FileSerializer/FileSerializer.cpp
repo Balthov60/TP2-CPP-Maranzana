@@ -129,6 +129,10 @@ bool FileSerializer::FileExist(const string & path) const
 
 bool FileSerializer::FileCanBeCreated(const string & path) const
 {
+    if (FileExist(path))
+    {
+        return false;
+    }
     ofstream f(path);
     return f.is_open();
 }

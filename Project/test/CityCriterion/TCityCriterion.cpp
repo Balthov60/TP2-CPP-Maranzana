@@ -32,40 +32,40 @@ static void testCheckMetadata()
 	cout << "testCheckMetadata..." << "\r\n";
 
 	CityCriterion criterion("Lyon", "Bordeaux");
-	bool result = criterion.CheckMetadata("15|5|Lyon;XXXX|XXXX;Bordeaux");
+	bool result = criterion.CheckMetadata("15|5|Lyon;XXXX;|XXXX;Bordeaux;");
 	assert(result == true);
 
-	result = criterion.CheckMetadata("15|5|XXXX;YYYY|XXXX;Bordeaux");
+	result = criterion.CheckMetadata("15|5|XXXX;YYYY;|XXXX;Bordeaux;");
 	assert(result == false);
 
-	result = criterion.CheckMetadata("15|5|Lyon;YYYY|XXXX;YYYY");
+	result = criterion.CheckMetadata("15|5|Lyon;YYYY;|XXXX;YYYY;");
 	assert(result == false);
 
-	result = criterion.CheckMetadata("15|5|ZZZZ;YYYY;A;B   ; C;Lyon|A;B   ; C;XXXX;Bordeaux;YYYY");
+	result = criterion.CheckMetadata("15|5|ZZZZ;YYYY;A;B   ; C;Lyon;|A;B   ; C;XXXX;Bordeaux;YYYY;");
 	assert(result == true);
 
 	CityCriterion criterion2("Lyon");
-	result = criterion2.CheckMetadata("15|5|Lyon;XXXX|XXXX;Bordeaux");
+	result = criterion2.CheckMetadata("15|5|Lyon;XXXX;|XXXX;Bordeaux;");
 	assert(result == true);
 
-	result = criterion2.CheckMetadata("15|5|XXXX;YYYY|XXXX;Bordeaux");
+	result = criterion2.CheckMetadata("15|5|XXXX;YYYY;|XXXX;Bordeaux;");
 	assert(result == false);
 
-	result = criterion2.CheckMetadata("15|5|XXXX;YYYY|Lyon;Bordeaux");
+	result = criterion2.CheckMetadata("15|5|XXXX;YYYY;|Lyon;Bordeaux;");
 	assert(result == false);
 
 	CityCriterion criterion3(nullptr, "Bordeaux");
-	result = criterion3.CheckMetadata("15|5|Lyon;XXXX|XXXX;Bordeaux");
+	result = criterion3.CheckMetadata("15|5|Lyon;XXXX;|XXXX;Bordeaux;");
 	assert(result == true);
 
-	result = criterion3.CheckMetadata("15|5|Bordeaux;YYYY|XXXX;YYYY");
+	result = criterion3.CheckMetadata("15|5|Bordeaux;YYYY;|XXXX;YYYY;");
 	assert(result == false);
 
-	result = criterion3.CheckMetadata("15|5|XXXX;YYYY|Lyon;ZZZZ");
+	result = criterion3.CheckMetadata("15|5|XXXX;YYYY;|Lyon;ZZZZ;");
 	assert(result == false);
 
 	CityCriterion criterion4;
-	result = criterion4.CheckMetadata("15|5|Lyon;XXXX|XXXX;Bordeaux");
+	result = criterion4.CheckMetadata("15|5|Lyon;XXXX;|XXXX;Bordeaux;");
 	assert(result == false);
 
 	CityCriterion criterion5("a", nullptr);
