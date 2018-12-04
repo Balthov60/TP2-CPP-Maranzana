@@ -21,6 +21,9 @@
 const int MAX_LINE_SIZE = 1024;
 const int MAX_FIELD_SIZE = 256;
 const int FIELD_QTY = 3;
+const char * METADATA_DELIMITER = "|";
+const char * COMPOSED_PATH_FLAG = ":";
+const char * PATH_DELIMITER = ";";
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
@@ -66,18 +69,18 @@ void FileSerializer::Save(PathArray * pathArray, const string & path, AbstractCr
             if (startCityList.find(path->GetStartCity()) == string::npos)
             {
                 startCityList.append(path->GetStartCity());
-                startCityList.append(";");
+                startCityList.append(PATH_DELIMITER);
             }
 
             if (endCityList.find(path->GetEndCity()) == string::npos)
             {
                 endCityList.append(path->GetEndCity());
-                endCityList.append(";");
+                endCityList.append(PATH_DELIMITER);
             }
         }
     }
 
-    file << simplePathQty << "|" << composedPathQty << "|" << startCityList << "|" << endCityList << std::endl;
+    file << simplePathQty << METADATA_DELIMITER << composedPathQty << METADATA_DELIMITER << startCityList << METADATA_DELIMITER << endCityList << std::endl;
     file << data;
     file.close();
 }
@@ -173,7 +176,7 @@ void FileSerializer::processLine(PathArray * pathArray, ifstream * file, char li
 //
 // Une fois l'objet deserializé, il est ajouté au catalogue (pathArray).
 {
-    if (strstr(line, ":") == nullptr)
+    if (strstr(line, COMPOSED_PATH_FLAG) == nullptr)
     {
         pathArray->Add(deserialize(line));
         return;
@@ -213,7 +216,7 @@ Path * FileSerializer::deserialize(string object) const
 
     for (int i = 0; i < 3; i++)
     {
-        size_t pos = object.find(";", lastPos);
+        size_t pos = object.find(PATH_DELIMITER, lastPos);
 
         if (pos == string::npos)
             throw std::invalid_argument("Le contenu du fichier ne semble pas être valide.\r\n");
@@ -227,7 +230,7 @@ Path * FileSerializer::deserialize(string object) const
 string FileSerializer::removeIndentationAndMetadata(string object) const
 {
     size_t first = object.find_last_of("\t");
-    size_t last = object.find_last_of(":");
+    size_t last = object.find_last_of(COMPOSED_PATH_FLAG);
 
     if (first == string::npos)
         first = -1;
